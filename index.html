@@ -26,15 +26,16 @@
             game.load.image('scene01', 'assets/scene01.png');
             game.load.image('car01', 'assets/car01.png');
             game.load.image('car02', 'assets/car02.png');
+            game.load.image('pedestrian', 'assets/pedestrian.png');
 
         }
 
-        var scoreText1;
-        var scoreText2;
+        var car01Text, car02Text, pedestrianText;
 
         function create() {
 
             sceneBackground = game.add.sprite(250, 0, 'scene01');
+
             car01 = game.add.sprite(471, 581, 'car01');
             car01.anchor.setTo(0.5, 0.5);
             car01.angle = -90;
@@ -47,13 +48,23 @@
             car02.inputEnabled = true;
             car02.input.enableDrag();
 
-            scoreText1 = game.add.text(16, 16, 'score: 0', {
-                fontSize: '32px',
+            pedestrian = game.add.sprite(566, 414, 'pedestrian');
+            pedestrian.anchor.setTo(0.5, 0.5);
+            pedestrian.inputEnabled = true;
+            pedestrian.input.enableDrag();
+
+            car01Text = game.add.text(16, 16, 'score: 0', {
+                fontSize: '100',
                 fill: '#FFF'
             });
 
-            scoreText2 = game.add.text(16, 40, 'score: 0', {
-                fontSize: '32px',
+            car02Text = game.add.text(16, 40, 'score: 0', {
+                fontSize: '10px',
+                fill: '#FFF'
+            });
+
+            pedestrianText = game.add.text(16, 64, 'score: 0', {
+                fontSize: '50px',
                 fill: '#FFF'
             });
 
@@ -61,9 +72,9 @@
         }
 
         function update() {
-            scoreText1.text = car01.x + " " + car01.y;
-            scoreText2.text = car02.x + " " + car02.y;
-
+            car01Text.text = "car01: " + car01.x + " " + car01.y;
+            car02Text.text = "car02: " + car02.x + " " + car02.y;
+            pedestrianText.text = "pedestrian: " + pedestrian.x + " " + pedestrian.y;
         }
     </script>
 
