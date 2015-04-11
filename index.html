@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>SafeDrive</title>
+    <script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+        var game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
+            preload: preload,
+            create: create,
+            update: update
+        });
+
+        function preload() {
+
+            game.load.image('scene01', 'assets/scene01.png');
+            game.load.image('car01', 'assets/car01.png');
+            game.load.image('car02', 'assets/car02.png');
+
+        }
+
+        var scoreText1;
+        var scoreText2;
+
+        function create() {
+
+            sceneBackground = game.add.sprite(250, 0, 'scene01');
+            car01 = game.add.sprite(471, 581, 'car01');
+            car01.anchor.setTo(0.5, 0.5);
+            car01.angle = -90;
+            car01.inputEnabled = true;
+            car01.input.enableDrag();
+
+            car02 = game.add.sprite(435, 589, 'car02');
+            car02.anchor.setTo(0.5, 0.5);
+            car02.angle = -90;
+            car02.inputEnabled = true;
+            car02.input.enableDrag();
+
+            scoreText1 = game.add.text(16, 16, 'score: 0', {
+                fontSize: '32px',
+                fill: '#FFF'
+            });
+
+            scoreText2 = game.add.text(16, 40, 'score: 0', {
+                fontSize: '32px',
+                fill: '#FFF'
+            });
+
+
+        }
+
+        function update() {
+            scoreText1.text = car01.x + " " + car01.y;
+            scoreText2.text = car02.x + " " + car02.y;
+
+        }
+    </script>
+
+</body>
+
+</html>
