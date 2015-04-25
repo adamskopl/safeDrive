@@ -4,7 +4,13 @@
 <head>
     <meta charset="UTF-8" />
     <title>SafeDrive</title>
-    <script type="text/javascript" src="js/phaser.min.js"></script>
+    <script src="src/phaser.min.js"></script>
+    <script src="src/Boot.js"></script>
+    <script src="src/Preloader.js"></script>
+    <script src="src/Game.js"></script>
+    <script src="src/RoadObject.js"></script>
+    <script src="src/Game.js"></script>
+    <script src="src/Situation01.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -14,67 +20,38 @@
 
 <body>
 
+    <div id="game"></div>
+    <div id="orientation"></div>
+
     <script type="text/javascript">
-        var game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
-            preload: preload,
-            create: create,
-            update: update
-        });
+        window.onload = function () {
 
-        function preload() {
-
-            game.load.image('scene01', 'assets/scene01.png');
-            game.load.image('car01', 'assets/car01.png');
-            game.load.image('car02', 'assets/car02.png');
-            game.load.image('pedestrian', 'assets/pedestrian.png');
-
-        }
-
-        var car01Text, car02Text, pedestrianText;
-
-        function create() {
-
-            sceneBackground = game.add.sprite(250, 0, 'scene01');
-
-            car01 = game.add.sprite(471, 581, 'car01');
-            car01.anchor.setTo(0.5, 0.5);
-            car01.angle = -90;
-            car01.inputEnabled = true;
-            car01.input.enableDrag();
-
-            car02 = game.add.sprite(435, 589, 'car02');
-            car02.anchor.setTo(0.5, 0.5);
-            car02.angle = -90;
-            car02.inputEnabled = true;
-            car02.input.enableDrag();
-
-            pedestrian = game.add.sprite(566, 414, 'pedestrian');
-            pedestrian.anchor.setTo(0.5, 0.5);
-            pedestrian.inputEnabled = true;
-            pedestrian.input.enableDrag();
-
-            car01Text = game.add.text(16, 16, 'score: 0', {
-                fontSize: '100',
-                fill: '#FFF'
+            var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {
+                preload: preload,
+                create: create,
+                update: update
             });
 
-            car02Text = game.add.text(16, 40, 'score: 0', {
-                fontSize: '10px',
-                fill: '#FFF'
-            });
+            function preload() {
+                game.load.image('car01', 'assets/car01.png');
+                game.load.image('car02', 'assets/car02.png');
+                game.load.image('pedestrian', 'assets/pedestrian.png');
+                game.load.image('scene01', 'assets/scene01.png');
+            }
 
-            pedestrianText = game.add.text(16, 64, 'score: 0', {
-                fontSize: '50px',
-                fill: '#FFF'
-            });
+            var roadObjectsFactory;
 
+            function create() {
+                game.add.sprite(0, 0, 'scene01');
 
-        }
+                roadObjectsFactory = new SafeDrive.RoadObjectFactory(game);
+                var situation01 = new SafeDrive.Situation01(roadObjectsFactory);
+            }
 
-        function update() {
-            car01Text.text = "car01: " + car01.x + " " + car01.y;
-            car02Text.text = "car02: " + car02.x + " " + car02.y;
-            pedestrianText.text = "pedestrian: " + pedestrian.x + " " + pedestrian.y;
+            function update() {
+                roadObjectsFactory.callAll(SafeDrive.RoadObject.prototype.updateText);
+            }
+
         }
     </script>
 
