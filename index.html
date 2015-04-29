@@ -5,11 +5,7 @@
     <meta charset="UTF-8" />
     <title>SafeDrive</title>
     <script src="src/phaser.min.js"></script>
-    <script src="src/Boot.js"></script>
-    <script src="src/Preloader.js"></script>
-    <script src="src/Game.js"></script>
     <script src="src/RoadObject.js"></script>
-    <script src="src/Game.js"></script>
     <script src="src/Situation01.js"></script>
     <style type="text/css">
         body {
@@ -26,10 +22,13 @@
     <script type="text/javascript">
         window.onload = function () {
 
-            var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {
+            // CANVAS chosen, so 'debug' functions likde debug.body(sprite) can work...
+            // change later maybe on Phaser.AUTO
+            var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'game', {
                 preload: preload,
                 create: create,
-                update: update
+                update: update,
+                render: render
             });
 
             function preload() {
@@ -37,19 +36,37 @@
                 game.load.image('car02', 'assets/car02.png');
                 game.load.image('pedestrian', 'assets/pedestrian.png');
                 game.load.image('scene01', 'assets/scene01.png');
+                game.load.image('trigger', 'assets/trigger.png');
             }
 
             var roadObjectsFactory;
+            var situation01;
 
             function create() {
                 game.add.sprite(0, 0, 'scene01');
 
                 roadObjectsFactory = new SafeDrive.RoadObjectFactory(game);
-                var situation01 = new SafeDrive.Situation01(roadObjectsFactory);
+                situation01 = new SafeDrive.Situation01(roadObjectsFactory);
             }
 
             function update() {
                 roadObjectsFactory.callAll(SafeDrive.RoadObject.prototype.updateText);
+
+                situation01.handleCollisions(game);
+            }
+
+            function collisionHandler(obj1, obj2) {
+                if (obj1 === obj2) return;
+                console.log(obj1.name + " " + obj2.name);
+            }
+
+            function render() {
+                // debug all sprites in factory's roadObjectsGroup
+                roadObjectsFactory.roadObjectsGroup.forEach(function (item) {
+                    game.debug.body(item);
+                    // uncomment to debut sprite's name
+                    //                    game.debug.text(item.name, item.x, item.y);
+                });
             }
 
         }

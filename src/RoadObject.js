@@ -5,9 +5,20 @@ SafeDrive.RoadObject = function (name, sprite, game) {
     this.name = name;
 
     this.sprite = sprite;
+    this.sprite.name = name;
     this.sprite.anchor.setTo(0.5, 0.5);
+
+    game.physics.arcade.enable(this.sprite, Phaser.Physics.ARCADE);
+    this.sprite.body.immovable = true;
+
+    // uncomment to enable dragging
+    // TODO: check 'gravity and drag' Phaser Example for dragging + physics 
     this.sprite.inputEnabled = true;
     this.sprite.input.enableDrag();
+
+    this.sprite.events.onDragStart.add(function (sprite) {
+        sprite.body.moves = false;
+    }, this, this);
 
     this.text = game.add.text(0, 0, '', {
         font: "20px Arial",
@@ -16,6 +27,10 @@ SafeDrive.RoadObject = function (name, sprite, game) {
 
     return this;
 };
+
+function startDrag(sprite) {
+    sprite.body.moves = false;
+}
 
 SafeDrive.RoadObject.prototype.setPos = function (x, y) {
     this.sprite.x = x;
@@ -39,12 +54,13 @@ SafeDrive.RoadObjectFactory = function (game) {
     this.game = game;
 };
 
-SafeDrive.RoadObjectFactory.prototype.create = function (name) {
+SafeDrive.RoadObjectFactory.prototype.create = function (spriteName, id) {
 
-    var newSprite = this.roadObjectsGroup.create(0, 0, name);
-    var newRObject = new SafeDrive.RoadObject(name, newSprite, this.game);
+    var uniqueName = spriteName + id;
+    var newSprite = this.roadObjectsGroup.create(0, 0, spriteName);
+    var newRObject = new SafeDrive.RoadObject(uniqueName, newSprite, this.game);
 
-    this.roadObjects[name] = newRObject;
+    this.roadObjects[uniqueName] = newRObject;
 
     return newRObject;
 };
