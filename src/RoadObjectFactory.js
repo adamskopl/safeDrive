@@ -4,12 +4,10 @@ SafeDrive.RoadObjectFactory = function (game) {
     this.game = game;
 };
 
-SafeDrive.RoadObjectFactory.prototype.create = function (spriteName, id) {
-    var uniqueName = spriteName + id;
+SafeDrive.RoadObjectFactory.prototype.create = function (uniqueName, spriteName) {
     var newSprite = this.roadObjectsGroup.create(0, 0, spriteName);
     var newRObject = new SafeDrive.RoadObject(uniqueName, newSprite, this.game);
     this.roadObjects[uniqueName] = newRObject;
-
     return newRObject;
 };
 

@@ -7,7 +7,10 @@
     <script src="src/phaser.min.js"></script>
     <script src="src/RoadObject.js"></script>
     <script src="src/RoadObjectFactory.js"></script>
+    <script src="src/SituationStagesManager.js"></script>
     <script src="src/Situation01.js"></script>
+    <script src="src/Situation01Init.js"></script>
+    <script src="src/Notification.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -47,7 +50,7 @@
                 game.add.sprite(0, 0, 'scene01');
 
                 roadObjectsFactory = new SafeDrive.RoadObjectFactory(game);
-                situation01 = new SafeDrive.Situation01(roadObjectsFactory);
+                situation01 = new Situation01(game, roadObjectsFactory);
             }
 
             function update() {
