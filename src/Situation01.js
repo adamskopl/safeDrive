@@ -36,7 +36,13 @@ function Situation01(game, roadObjectsFactory) {
             console.log("loading: unknown type " + type);
         }
     }
+    this.situationStagesManager = new SituationStagesManager(this.game, this);
     this.initStages();
+};
+
+Situation01.prototype.update = function (game) {
+    this.situationStagesManager.getCurrentStage().afterMovementChange();
+    this.handleCollisions(game);
 };
 
 Situation01.prototype.handleCollisions = function (game) {
@@ -52,7 +58,7 @@ Situation01.prototype.handleCollisions = function (game) {
 
 Situation01.prototype.collisionHandler = function (sprite1, sprite2) {
     this.addCheckedCollision(sprite1, sprite2);
-    this.situationStagesManager.getStage(0).handleCollision(sprite1, sprite2);
+    this.situationStagesManager.getCurrentStage().handleCollision(sprite1, sprite2);
 };
 
 Situation01.prototype.addCheckedCollision = function (sprite1, sprite2) {
@@ -65,7 +71,16 @@ Situation01.prototype.addCheckedCollision = function (sprite1, sprite2) {
 Situation01.prototype.isCollisionChecked = function (sprite1, sprite2) {
     if (this.checkedCollisions[sprite1.name] === undefined) return false;
     if (this.checkedCollisions[sprite1.name][sprite2.name] === undefined) return false;
-    return true;
+
+    return this.checkedCollisions[sprite1.name][sprite2.name];
+};
+
+Situation01.prototype.resetCollisionCheck = function () {
+    for (var keyA in this.checkedCollisions) {
+        for (var keyB in this.checkedCollisions[keyA]) {
+            this.checkedCollisions[keyA][keyB] = false;
+        }
+    }
 };
 
 var collisions = [
@@ -89,7 +104,7 @@ var situationPlan = [
         "sprite": "car02",
         "name": "carB",
         "posX": 188,
-        "posY": 620,
+        "posY": 580,
         "angle": -90
     },
     {

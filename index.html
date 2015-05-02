@@ -41,6 +41,8 @@
                 game.load.image('pedestrian', 'assets/pedestrian.png');
                 game.load.image('scene01', 'assets/scene01.png');
                 game.load.image('trigger', 'assets/trigger.png');
+
+                game.load.spritesheet('stageButtons', 'assets/button-round.png', 64, 64);
             }
 
             var roadObjectsFactory;
@@ -55,13 +57,7 @@
 
             function update() {
                 roadObjectsFactory.callAll(SafeDrive.RoadObject.prototype.updateText);
-
-                situation01.handleCollisions(game);
-            }
-
-            function collisionHandler(obj1, obj2) {
-                if (obj1 === obj2) return;
-                console.log(obj1.name + " " + obj2.name);
+                situation01.update(game);
             }
 
             function render() {
