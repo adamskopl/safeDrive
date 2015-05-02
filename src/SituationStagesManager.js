@@ -3,7 +3,7 @@ function SituationStagesManager(game, situation) {
     this.situation = situation;
     this.stages = [];
     this.stagesButtons = [];
-    this.currentStage = 0;
+    this.currentStageNumber = 0;
 
     this.spritesBodyMovementUnlockNeeded = false;
 }
@@ -33,7 +33,7 @@ SituationStagesManager.prototype.getStage = function (stageNumber) {
 };
 
 SituationStagesManager.prototype.getCurrentStage = function () {
-    return this.stages[this.currentStage];
+    return this.stages[this.currentStageNumber];
 };
 
 
@@ -49,8 +49,11 @@ SituationStagesManager.prototype.onStageButtonClick = function () {
 SituationStagesManager.prototype.onStageFinished = function (stageNumber) {
     this.stagesButtons[stageNumber].visible = true;
 
-    this.currentStage = 1;
-    this.situation.startStage(1);
+    if (this.currentStageNumber !== this.stages.length - 1) {
+        this.currentStageNumber++;
+        this.situation.startStage(this.currentStageNumber);
+    }
+
 };
 
 /**
