@@ -43,9 +43,17 @@ SafeDrive.RoadObject.prototype.setTextPos = function (x, y) {
     this.text.y = y;
 };
 
-SafeDrive.RoadObject.prototype.setVelocity = function (velX, velY) {
+SafeDrive.RoadObject.prototype.setVelocity = function (velX, velY, accelX, accelY) {
+
+    var newAccelX = accelX;
+    var newAccelY = accelY;
+    if (accelX === undefined) newAccelX = 0;
+    if (accelY === undefined) newAccelY = 0;
+
     this.sprite.body.velocity.x = velX;
     this.sprite.body.velocity.y = velY;
+    this.sprite.body.acceleration.x = newAccelX;
+    this.sprite.body.acceleration.y = newAccelY;
 }
 
 SafeDrive.RoadObject.prototype.updateText = function () {

@@ -1,52 +1,103 @@
-Situation01.prototype.initStages = function () {
-    this.initStage(0);
-    this.initStage(1);
-    this.startStage(0);
-};
-
-Situation01.prototype.startStage = function (stageNumber) {
-    this.resetCollisionCheck();
-    this.situationStagesManager.getStage(stageNumber).start();
-};
-
 Situation01.prototype.initStage = function (stageNumber) {
-    var stage;
+    var stage = new SituationStage(this.situationStagesManager, this.game, this.roadObjectsFactory);
     switch (stageNumber) {
     case 0:
-        this.pedestrianASpeed = -30;
-
-        stage = new SituationStage(this.situationStagesManager, this.game, this.roadObjectsFactory);
-
-        stage.addStartingVelocity("carA", 0, -80);
+        this.pedestrianASpeed = -27;
+        stage.addStartingVelocity("carA", 0, -100);
         stage.addStartingVelocity("pedestrianA", this.pedestrianASpeed, 0);
+        stage.addStartingAnimation("pedestrianA", 'left');
+
+        stage.notification().addNotification("pedestrianNotification", "Pieszy zbliża się do przejścia.", this.roadObjectsFactory.get("pedestrianA"));
+        stage.notification().addNotification("carANotification", "Kierowca widząc pieszego, rozpoczyna hamowanie.", this.roadObjectsFactory.get("carA"));
 
         stage.addCollisionHandler("triggerA", "carA",
             function () {
                 this.getObject("carA").setVelocity(0, 0);
                 this.getObject("pedestrianA").setVelocity(0, 0);
 
-                this.startNotification("pedestrianNotification", 0, 0.5);
-                this.startNotification("carANotification", 0.5, 0.5);
-                this.addEvent(1, this.setFinished, this);
+                this.notification().startNotification("pedestrianNotification", 0, 4);
+                this.notification().startNotification("carANotification", 4, 4);
+                this.getObject("pedestrianA").sprite.animations.stop();
+                this.addEvent(8, this.setFinished, this);
             }
         );
 
-        stage.addNotification("pedestrianNotification", "Pedestrian notification.", 250, 400);
-        stage.addNotification("carANotification", "carANotification.", 200, 460);
-
-
         break;
     case 1:
-        stage = new SituationStage(this.situationStagesManager, this.game, this.roadObjectsFactory);
-
-        stage.addStartingVelocity("carB", 0, -120);
-        stage.addStartingVelocity("pedestrianA", -200, 0);
+        stage.addStartingVelocity("carA", 0, -100, 0, 50);
+        //        stage.addStartingVelocity("carB", 0, -120);
+        stage.addStartingVelocity("pedestrianA", this.pedestrianASpeed, 0);
+        stage.addStartingAnimation("pedestrianA", 'left');
 
         stage.addCollisionHandler("triggerA", "carB",
             function () {
                 this.getObject("carB").setVelocity(0, 0);
                 this.getObject("pedestrianA").setVelocity(0, 0);
+            }
+        );
+
+        stage.addCollisionHandler("triggerB", "carA",
+            function () {
+                this.getObject("carA").setVelocity(0, 0, 0, 0);
+                this.getObject("pedestrianA").setVelocity(0, 0);
                 this.setFinished();
+            }
+        );
+
+        break;
+    case 2:
+
+        stage.addStartingVelocity("pedestrianA", this.pedestrianASpeed, 0);
+        stage.addStartingAnimation("pedestrianA", 'left');
+        stage.addStartingVelocity("carB", 0, -350);
+        stage.notification().addNotification("carBNotification", "Tymczasem nadjeżdża drugi kierowca, który nie widzi pieszego.", this.roadObjectsFactory.get("carB"));
+
+        stage.addCollisionHandler("tCarBIntroInfo", "carB",
+            function () {
+                this.getObject("carB").setVelocity(0, 0);
+                this.getObject("pedestrianA").setVelocity(0, 0);
+                this.getObject("pedestrianA").sprite.animations.stop();
+                this.notification().startNotification("carBNotification", 0, 4);
+                this.addEvent(4, this.setFinished, this);
+            }
+        );
+        break;
+
+    case 3:
+        stage.addStartingVelocity("pedestrianA", this.pedestrianASpeed, 0);
+        stage.addStartingAnimation("pedestrianA", 'left');
+        stage.addStartingVelocity("carB", 0, -350, 0, 400);
+        stage.addCollisionHandler("triggerC", "carB",
+            function () {
+                this.getObject("pedestrianA").setVelocity(0, 0, 0, 0);
+                this.getObject("pedestrianA").sprite.animations.play('front');
+            }
+        );
+
+        stage.addCollisionHandler("carB", "pedestrianA",
+            function () {
+                this.getObject("carB").setVelocity(0, 0, 0, 0);
+                this.getObject("pedestrianA").setVelocity(0, 0, 0, 0);
+                this.setFinished();
+            }
+        );
+
+        break;
+
+    case 4:
+        ////////////////// STARTING GOOD VARIANT ///////////////////
+        stage.stageNumberFromWhichPositionsAreTaken = 0;
+        stage.addStartingVelocity("carA", 0, -100);
+        stage.addStartingVelocity("pedestrianA", this.pedestrianASpeed, 0);
+        stage.addStartingAnimation("pedestrianA", 'left');
+
+        stage.addCollisionHandler("triggerA", "carA",
+            function () {
+                this.getObject("carA").setVelocity(0, 0);
+                this.getObject("pedestrianA").setVelocity(0, 0);
+
+                this.getObject("pedestrianA").sprite.animations.stop();
+                this.addEvent(0, this.setFinished, this);
             }
         );
 

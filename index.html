@@ -11,6 +11,7 @@
     <script src="src/SituationStage.js"></script>
     <script src="src/Situation01.js"></script>
     <script src="src/Situation01Init.js"></script>
+    <script src="src/NotificationsFactory.js"></script>
     <script src="src/Notification.js"></script>
     <style type="text/css">
         body {
@@ -39,9 +40,11 @@
             function preload() {
                 game.load.image('car01', 'assets/car01.png');
                 game.load.image('car02', 'assets/car02.png');
-                game.load.image('pedestrian', 'assets/pedestrian.png');
+                game.load.image('pedestrian', 'assets/pedestrian2.png');
                 game.load.image('scene01', 'assets/scene01.png');
                 game.load.image('trigger', 'assets/trigger.png');
+                game.load.image('trigger', 'assets/presenter.png');
+                game.load.spritesheet('jimmy', 'assets/jimmy.png', 26, 41);
 
                 game.load.spritesheet('stageButtons', 'assets/button-round.png', 64, 64);
             }
@@ -54,6 +57,17 @@
 
                 roadObjectsFactory = new SafeDrive.RoadObjectFactory(game);
                 situation01 = new Situation01(game, roadObjectsFactory);
+
+                var graphics = game.add.graphics(100, 100);
+                graphics.beginFill(0xFF3300);
+                graphics.moveTo(50, 50);
+                graphics.lineTo(250, 50);
+                graphics.lineTo(300, 100);
+                graphics.lineTo(250, 220);
+                graphics.lineTo(50, 220);
+                graphics.lineTo(50, 50);
+                graphics.endFill();
+
             }
 
             function update() {
@@ -64,7 +78,7 @@
             function render() {
                 // debug all sprites in factory's roadObjectsGroup
                 roadObjectsFactory.roadObjectsGroup.forEach(function (item) {
-                    game.debug.body(item);
+                    //                    game.debug.body(item);
                     // uncomment to debut sprite's name
                     //                    game.debug.text(item.name, item.x, item.y);
                 });

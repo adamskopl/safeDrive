@@ -4,6 +4,7 @@ function SituationStagesManager(game, situation) {
     this.stages = [];
     this.stagesButtons = [];
     this.currentStageNumber = 0;
+    this.notificationsFactory = situation.notificationsFactory;
 
     this.spritesBodyMovementUnlockNeeded = false;
 }
@@ -16,8 +17,9 @@ SituationStagesManager.prototype.pushNewStage = function (newStage) {
         newStage.onStageButtonClick, newStage, 0, 1);
     stageButton.scale.x = 0.5;
     stageButton.scale.y = 0.5;
-    stageButton.inputEnabled = true;
-    stageButton.input.enableDrag();
+    //    stageButton.inputEnabled = true;
+    //    stageButton.input.enableDrag();
+
     // button will be visible after the stage is finished
     stageButton.visible = false;
     this.stagesButtons.push(stageButton);

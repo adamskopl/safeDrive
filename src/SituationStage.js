@@ -12,23 +12,38 @@ function SituationStage(manager, game, roadObjectsFactory) {
     this.roadObjectsFactory = roadObjectsFactory;
     // dictionary(key: id of road object; value: pair of coordinates)
     this.startingPositions = {};
+    // if != -1, set startintPositions from another stage, which number is given by this variable
+    this.stageNumberFromWhichPositionsAreTaken = -1;
     this.startingPositionsInitialized = false;
     // dictionary(key: id of road object; value: pair starting velocities)
     this.startingVelocities = {};
+    // dictionary(key: od of rad object; value: sprite's animation to play)
+    this.startingAnimations = {};
     // dictionary(key: id of first sprites' name; value: dictionary(key:id of the second sprite's name;
     // value: function handling collision))
     this.collisionHandlers = {};
-    this.notifications = {};
+    this.notificationsFactory = manager.notificationsFactory;
 }
 
-SituationStage.prototype.initStartingPositions = function () {
-    if (this.startingPositionsInitialized) return;
-    this.startingPositionsInitialized = true;
-    // initialize starting positions with given roadObjects array
-    for (var ro in this.roadObjectsFactory.roadObjects) {
-        this.startingPositions[ro] = {
-            x: this.roadObjectsFactory.roadObjects[ro].sprite.x,
-            y: this.roadObjectsFactory.roadObjects[ro].sprite.y
+/**
+ * Add starting position to starting positions dictionary. When the stage starts, objects will have
+ * positions applied. If object's position is not set through this function, starting positions will be
+ * taken from RoadObjectsFactory at the stage's start.
+ */
+SituationStage.prototype.addStartingPosition = function (roName, posX, posY) {
+    this.startingPositions[roName] = {
+        x: posX,
+        y: posY
+    };
+}
+
+SituationStage.prototype.addStartingPositionsFromStage = function (stageNumber) {
+    var otherStage = this.manager.getStage(stageNumber);
+    for (var posEntry in otherStage.startingPositions) {
+        console.log("START " + posEntry);
+        this.startingPositions[posEntry] = {
+            x: otherStage.startingPositions[posEntry].x,
+            y: otherStage.startingPositions[posEntry].y
         };
     }
 }
@@ -39,12 +54,23 @@ SituationStage.prototype.initStartingPositions = function () {
  * @param {Number} velX   object's starting x velocity
  * @param {Number} velY   object's starting y velocity
  */
-SituationStage.prototype.addStartingVelocity = function (roName, velX, velY) {
+SituationStage.prototype.addStartingVelocity = function (roName, velX, velY, accelX, accelY) {
+
+    var newAccelX = accelX;
+    var newAccelY = accelY;
+    if (accelX === undefined) newAccelX = 0;
+    if (accelY === undefined) newAccelY = 0;
     this.startingVelocities[roName] = {
         x: velX,
-        y: velY
+        y: velY,
+        accelX: newAccelX,
+        accelY: newAccelY
     };
 };
+
+SituationStage.prototype.addStartingAnimation = function (roName, animationName) {
+    this.startingAnimations[roName] = animationName;
+}
 
 /**
  * Add collision handler for given two sprites.
@@ -63,7 +89,7 @@ SituationStage.prototype.addCollisionHandler = function (sprite1Name, sprite2Nam
  * Start stage: apply positions, velocities.
  */
 SituationStage.prototype.start = function () {
-    this.initStartingPositions();
+    this.rememberStartingPositions();
     // set sprites starting positions, turn body movement off
     for (var objectKey in this.roadObjectsFactory.roadObjects) {
         var object = this.roadObjectsFactory.roadObjects[objectKey];
@@ -73,11 +99,49 @@ SituationStage.prototype.start = function () {
         var posY = this.startingPositions[objectKey].y;
         object.sprite.x = posX;
         object.sprite.y = posY;
+
+        if (this.startingAnimations[objectKey] !== undefined) {
+            object.sprite.animations.play(this.startingAnimations[objectKey]);
+        }
     }
     // sprite's body's movement will be turned on in next main loop's update()
     this.spritesBodyMovementUnlockNeeded = true;
 };
 
+/**
+ * Invoked only once for every stage: remember objects positions to set them every time this stage starts.
+ */
+SituationStage.prototype.rememberStartingPositions = function () {
+    if (this.startingPositionsInitialized) return;
+    this.startingPositionsInitialized = true;
+
+    if (this.stageNumberFromWhichPositionsAreTaken !== -1) {
+        var otherStage = this.manager.getStage(this.stageNumberFromWhichPositionsAreTaken);
+        for (var posEntry in otherStage.startingPositions) {
+            console.log("START " + posEntry);
+            this.startingPositions[posEntry] = {
+                x: otherStage.startingPositions[posEntry].x,
+                y: otherStage.startingPositions[posEntry].y
+            };
+        }
+        return;
+    }
+
+    // initialize starting positions with given roadObjects array
+    for (var ro in this.roadObjectsFactory.roadObjects) {
+        if (this.startingPositions[ro] === undefined) {
+            this.startingPositions[ro] = {
+                x: this.roadObjectsFactory.roadObjects[ro].sprite.x,
+                y: this.roadObjectsFactory.roadObjects[ro].sprite.y
+            };
+        }
+    }
+}
+
+/**
+ * Special function invoked in 'update' function in game's loop. It's a complement of SituationStage.start
+ * function, because reactivating sprite's physics properties has to be done after physics system update.
+ */
 SituationStage.prototype.afterMovementChange = function () {
     if (!this.spritesBodyMovementUnlockNeeded) return;
     this.spritesBodyMovementUnlockNeeded = false;
@@ -86,10 +150,12 @@ SituationStage.prototype.afterMovementChange = function () {
         var object = this.roadObjectsFactory.roadObjects[objectKey];
         object.sprite.body.reset(object.sprite.x, object.sprite.y);
         if (this.startingVelocities[objectKey] !== undefined) {
-            var velX = this.startingVelocities[objectKey].x;
-            var velY = this.startingVelocities[objectKey].y;
-            object.sprite.body.velocity.x = velX;
-            object.sprite.body.velocity.y = velY;
+            var velocity = this.startingVelocities[objectKey];
+            var body = object.sprite.body;
+            body.velocity.x = velocity.x;
+            body.velocity.y = velocity.y;
+            body.acceleration.x = velocity.accelX;
+            body.acceleration.y = velocity.accelY;
         }
         object.sprite.body.moves = true;
     }
@@ -103,56 +169,28 @@ SituationStage.prototype.getObject = function (roKey) {
     return this.roadObjectsFactory.roadObjects[roKey];
 };
 
-/**
- * Add notification to this stage.
- * @param {String} id notification's id
- * @param {String} text notification's text
- * @param {Number} posX notification's pos x
- * @param {Number} posY notification's pos y
- */
-SituationStage.prototype.addNotification = function (id, text, posX, posY) {
-    this.notifications[id] = new Notification(this.game, id, text, posX, posY);
+
+SituationStage.prototype.notification = function () {
+    return this.notificationsFactory;
 };
 
-/**
- * Show/hide single notification.
- * @param {String}  id   notification's id
- * @param {Boolean} show show/not show
- */
-SituationStage.prototype.setNotification = function (id, show) {
-    this.getNotification(id).textObject.visible = show;
-};
-
-/**
- * Display notification with given time delay and duration.
- * @param {String} id       Notification's id.
- * @param {Number} delay    Notification's display start delay.
- * @param {Number} duration Notification's display duration.
- */
-SituationStage.prototype.startNotification = function (id, delay, duration) {
-    this.game.time.events.add(Phaser.Timer.SECOND * delay,
-        function () {
-            this.setNotification(id, true);
-            this.game.time.events.add(Phaser.Timer.SECOND * duration,
-                function () {
-                    this.setNotification(id, false);
-                }, this);
-        }, this);
-};
-
-/**
- * Show/hide one notification after another.
- */
-SituationStage.prototype.startNotificationChain = function (notifications) {
-    for (var notId in notifications) {
-        notification = notifications[notId];
-        duration = notifications[notId].duration;
-    }
-};
-
-SituationStage.prototype.getNotification = function (id) {
-    return this.notifications[id];
-};
+//SituationStage.prototype.addNotification = function (id, text, roadObject) {
+//    this.notificationsFactory.addNotification(id, text, roadObject);
+//};
+//
+//
+//SituationStage.prototype.setNotification = function (id, show) {
+//    this.notificationsFactory.setNotification(id, show);
+//};
+//
+//
+//SituationStage.prototype.startNotification = function (id, delay, duration) {
+//    this.notificationsFactory.startNotification(id, delay, duration);
+//};
+//
+//SituationStage.prototype.getNotification = function (id) {
+//    return this.notificationsFactory.getNotification(id);
+//};
 
 /**
  * Add event (function) which will be invoked after given delay.
@@ -170,10 +208,6 @@ SituationStage.prototype.setFinished = function () {
     this.manager.onStageFinished(this.number);
 };
 
-SituationStage.prototype.isFinished = function () {
-
-};
-
 SituationStage.prototype.handleCollision = function (sprite1, sprite2) {
     if (this.collisionHandlers[sprite1.name] === undefined) {
         return;
@@ -184,6 +218,10 @@ SituationStage.prototype.handleCollision = function (sprite1, sprite2) {
     this.collisionHandlers[sprite1.name][sprite2.name].call(this);
 };
 
+/**
+ * Button pointing this stage is clicked.
+ */
 SituationStage.prototype.onStageButtonClick = function () {
+    this.manager.currentStageNumber = this.number;
     this.manager.situation.startStage(this.number)
 };

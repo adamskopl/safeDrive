@@ -11,33 +11,46 @@ function Situation01(game, roadObjectsFactory) {
 
     for (var i = 0; i < situationPlan.length; i++) {
         var type = situationPlan[i].type;
-        if (type === "roadObject") {
-            var name = situationPlan[i].name;
-            var spriteName = situationPlan[i].sprite;
-            var posX = situationPlan[i].posX;
-            var posY = situationPlan[i].posY;
-            var angle = situationPlan[i].angle;
-            var newRoadObject = this.roadObjectsFactory.create(name, spriteName);
+        var name = situationPlan[i].name;
+        var spriteName = situationPlan[i].sprite;
+        var posX = situationPlan[i].posX;
+        var posY = situationPlan[i].posY;
+        var angle = situationPlan[i].angle;
+        var newRoadObject = this.roadObjectsFactory.create(name, spriteName);
 
-            newRoadObject.setPos(posX, posY);
-            newRoadObject.sprite.angle = angle;
+        newRoadObject.setPos(posX, posY);
+        newRoadObject.sprite.angle = angle;
 
-            if (angle === -90) {
-                // probably better (proper) solution will be needed
-                // change body's width with height
-                newRoadObject.sprite.body.setSize(newRoadObject.sprite.height, newRoadObject.sprite.width);
-            }
+        if (angle === -90) {
+            // probably better (proper) solution will be needed
+            // change body's width with height
+            newRoadObject.sprite.body.setSize(newRoadObject.sprite.height, newRoadObject.sprite.width);
+        }
 
-            newRoadObject.text.text = name;
-            newRoadObject.setTextPos(400, i * 20 + 100);
-        } else if (type === "roadTrigger") {
+        newRoadObject.text.text = name;
+        newRoadObject.setTextPos(400, i * 20 + 100);
 
-        } else {
-            console.log("loading: unknown type " + type);
+        if (type === "roadTrigger") {
+            newRoadObject.sprite.visible = false;
         }
     }
+    this.notificationsFactory = new NotificationsFactory(this.game);
     this.situationStagesManager = new SituationStagesManager(this.game, this);
     this.initStages();
+};
+
+Situation01.prototype.initStages = function () {
+    this.initStage(0);
+    this.initStage(1);
+    this.initStage(2);
+    this.initStage(3);
+    this.initStage(4);
+    this.startStage(0);
+};
+
+Situation01.prototype.startStage = function (stageNumber) {
+    this.resetCollisionCheck();
+    this.situationStagesManager.getStage(stageNumber).start();
 };
 
 Situation01.prototype.update = function (game) {
@@ -87,16 +100,28 @@ var collisions = [
     ["pedestrianA", "carA"],
     ["pedestrianA", "carB"],
     ["triggerA", "carA"],
-    ["triggerA", "carB"]
+    ["triggerA", "carB"],
+    ["triggerB", "carA"],
+    ["carB", "pedestrianA"],
+    ["triggerC", "carB"],
+    ["tCarBIntroInfo", "carB"]
 ];
 
 var situationPlan = [
     {
         "type": "roadObject",
+        "sprite": "jimmy",
+        "name": "pedestrianA",
+        "posX": 370,
+        "posY": 395,
+        "angle": 0
+    },
+    {
+        "type": "roadObject",
         "sprite": "car01",
         "name": "carA",
         "posX": 220,
-        "posY": 570,
+        "posY": 1000,
         "angle": -90
     },
     {
@@ -104,23 +129,39 @@ var situationPlan = [
         "sprite": "car02",
         "name": "carB",
         "posX": 188,
-        "posY": 580,
+        "posY": 630,
         "angle": -90
     },
     {
-        "type": "roadObject",
-        "sprite": "pedestrian",
-        "name": "pedestrianA",
-        "posX": 300,
-        "posY": 414,
-        "angle": 0
-    },
-    {
-        "type": "roadObject",
+        "type": "roadTrigger",
         "sprite": "trigger",
         "name": "triggerA",
         "posX": 200,
-        "posY": 466,
+        "posY": 540,
+        "angle": 0
+    },
+    {
+        "type": "roadTrigger",
+        "sprite": "trigger",
+        "name": "triggerB",
+        "posX": 230,
+        "posY": 450,
+        "angle": 0
+    },
+    {
+        "type": "roadTrigger",
+        "sprite": "trigger",
+        "name": "triggerC",
+        "posX": 195,
+        "posY": 450,
+        "angle": 0
+    },
+    {
+        "type": "roadTrigger",
+        "sprite": "trigger",
+        "name": "tCarBIntroInfo",
+        "posX": 188,
+        "posY": 540,
         "angle": 0
     }
 ];
