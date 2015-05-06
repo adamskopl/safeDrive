@@ -50,7 +50,7 @@ Situation01.prototype.initStage = function (stageNumber) {
         stage.addStartingVelocity("pedestrianA", this.pedestrianASpeed, 0);
         stage.addStartingAnimation("pedestrianA", 'left');
         stage.addStartingVelocity("carB", 0, -350);
-        stage.notification().addNotification("carBNotification", ["Tymczasem nadjeżdża drugi kierowca,", "który nie widzi pieszego."], this.roadObjectsFactory.get("carB"));
+        stage.notification().addNotification("carBNotification", ["Tymczasem nadjeżdża drugi kierowca,", "który nie zwalnia przed przejściem."], this.roadObjectsFactory.get("carB"));
 
         stage.addCollisionHandler("tCarBIntroInfo", "carB",
             function () {
