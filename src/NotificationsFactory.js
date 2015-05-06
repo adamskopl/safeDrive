@@ -1,17 +1,21 @@
 function NotificationsFactory(game) {
     this.game = game;
     this.notifications = {};
+
+    var presenterSprite = this.game.add.sprite(250, 450, 'presenter');
+    presenterSprite.scale.setTo(0.4, 0.4);
+
+    this.presenter = presenterSprite;
 }
 
 /**
  * Add notification.
- * @param {String} id notification's id
- * @param {String} text notification's text
- * @param {Number} posX notification's pos x
- * @param {Number} posY notification's pos y
+ * @param {String}   id         notification's id
+ * @param {Array}    textArray  [[Description]]
+ * @param {Object} roadObject [[Description]]
  */
-NotificationsFactory.prototype.addNotification = function (id, text, roadObject) {
-    this.notifications[id] = new Notification(this.game, id, text, roadObject);
+NotificationsFactory.prototype.addNotification = function (id, textArray, roadObject) {
+    this.notifications[id] = new Notification(this.game, id, textArray, roadObject, this.presenter);
 }
 
 /**
@@ -22,7 +26,16 @@ NotificationsFactory.prototype.addNotification = function (id, text, roadObject)
 NotificationsFactory.prototype.setNotification = function (id, show) {
     var notification = this.getNotification(id);
     notification.update();
-    notification.textObject.visible = show;
+
+    notification.texts.forEach(function (entry) {
+        entry.visible = show;
+    });
+
+    if (show == true) {
+        notification.balloonGrow();
+    } else {
+        notification.balloonShrink();
+    }
 }
 
 /**

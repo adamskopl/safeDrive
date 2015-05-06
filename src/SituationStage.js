@@ -40,7 +40,6 @@ SituationStage.prototype.addStartingPosition = function (roName, posX, posY) {
 SituationStage.prototype.addStartingPositionsFromStage = function (stageNumber) {
     var otherStage = this.manager.getStage(stageNumber);
     for (var posEntry in otherStage.startingPositions) {
-        console.log("START " + posEntry);
         this.startingPositions[posEntry] = {
             x: otherStage.startingPositions[posEntry].x,
             y: otherStage.startingPositions[posEntry].y
@@ -118,7 +117,6 @@ SituationStage.prototype.rememberStartingPositions = function () {
     if (this.stageNumberFromWhichPositionsAreTaken !== -1) {
         var otherStage = this.manager.getStage(this.stageNumberFromWhichPositionsAreTaken);
         for (var posEntry in otherStage.startingPositions) {
-            console.log("START " + posEntry);
             this.startingPositions[posEntry] = {
                 x: otherStage.startingPositions[posEntry].x,
                 y: otherStage.startingPositions[posEntry].y
@@ -173,24 +171,6 @@ SituationStage.prototype.getObject = function (roKey) {
 SituationStage.prototype.notification = function () {
     return this.notificationsFactory;
 };
-
-//SituationStage.prototype.addNotification = function (id, text, roadObject) {
-//    this.notificationsFactory.addNotification(id, text, roadObject);
-//};
-//
-//
-//SituationStage.prototype.setNotification = function (id, show) {
-//    this.notificationsFactory.setNotification(id, show);
-//};
-//
-//
-//SituationStage.prototype.startNotification = function (id, delay, duration) {
-//    this.notificationsFactory.startNotification(id, delay, duration);
-//};
-//
-//SituationStage.prototype.getNotification = function (id) {
-//    return this.notificationsFactory.getNotification(id);
-//};
 
 /**
  * Add event (function) which will be invoked after given delay.

@@ -7,8 +7,8 @@ Situation01.prototype.initStage = function (stageNumber) {
         stage.addStartingVelocity("pedestrianA", this.pedestrianASpeed, 0);
         stage.addStartingAnimation("pedestrianA", 'left');
 
-        stage.notification().addNotification("pedestrianNotification", "Pieszy zbliża się do przejścia.", this.roadObjectsFactory.get("pedestrianA"));
-        stage.notification().addNotification("carANotification", "Kierowca widząc pieszego, rozpoczyna hamowanie.", this.roadObjectsFactory.get("carA"));
+        stage.notification().addNotification("pedestrianNotification", ["Pieszy zbliża się do przejścia."], this.roadObjectsFactory.get("pedestrianA"));
+        stage.notification().addNotification("carANotification", ["Kierowca widząc pieszego,", "rozpoczyna hamowanie."], this.roadObjectsFactory.get("carA"));
 
         stage.addCollisionHandler("triggerA", "carA",
             function () {
@@ -16,9 +16,9 @@ Situation01.prototype.initStage = function (stageNumber) {
                 this.getObject("pedestrianA").setVelocity(0, 0);
 
                 this.notification().startNotification("pedestrianNotification", 0, 4);
-                this.notification().startNotification("carANotification", 4, 4);
+                this.notification().startNotification("carANotification", 5, 4);
                 this.getObject("pedestrianA").sprite.animations.stop();
-                this.addEvent(8, this.setFinished, this);
+                this.addEvent(9, this.setFinished, this);
             }
         );
 
@@ -50,7 +50,7 @@ Situation01.prototype.initStage = function (stageNumber) {
         stage.addStartingVelocity("pedestrianA", this.pedestrianASpeed, 0);
         stage.addStartingAnimation("pedestrianA", 'left');
         stage.addStartingVelocity("carB", 0, -350);
-        stage.notification().addNotification("carBNotification", "Tymczasem nadjeżdża drugi kierowca, który nie widzi pieszego.", this.roadObjectsFactory.get("carB"));
+        stage.notification().addNotification("carBNotification", ["Tymczasem nadjeżdża drugi kierowca,", "który nie widzi pieszego."], this.roadObjectsFactory.get("carB"));
 
         stage.addCollisionHandler("tCarBIntroInfo", "carB",
             function () {
