@@ -36,7 +36,20 @@ function Situation01(game, roadObjectsFactory) {
     }
     this.notificationsFactory = new NotificationsFactory(this.game);
     this.situationStagesManager = new SituationStagesManager(this.game, this);
+    // initialize introducing notification
+    this.initIntroduction();
     this.initStages();
+};
+
+Situation01.prototype.initIntroduction = function () {
+    this.notificationsFactory.addNotification(
+        s01IntroductionText.name, s01IntroductionText.text, null, 250, 300);
+    this.notificationsFactory.getNotification(s01IntroductionText.name).addConfirmButton(
+        this.startSituation, this);
+};
+
+Situation01.prototype.testFun = function () {
+    console.log("FUUUUN");
 };
 
 Situation01.prototype.initStages = function () {
@@ -45,6 +58,11 @@ Situation01.prototype.initStages = function () {
     this.initStage(2);
     this.initStage(3);
     this.initStage(4);
+
+    this.notificationsFactory.startNotification(s01IntroductionText.name, 0);
+};
+
+Situation01.prototype.startSituation = function () {
     this.startStage(0);
 };
 
@@ -165,3 +183,21 @@ var situationPlan = [
         "angle": 0
     }
 ];
+
+var s01IntroductionText = {
+    name: "introductionText",
+    text: [
+"Lorem ipsum dolor sit amet, consectetur",
+"adipiscing elit. Donec ultricies semper metus",
+"vel porta quam blandit quis. Quisque",
+"mi dolor, blandit blandit ex a",
+"commodo ultricies sem. Cras suscipit lacus",
+"id mollis hendrerit. Etiam sit amet",
+"vehicula mauris, id ullamcorper lacus. Pellentesque",
+"elementum feugiat tincidunt. Morbi vel tincidunt",
+"lacus, sed scelerisque enim. Quisque eu",
+"nulla eu mi iaculis gravida. Sed",
+"eu imperdiet lectus. Quisque eu tempor",
+"felis. Nunc vitae diam rutrum, viverra",
+"diam in, commodo orci. Maecenas eget"]
+};

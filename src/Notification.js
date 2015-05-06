@@ -6,13 +6,22 @@
  * @param {Object}   roadObject [[Description]]
  * @param {Object} presenter  [[Description]]
  */
-function Notification(game, id, textArray, roadObject, presenter) {
+function Notification(factory, game, id, textArray, roadObject, presenter, x, y) {
     this.game = game;
+    this.factory = factory;
     this.id = id;
     this.texts = [];
     this.roadObject = roadObject;
     this.presenter = presenter;
     this.margins = 15;
+
+    if (x === undefined) {
+        this.notificationX = this.presenter.x + 2 * this.presenter.width;
+        this.notificationY = this.presenter.y;
+    } else {
+        this.notificationX = x;
+        this.notificationY = y;
+    }
 
     this.initBalloon(textArray);
 
@@ -31,6 +40,25 @@ function Notification(game, id, textArray, roadObject, presenter) {
     }, this);
 }
 
+/**
+ * If notification has a button, then balloon shrinks only when button is pressed.
+ */
+Notification.prototype.addConfirmButton = function (callback, callbackContext) {
+
+    this.button = {
+        button: this.game.add.button(30, 30, 'stageButtons', this.buttonClicked, this, 0, 1),
+        callback: callback,
+        callbackContext: callbackContext
+    };
+
+}
+
+Notification.prototype.buttonClicked = function () {
+    this.factory.setNotification(this.id, false);
+    this.button.callback.call(this.button.callbackContext);
+    //this.balloonShrink();
+};
+
 Notification.prototype.update = function () {
     var y = this.balloon.y - this.height / 2 + this.margins;
     this.texts.forEach(function (entry) {
@@ -41,11 +69,10 @@ Notification.prototype.update = function () {
 };
 
 Notification.prototype.initBalloon = function (textArray) {
-
-    var balloon = this.game.add.sprite(this.presenter.x + 2 * this.presenter.width, this.presenter.y, 'balloonBackground');
+    var balloon = this.game.add.sprite(this.notificationX, this.notificationY, 'balloonBackground');
     this.growSpeed = 200;
-    this.width = 10 * textArray[0].length + this.margins;
-    this.height = 40 * textArray.length;
+    this.width = 9 * this.getWidth(textArray) + this.margins;
+    this.height = 32 * textArray.length;
 
     balloon.width = 1;
     balloon.height = 1;
@@ -54,7 +81,6 @@ Notification.prototype.initBalloon = function (textArray) {
     balloon.visible = false;
 
     this.balloon = balloon;
-
 };
 
 Notification.prototype.balloonGrow = function () {
@@ -81,3 +107,11 @@ Notification.prototype.balloonShrink = function () {
         height: 1
     }, this.growSpeed, Phaser.Easing.Linear.None, true, this.growSpeed, 0, true);
 };
+
+Notification.prototype.getWidth = function (textArray) {
+    var width = 0;
+    textArray.forEach(function (entry) {
+        if (entry.length > width) width = entry.length;
+    });
+    return width;
+}

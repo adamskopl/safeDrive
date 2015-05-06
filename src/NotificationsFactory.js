@@ -11,11 +11,11 @@ function NotificationsFactory(game) {
 /**
  * Add notification.
  * @param {String}   id         notification's id
- * @param {Array}    textArray  [[Description]]
+ *                              @param {Array}    textArray  [[Description]]
  * @param {Object} roadObject [[Description]]
  */
-NotificationsFactory.prototype.addNotification = function (id, textArray, roadObject) {
-    this.notifications[id] = new Notification(this.game, id, textArray, roadObject, this.presenter);
+NotificationsFactory.prototype.addNotification = function (id, textArray, roadObject, x, y) {
+    this.notifications[id] = new Notification(this, this.game, id, textArray, roadObject, this.presenter, x, y);
 }
 
 /**
@@ -48,11 +48,15 @@ NotificationsFactory.prototype.startNotification = function (id, delay, duration
     this.game.time.events.add(Phaser.Timer.SECOND * delay,
         function () {
             this.setNotification(id, true);
-            this.game.time.events.add(Phaser.Timer.SECOND * duration,
-                function () {
-                    this.setNotification(id, false);
-                }, this);
-        }, this);
+            if (duration !== undefined) {
+                this.game.time.events.add(Phaser.Timer.SECOND * duration,
+                    function () {
+                        this.setNotification(id, false);
+                    }, this);
+            }
+        },
+
+        this);
 }
 
 NotificationsFactory.prototype.getNotification = function (id) {
