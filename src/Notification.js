@@ -45,18 +45,29 @@ function Notification(factory, game, id, textArray, roadObject, presenter, x, y)
  */
 Notification.prototype.addConfirmButton = function (callback, callbackContext) {
 
+    var buttonMargin = 10;
+    var buttonX = this.notificationX + this.width / 2 + buttonMargin;
+    var buttonY = this.notificationY + this.height / 2 + buttonMargin;
+
     this.button = {
-        button: this.game.add.button(30, 30, 'stageButtons', this.buttonClicked, this, 0, 1),
+        buttonPhaser: this.game.add.button(buttonX, buttonY, 'oknotok', this.buttonClicked, this, 1, 0, 1),
         callback: callback,
         callbackContext: callbackContext
     };
+
+    this.button.buttonPhaser.anchor.setTo(0.5, 0.5);
+    this.button.buttonPhaser.scale.setTo(0.65, 0.65);
+    this.button.buttonPhaser.visible = false;
 
 }
 
 Notification.prototype.buttonClicked = function () {
     this.factory.setNotification(this.id, false);
     this.button.callback.call(this.button.callbackContext);
-    //this.balloonShrink();
+};
+
+Notification.prototype.hasButton = function () {
+    return (this.button !== undefined);
 };
 
 Notification.prototype.update = function () {
@@ -71,8 +82,8 @@ Notification.prototype.update = function () {
 Notification.prototype.initBalloon = function (textArray) {
     var balloon = this.game.add.sprite(this.notificationX, this.notificationY, 'balloonBackground');
     this.growSpeed = 200;
-    this.width = 9 * this.getWidth(textArray) + this.margins;
-    this.height = 32 * textArray.length;
+    this.width = 10 * this.getWidth(textArray) + this.margins;
+    this.height = 32 * textArray.length + 10;
 
     balloon.width = 1;
     balloon.height = 1;
@@ -85,6 +96,9 @@ Notification.prototype.initBalloon = function (textArray) {
 
 Notification.prototype.balloonGrow = function () {
     this.balloon.visible = true;
+    if (this.hasButton()) {
+        this.button.buttonPhaser.visible = true;
+    }
     this.game.add.tween(this.balloon).to({
         width: this.width
     }, this.growSpeed, Phaser.Easing.Linear.None, true, this.growSpeed, 0, true);
@@ -99,6 +113,9 @@ Notification.prototype.balloonGrow = function () {
 };
 
 Notification.prototype.balloonShrink = function () {
+    if (this.hasButton()) {
+        this.button.buttonPhaser.visible = false;
+    }
     this.game.add.tween(this.balloon).to({
         width: 1
     }, this.growSpeed, Phaser.Easing.Linear.None, true, this.growSpeed, 0, true);

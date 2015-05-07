@@ -74,10 +74,21 @@ Situation01.prototype.initStage = function (stageNumber) {
             }
         );
 
+        stage.notification().addNotification(
+            s01InstructionTexts.good.name, s01InstructionTexts.good.text, null, 250, 300);
+
+        stage.notification().getNotification(s01InstructionTexts.good.name).addConfirmButton(
+            function () {
+                console.log("define me!");
+            }, this);
+
         stage.addCollisionHandler("carB", "pedestrianA",
             function () {
                 this.getObject("carB").setVelocity(0, 0, 0, 0);
                 this.getObject("pedestrianA").setVelocity(0, 0, 0, 0);
+
+                this.notification().startNotification(s01InstructionTexts.good.name, 0);
+
                 this.setFinished();
             }
         );
@@ -85,6 +96,7 @@ Situation01.prototype.initStage = function (stageNumber) {
         break;
 
     case 4:
+
         ////////////////// STARTING GOOD VARIANT ///////////////////
         stage.stageNumberFromWhichPositionsAreTaken = 0;
         stage.addStartingVelocity("carA", 0, -100);

@@ -4,6 +4,7 @@ function NotificationsFactory(game) {
 
     var presenterSprite = this.game.add.sprite(250, 450, 'presenter');
     presenterSprite.scale.setTo(0.4, 0.4);
+    presenterSprite.visible = false;
 
     this.presenter = presenterSprite;
 }

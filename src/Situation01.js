@@ -43,8 +43,8 @@ function Situation01(game, roadObjectsFactory) {
 
 Situation01.prototype.initIntroduction = function () {
     this.notificationsFactory.addNotification(
-        s01IntroductionText.name, s01IntroductionText.text, null, 250, 300);
-    this.notificationsFactory.getNotification(s01IntroductionText.name).addConfirmButton(
+        s01InstructionTexts.bad.name, s01InstructionTexts.bad.text, null, 250, 300);
+    this.notificationsFactory.getNotification(s01InstructionTexts.bad.name).addConfirmButton(
         this.startSituation, this);
 };
 
@@ -59,10 +59,11 @@ Situation01.prototype.initStages = function () {
     this.initStage(3);
     this.initStage(4);
 
-    this.notificationsFactory.startNotification(s01IntroductionText.name, 0);
+    this.notificationsFactory.startNotification(s01InstructionTexts.bad.name, 0);
 };
 
 Situation01.prototype.startSituation = function () {
+    this.notificationsFactory.presenter.visible = true;
     this.startStage(0);
 };
 
@@ -183,21 +184,27 @@ var situationPlan = [
         "angle": 0
     }
 ];
-
-var s01IntroductionText = {
-    name: "introductionText",
-    text: [
-"Lorem ipsum dolor sit amet, consectetur",
-"adipiscing elit. Donec ultricies semper metus",
-"vel porta quam blandit quis. Quisque",
-"mi dolor, blandit blandit ex a",
-"commodo ultricies sem. Cras suscipit lacus",
-"id mollis hendrerit. Etiam sit amet",
-"vehicula mauris, id ullamcorper lacus. Pellentesque",
-"elementum feugiat tincidunt. Morbi vel tincidunt",
-"lacus, sed scelerisque enim. Quisque eu",
-"nulla eu mi iaculis gravida. Sed",
-"eu imperdiet lectus. Quisque eu tempor",
-"felis. Nunc vitae diam rutrum, viverra",
-"diam in, commodo orci. Maecenas eget"]
+var s01InstructionTexts = {
+    bad: {
+        name: "situationIntroducion",
+        text: [
+"Prezentacja przedstawia sytuację, gdzie (...)",
+"(...)",
+"(...)",
+"(...)",
+"(...)",
+"Niebezpieczeństwo polega na (...)",
+"(...)",
+"(...)",
+"(...)",
+"Kierowca nie hamując wystarczająco wcześnie,",
+"doprowadza do potrącenia pieszego."]
+    },
+    good: {
+        name: "goodIntroduction",
+        text: [
+"Z braku rozwagi może dojść do tragedii.",
+"Jak powinna wyglądać prawidłowa sytuacja?"
+        ]
+    }
 };
