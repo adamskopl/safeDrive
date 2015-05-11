@@ -1,4 +1,4 @@
-SafeDrive.RoadObjectFactory = function (game) {
+RoadObjectFactory = function (game) {
     this.roadObjects = new Object();
     this.roadObjectsGroup = game.add.group();
     this.game = game;
@@ -8,23 +8,27 @@ SafeDrive.RoadObjectFactory = function (game) {
     this.testSingleFunctionRoadObject = {};
 };
 
-SafeDrive.RoadObjectFactory.prototype.create = function (uniqueName, spriteName) {
+RoadObjectFactory.prototype.create = function (id, spriteName) {
     var newSprite = this.roadObjectsGroup.create(0, 0, spriteName);
     if (spriteName === 'jimmy') {
         newSprite.animations.add('left', [0, 1], 10, true);
         newSprite.animations.add('front', [2], 10, true);
     }
 
-    var newRObject = new SafeDrive.RoadObject(this, uniqueName, newSprite, this.game);
-    this.roadObjects[uniqueName] = newRObject;
+    var newRObject = new SafeDrive.RoadObject(this, id, newSprite, this.game);
+    this.roadObjects[id] = newRObject;
     return newRObject;
 };
 
-SafeDrive.RoadObjectFactory.prototype.get = function (objectName) {
-    return this.roadObjects[objectName];
+RoadObjectFactory.prototype.objectExists = function (id) {
+    return this.roadObjects[id] !== undefined;
 };
 
-SafeDrive.RoadObjectFactory.prototype.callAll = function (functionToCall) {
+RoadObjectFactory.prototype.get = function (id) {
+    return this.roadObjects[id];
+};
+
+RoadObjectFactory.prototype.callAll = function (functionToCall) {
     var objectsNumber = Object.keys(this.roadObjects).length;
     for (var objectKey in this.roadObjects) {
         functionToCall.call(this.get(objectKey));

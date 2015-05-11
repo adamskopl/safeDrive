@@ -1,12 +1,10 @@
-function NotificationsFactory(game) {
+function NotificationsFactory(game, instructionTexts, presenterSprite) {
     this.game = game;
     this.notifications = {};
+    // needed for startNotification() when starting notification from situation's init
+    this.instructionTexts = instructionTexts;
 
-    var presenterSprite = this.game.add.sprite(250, 450, 'presenter');
-    presenterSprite.scale.setTo(0.4, 0.4);
-    presenterSprite.visible = false;
-
-    this.presenter = presenterSprite;
+    this.presenterSprite = presenterSprite;
 }
 
 /**
@@ -15,9 +13,9 @@ function NotificationsFactory(game) {
  *                              @param {Array}    textArray  [[Description]]
  * @param {Object} roadObject [[Description]]
  */
-NotificationsFactory.prototype.addNotification = function (id, textArray, roadObject, x, y) {
-    this.notifications[id] = new Notification(this, this.game, id, textArray, roadObject, this.presenter, x, y);
-}
+NotificationsFactory.prototype.addNotification = function (id, textArray, x, y) {
+    this.notifications[id] = new Notification(this, this.game, id, textArray, this.presenterSprite, x, y);
+};
 
 /**
  * Show/hide single notification.
@@ -37,7 +35,7 @@ NotificationsFactory.prototype.setNotification = function (id, show) {
     } else {
         notification.balloonShrink();
     }
-}
+};
 
 /**
  * Display notification with given time delay and duration.
@@ -58,8 +56,14 @@ NotificationsFactory.prototype.startNotification = function (id, delay, duration
         },
 
         this);
+};
+
+NotificationsFactory.prototype.startAllNotifications = function (delay, duration) {
+    for (key in this.notifications) {
+        this.startNotification(key, delay, duration);
+    }
 }
 
 NotificationsFactory.prototype.getNotification = function (id) {
     return this.notifications[id];
-}
+};

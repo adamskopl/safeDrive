@@ -1,5 +1,4 @@
-Situation01.prototype.initStage = function (stageNumber) {
-    var stage = new SituationStage(this.situationStagesManager, this.game, this.roadObjectsFactory);
+Situation01.prototype.initStage = function (stageNumber, stage) {
     switch (stageNumber) {
     case 0:
         this.pedestrianASpeed = -27;
@@ -7,8 +6,8 @@ Situation01.prototype.initStage = function (stageNumber) {
         stage.addStartingVelocity("pedestrianA", this.pedestrianASpeed, 0);
         stage.addStartingAnimation("pedestrianA", 'left');
 
-        stage.notification().addNotification("pedestrianNotification", ["Pieszy zbliża się do przejścia."], this.roadObjectsFactory.get("pedestrianA"));
-        stage.notification().addNotification("carANotification", ["Kierowca widząc pieszego,", "rozpoczyna hamowanie."], this.roadObjectsFactory.get("carA"));
+        stage.notification().addNotification("pedestrianNotification", ["Pieszy zbliża się do przejścia."]);
+        stage.notification().addNotification("carANotification", ["Kierowca widząc pieszego,", "rozpoczyna hamowanie."]);
 
         stage.addCollisionHandler("triggerA", "carA",
             function () {
@@ -50,7 +49,7 @@ Situation01.prototype.initStage = function (stageNumber) {
         stage.addStartingVelocity("pedestrianA", this.pedestrianASpeed, 0);
         stage.addStartingAnimation("pedestrianA", 'left');
         stage.addStartingVelocity("carB", 0, -350);
-        stage.notification().addNotification("carBNotification", ["Tymczasem nadjeżdża drugi kierowca,", "który nie zwalnia przed przejściem."], this.roadObjectsFactory.get("carB"));
+        stage.notification().addNotification("carBNotification", ["Tymczasem nadjeżdża drugi kierowca,", "który nie zwalnia przed przejściem."]);
 
         stage.addCollisionHandler("tCarBIntroInfo", "carB",
             function () {
@@ -75,9 +74,9 @@ Situation01.prototype.initStage = function (stageNumber) {
         );
 
         stage.notification().addNotification(
-            s01InstructionTexts.good.name, s01InstructionTexts.good.text, null, 250, 300);
+            this.instructionTexts.good.name, this.instructionTexts.good.text, 250, 300);
 
-        stage.notification().getNotification(s01InstructionTexts.good.name).addConfirmButton(
+        stage.notification().getNotification(this.instructionTexts.good.name).addConfirmButton(
             function () {
                 console.log("define me!");
             }, this);
@@ -87,7 +86,7 @@ Situation01.prototype.initStage = function (stageNumber) {
                 this.getObject("carB").setVelocity(0, 0, 0, 0);
                 this.getObject("pedestrianA").setVelocity(0, 0, 0, 0);
 
-                this.notification().startNotification(s01InstructionTexts.good.name, 0);
+                this.notification().startNotification(this.notificationsFactory.instructionTexts.good.name, 0);
 
                 this.setFinished();
             }
@@ -117,5 +116,4 @@ Situation01.prototype.initStage = function (stageNumber) {
     default:
         console.log("initStage() unknown stageNumber");
     }
-    this.situationStagesManager.pushNewStage(stage);
 }

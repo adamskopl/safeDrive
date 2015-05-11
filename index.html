@@ -10,8 +10,13 @@
     <script src="src/SituationStagesManager.js"></script>
     <script src="src/SituationStage.js"></script>
     <script src="src/SituationsManager.js"></script>
+    <script src="src/Situation.js"></script>
     <script src="src/Situation01.js"></script>
     <script src="src/Situation01Init.js"></script>
+    <script src="src/Situation02.js"></script>
+    <script src="src/Situation02Init.js"></script>
+    <script src="src/Situation03.js"></script>
+    <script src="src/Situation03Init.js"></script>
     <script src="src/NotificationsFactory.js"></script>
     <script src="src/Notification.js"></script>
     <style type="text/css">
@@ -58,7 +63,7 @@
             function create() {
                 game.add.sprite(0, 0, 'scene01');
 
-                roadObjectsFactory = new SafeDrive.RoadObjectFactory(game);
+                roadObjectsFactory = new RoadObjectFactory(game);
                 situationsManager = new SituationsManager(game, roadObjectsFactory);
             }
 
@@ -70,7 +75,7 @@
             function render() {
                 // debug all sprites in factory's roadObjectsGroup
                 roadObjectsFactory.roadObjectsGroup.forEach(function (item) {
-                    //                    game.debug.body(item);
+                    game.debug.body(item);
                     // uncomment to debut sprite's name
                     //                    game.debug.text(item.name, item.x, item.y);
                 });

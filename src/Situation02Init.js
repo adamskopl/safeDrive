@@ -1,0 +1,1 @@
+Situation02.prototype.initStage = function (stageNumber) {}

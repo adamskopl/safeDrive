@@ -3,21 +3,19 @@
  * @param {Object}   game       Phaser.Game
  * @param {String}   id         notification's id
  * @param {Array}    textArray  [[Description]]
- * @param {Object}   roadObject [[Description]]
  * @param {Object} presenter  [[Description]]
  */
-function Notification(factory, game, id, textArray, roadObject, presenter, x, y) {
+function Notification(factory, game, id, textArray, presenterSprite, x, y) {
     this.game = game;
     this.factory = factory;
     this.id = id;
     this.texts = [];
-    this.roadObject = roadObject;
-    this.presenter = presenter;
+    this.presenterSprite = presenterSprite;
     this.margins = 15;
 
     if (x === undefined) {
-        this.notificationX = this.presenter.x + 2 * this.presenter.width;
-        this.notificationY = this.presenter.y;
+        this.notificationX = this.presenterSprite.x + 2 * this.presenterSprite.width;
+        this.notificationY = this.presenterSprite.y;
     } else {
         this.notificationX = x;
         this.notificationY = y;
@@ -42,28 +40,34 @@ function Notification(factory, game, id, textArray, roadObject, presenter, x, y)
 
 /**
  * If notification has a button, then balloon shrinks only when button is pressed.
+ * @param {Function} callback        callback function
+ * @param {Object}   callbackContext callback context
+ * @param {...*}     arguments Additional arguments
  */
 Notification.prototype.addConfirmButton = function (callback, callbackContext) {
 
-    var buttonMargin = 10;
+    var buttonMargin = 0;
     var buttonX = this.notificationX + this.width / 2 + buttonMargin;
     var buttonY = this.notificationY + this.height / 2 + buttonMargin;
 
     this.button = {
         buttonPhaser: this.game.add.button(buttonX, buttonY, 'oknotok', this.buttonClicked, this, 1, 0, 1),
         callback: callback,
-        callbackContext: callbackContext
+        callbackContext: callbackContext,
+        // seen in Phaser source code :) (Timer.js#L245) sweet.
+        args: Array.prototype.splice.call(arguments, 2)
     };
 
     this.button.buttonPhaser.anchor.setTo(0.5, 0.5);
-    this.button.buttonPhaser.scale.setTo(0.65, 0.65);
+    this.button.buttonPhaser.scale.setTo(0.3, 0.3);
     this.button.buttonPhaser.visible = false;
 
 }
 
 Notification.prototype.buttonClicked = function () {
     this.factory.setNotification(this.id, false);
-    this.button.callback.call(this.button.callbackContext);
+    //    this.button.callback.call(this.button.callbackContext);
+    this.button.callback.apply(this.button.callbackContext, this.button.args);
 };
 
 Notification.prototype.hasButton = function () {
