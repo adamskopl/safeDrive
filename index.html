@@ -9,6 +9,7 @@
     <script src="src/RoadObjectFactory.js"></script>
     <script src="src/SituationStagesManager.js"></script>
     <script src="src/SituationStage.js"></script>
+    <script src="src/SituationsManager.js"></script>
     <script src="src/Situation01.js"></script>
     <script src="src/Situation01Init.js"></script>
     <script src="src/NotificationsFactory.js"></script>
@@ -46,23 +47,24 @@
                 game.load.image('presenter', 'assets/presenter.png');
                 game.load.image('balloonBackground', 'assets/balloonBackground.png');
                 game.load.spritesheet('jimmy', 'assets/jimmy.png', 26, 41);
+                game.load.spritesheet('oknotok', 'assets/okNotOk.png', 135, 135);
 
                 game.load.spritesheet('stageButtons', 'assets/button-round.png', 64, 64);
             }
 
             var roadObjectsFactory;
-            var situation01;
+            var situationsManager;
 
             function create() {
                 game.add.sprite(0, 0, 'scene01');
 
                 roadObjectsFactory = new SafeDrive.RoadObjectFactory(game);
-                situation01 = new Situation01(game, roadObjectsFactory);
+                situationsManager = new SituationsManager(game, roadObjectsFactory);
             }
 
             function update() {
                 roadObjectsFactory.callAll(SafeDrive.RoadObject.prototype.updateText);
-                situation01.update(game);
+                situationsManager.update();
             }
 
             function render() {
