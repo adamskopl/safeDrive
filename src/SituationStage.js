@@ -69,7 +69,7 @@ SituationStage.prototype.addStartingVelocity = function (roName, velX, velY, acc
 
 SituationStage.prototype.addStartingAnimation = function (roName, animationName) {
     this.startingAnimations[roName] = animationName;
-}
+};
 
 /**
  * Add collision handler for given two sprites.
@@ -88,7 +88,7 @@ SituationStage.prototype.addCollisionHandler = function (sprite1Name, sprite2Nam
  * Start stage: apply positions, velocities.
  */
 SituationStage.prototype.start = function () {
-    this.rememberStartingPositions();
+    this.rememberStartingPositionsOnce();
     // set sprites starting positions, turn body movement off
     for (var objectKey in this.roadObjectsFactory.roadObjects) {
         var object = this.roadObjectsFactory.roadObjects[objectKey];
@@ -110,7 +110,7 @@ SituationStage.prototype.start = function () {
 /**
  * Invoked only once for every stage: remember objects positions to set them every time this stage starts.
  */
-SituationStage.prototype.rememberStartingPositions = function () {
+SituationStage.prototype.rememberStartingPositionsOnce = function () {
     if (this.startingPositionsInitialized) return;
     this.startingPositionsInitialized = true;
 
@@ -134,7 +134,7 @@ SituationStage.prototype.rememberStartingPositions = function () {
             };
         }
     }
-}
+};
 
 /**
  * Special function invoked in 'update' function in game's loop. It's a complement of SituationStage.start

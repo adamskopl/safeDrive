@@ -11,16 +11,16 @@ Situation03.prototype.situationPlan = [
         "type": "roadObject",
         "sprite": "jimmy",
         "name": "pedestrianA",
-        "posX": 370,
-        "posY": 395,
+        "posX": 10,
+        "posY": 10,
         "angle": 0
     },
     {
         "type": "roadObject",
         "sprite": "car01",
         "name": "carA",
-        "posX": 220,
-        "posY": 1000,
+        "posX": 10,
+        "posY": 10,
         "angle": -90
     }
 ];

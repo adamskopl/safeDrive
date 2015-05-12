@@ -4,7 +4,6 @@
  * @param {Object} roadObjectsFactory road objects factory object
  */
 function Situation(game, roadObjectsFactory, concreteSituation, presenterSprite) {
-
     this.game = game;
     this.roadObjectsFactory = roadObjectsFactory;
     this.concreteSituation = concreteSituation;
@@ -15,26 +14,30 @@ function Situation(game, roadObjectsFactory, concreteSituation, presenterSprite)
 
     for (var i = 0; i < this.concreteSituation.situationPlan.length; i++) {
         var name = this.concreteSituation.situationPlan[i].name;
-        if (this.roadObjectsFactory.objectExists(name)) continue;
-
         var type = this.concreteSituation.situationPlan[i].type;
         var spriteName = this.concreteSituation.situationPlan[i].sprite;
         var posX = this.concreteSituation.situationPlan[i].posX;
         var posY = this.concreteSituation.situationPlan[i].posY;
         var angle = this.concreteSituation.situationPlan[i].angle;
-        var newRoadObject = this.roadObjectsFactory.create(name, spriteName);
 
-        newRoadObject.setPos(posX, posY);
-        newRoadObject.sprite.angle = angle;
+        var initializedRoadObject;
+        if (!this.roadObjectsFactory.objectExists(name)) {
+            initializedRoadObject = this.roadObjectsFactory.create(name, spriteName);
+        } else {
+            initializedRoadObject = this.roadObjectsFactory.get(name);
+        }
+
+        initializedRoadObject.setPos(posX, posY);
+        initializedRoadObject.sprite.angle = angle;
 
         if (angle === -90) {
             // probably better (proper) solution will be needed
             // change body's width with height
-            newRoadObject.sprite.body.setSize(newRoadObject.sprite.height, newRoadObject.sprite.width);
+            initializedRoadObject.sprite.body.setSize(initializedRoadObject.sprite.height, initializedRoadObject.sprite.width);
         }
 
-        newRoadObject.text.text = name;
-        newRoadObject.setTextPos(400, i * 20 + 100);
+        initializedRoadObject.text.text = name;
+        initializedRoadObject.setTextPos(400, i * 20 + 100);
 
         if (type === "roadTrigger") {
             // uncomment to make triggers invisible
@@ -67,6 +70,9 @@ Situation.prototype.initStages = function () {
 
 Situation.prototype.initStage = function (stageNumber) {
     var stage = new SituationStage(this.situationStagesManager, this.game, this.roadObjectsFactory);
+    if (stageNumber === 0) {
+        stage.rememberStartingPositionsOnce();
+    }
     this.concreteSituation.initStage(stageNumber, stage);
     this.situationStagesManager.pushNewStage(stage);
 };
