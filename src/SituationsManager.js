@@ -38,12 +38,18 @@ SituationsManager.prototype.startMenu = function () {
 };
 
 SituationsManager.prototype.startSituation = function (number) {
+
+    // turn off every situation notifications
     for (key in this.notificationsFactory.notifications) {
+        // except for the one just clicked
         if (key === number) continue;
         this.notificationsFactory.setNotification(key, false);
     }
+
     var ss = this.situations[number];
+    // start stage's introduction notification which will start the situation
     ss.notificationsFactory.startNotification(ss.concreteSituation.instructionTexts.bad.name, 0);
+    this.situationsPointer = number;
 };
 
 SituationsManager.prototype.pushNewSituation = function (NewSituation) {
