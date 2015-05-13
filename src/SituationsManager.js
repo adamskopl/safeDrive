@@ -1,12 +1,20 @@
-function SituationsManager(game, roadObjectsFactory) {
+function SituationsManager(game, roadObjectsFactory, fx) {
     this.game = game;
     this.roadObjectsFactory = roadObjectsFactory;
+    this.fx = fx;
 
     this.situations = [];
-    this.situationsPointer = 0;
-    this.notificationsFactory = new NotificationsFactory(this.game, undefined, undefined);
+    // don't point on any situation
+    this.situationsPointer = -1;
+    this.notificationsFactory = new NotificationsFactory(this.game, undefined, undefined, fx);
 
     this.initSituations();
+
+    this.buttonMenu = this.game.add.button(700, 500, 'reload', function () {
+        this.backToMenu();
+        this.fx.play("numkey");
+    }, this, 1, 0, 1);
+    this.buttonMenu.scale.setTo(0.2, 0.2);
 }
 
 SituationsManager.prototype.initSituations = function () {
@@ -21,7 +29,7 @@ SituationsManager.prototype.initSituations = function () {
 
     for (var i = 0; i < concrete_situations.length; i++) {
         var concrete_situation = concrete_situations[i];
-        var newSituation = new Situation(this.game, this.roadObjectsFactory, concrete_situation, presenterSprite);
+        var newSituation = new Situation(this.game, this.roadObjectsFactory, this, concrete_situation, presenterSprite, this.fx);
         this.pushNewSituation(newSituation);
 
         this.notificationsFactory.addNotification(i, concrete_situation.title, 200, 100 + 100 * i);
@@ -29,12 +37,26 @@ SituationsManager.prototype.initSituations = function () {
             this.startSituation, this, i);
     };
 
+    this.roadObjectsFactory.reset();
     this.startMenu();
 
 }
 
+SituationsManager.prototype.getCurrentSituation = function () {
+    return this.situations[this.situationsPointer];
+};
+
 SituationsManager.prototype.startMenu = function () {
     this.notificationsFactory.startAllNotifications(0);
+};
+
+SituationsManager.prototype.backToMenu = function () {
+    if (this.situationsPointer !== -1) {
+        this.getCurrentSituation().setFinished();
+        this.situationsPointer = -1;
+    }
+    this.roadObjectsFactory.reset();
+    this.startMenu();
 };
 
 SituationsManager.prototype.startSituation = function (number) {
@@ -57,5 +79,15 @@ SituationsManager.prototype.pushNewSituation = function (NewSituation) {
 };
 
 SituationsManager.prototype.update = function () {
-    this.situations[this.situationsPointer].update(this.game);
-}
+    if (this.situationsPointer === -1 || !this.getCurrentSituation().isInProgress()) return;
+
+    this.getCurrentSituation().update(this.game);
+};
+
+/**
+ * Invoked by a Situation.
+ * Assumption: only situation invoking this function is the only active one.
+ */
+SituationsManager.prototype.onCurrentSituationFinished = function () {
+    this.startMenu();
+};

@@ -15,9 +15,18 @@ RoadObjectFactory.prototype.create = function (id, spriteName) {
         newSprite.animations.add('front', [2], 10, true);
     }
 
-    var newRObject = new SafeDrive.RoadObject(this, id, newSprite, this.game);
+    var newRObject = new RoadObject(this, id, newSprite, this.game);
     this.roadObjects[id] = newRObject;
     return newRObject;
+};
+
+/**
+ * Reset all objects: give them offscreen positions
+ * plus set velocities and accelerations to zero.
+ */
+RoadObjectFactory.prototype.reset = function () {
+    this.callAll(RoadObject.prototype.reset);
+    //    this.roadObjectsGroup.callAll(RoadObject.reset)
 };
 
 RoadObjectFactory.prototype.objectExists = function (id) {

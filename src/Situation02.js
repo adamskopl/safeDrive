@@ -1,6 +1,6 @@
 function Situation02() {}
 
-Situation02.prototype.title = ["Situation 02", "further description"];
+Situation02.prototype.title = ["Przejeżdżanie przez", "ścieżkę rowerową"];
 
 Situation02.prototype.collisions = [
     ["triggerA", "carA"]

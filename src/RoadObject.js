@@ -1,6 +1,6 @@
 SafeDrive = {};
 
-SafeDrive.RoadObject = function (factory, name, sprite, game) {
+RoadObject = function (factory, name, sprite, game) {
 
     this.factory = factory;
     this.name = name;
@@ -33,17 +33,33 @@ SafeDrive.RoadObject = function (factory, name, sprite, game) {
     return this;
 };
 
-SafeDrive.RoadObject.prototype.setPos = function (x, y) {
+/**
+ * Reset object:
+ */
+RoadObject.prototype.reset = function () {
+    var offCoordinate = 999;
+    this.sprite.x = offCoordinate;
+    this.sprite.y = offCoordinate;
+    var body = this.sprite.body;
+
+    body.moves = false;
+    body.velocity.x = 0;
+    body.velocity.y = 0;
+    body.acceleration.x = 0;
+    body.acceleration.y = 0;
+};
+
+RoadObject.prototype.setPos = function (x, y) {
     this.sprite.x = x;
     this.sprite.y = y;
 };
 
-SafeDrive.RoadObject.prototype.setTextPos = function (x, y) {
+RoadObject.prototype.setTextPos = function (x, y) {
     this.text.x = x;
     this.text.y = y;
 };
 
-SafeDrive.RoadObject.prototype.setVelocity = function (velX, velY, accelX, accelY) {
+RoadObject.prototype.setVelocity = function (velX, velY, accelX, accelY) {
 
     var newAccelX = accelX;
     var newAccelY = accelY;
@@ -56,6 +72,6 @@ SafeDrive.RoadObject.prototype.setVelocity = function (velX, velY, accelX, accel
     this.sprite.body.acceleration.y = newAccelY;
 }
 
-SafeDrive.RoadObject.prototype.updateText = function () {
+RoadObject.prototype.updateText = function () {
     this.text.text = this.name + " [" + this.sprite.x + ", " + this.sprite.y + "]";
 };

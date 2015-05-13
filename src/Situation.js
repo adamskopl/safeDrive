@@ -3,12 +3,15 @@
  * @param {Object} game               Phaser.Game
  * @param {Object} roadObjectsFactory road objects factory object
  */
-function Situation(game, roadObjectsFactory, concreteSituation, presenterSprite) {
+function Situation(game, roadObjectsFactory, manager, concreteSituation, presenterSprite, fx) {
     this.game = game;
     this.roadObjectsFactory = roadObjectsFactory;
+    this.manager = manager;
     this.concreteSituation = concreteSituation;
     this.presenterSprite = presenterSprite;
     this.concreteSituation.roadObjectsFactory = this.roadObjectsFactory;
+    // true/false if situation is played/not played
+    this.situationInProgress = false;
 
     this.checkedCollisions = new Object();
 
@@ -45,7 +48,7 @@ function Situation(game, roadObjectsFactory, concreteSituation, presenterSprite)
         }
     }
 
-    this.notificationsFactory = new NotificationsFactory(this.game, this.concreteSituation.instructionTexts, this.presenterSprite);
+    this.notificationsFactory = new NotificationsFactory(this.game, this.concreteSituation.instructionTexts, this.presenterSprite, fx);
 
     this.situationStagesManager = new SituationStagesManager(this.game, this);
     // initialize introducing notification
@@ -60,36 +63,68 @@ Situation.prototype.initIntroduction = function () {
         this.startSituation, this);
 };
 
-Situation.prototype.initStages = function () {
-    this.initStage(0);
-    this.initStage(1);
-    this.initStage(2);
-    this.initStage(3);
-    this.initStage(4);
+Situation.prototype.isInProgress = function () {
+    return this.situationInProgress;
 };
 
-Situation.prototype.initStage = function (stageNumber) {
+Situation.prototype.initStages = function () {
+    this.initStage(0, true);
+    this.initStage(1, true);
+    this.initStage(2, true);
+    this.initStage(3, true);
+    ///////////////////////////
+    this.initStage(4, false);
+    this.initStage(5, false);
+    this.initStage(6, false);
+    this.initStage(7, false);
+};
+
+/**
+ * initialize stage with a given number
+ * @param {Number}  stageNumber stage's number
+ * @param {Boolean} badStage    true/false if stage is presenting bad/good situation
+ */
+Situation.prototype.initStage = function (stageNumber, badStage) {
     var stage = new SituationStage(this.situationStagesManager, this.game, this.roadObjectsFactory);
     if (stageNumber === 0) {
         stage.rememberStartingPositionsOnce();
     }
     this.concreteSituation.initStage(stageNumber, stage);
-    this.situationStagesManager.pushNewStage(stage);
+    this.situationStagesManager.pushNewStage(stage, badStage);
 };
 
 Situation.prototype.startSituation = function () {
+    this.situationInProgress = true;
     this.notificationsFactory.presenterSprite.visible = true;
     this.startStage(0);
 };
 
 Situation.prototype.startStage = function (stageNumber) {
     this.resetCollisionCheck();
+    var stage = this.situationStagesManager.getStage(stageNumber);
     this.situationStagesManager.getStage(stageNumber).start();
 };
 
 Situation.prototype.update = function (game) {
     this.situationStagesManager.getCurrentStage().afterMovementChange();
     this.handleCollisions(game);
+};
+
+/**
+ * Invoked when situation is finished
+ * (probably SituationStagesManager decides that).
+ */
+Situation.prototype.onSituationFinished = function () {
+    this.situationInProgress = false;
+    this.manager.onCurrentSituationFinished();
+};
+
+/**
+ * Finish this situation.
+ */
+Situation.prototype.setFinished = function () {
+    this.notificationsFactory.setNotification(this.concreteSituation.instructionTexts.bad.name, false);
+    this.situationStagesManager.getStageLast().setFinished();
 };
 
 Situation.prototype.handleCollisions = function (game) {

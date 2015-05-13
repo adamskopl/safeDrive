@@ -53,22 +53,39 @@
                 game.load.image('balloonBackground', 'assets/balloonBackground.png');
                 game.load.spritesheet('jimmy', 'assets/jimmy.png', 26, 41);
                 game.load.spritesheet('oknotok', 'assets/okNotOk.png', 135, 135);
+                game.load.image('reload', 'assets/reload.png');
 
                 game.load.spritesheet('stageButtons', 'assets/button-round.png', 64, 64);
+
+                game.load.audio('sfx', 'assets/fx_mixdown.mp3');
             }
 
             var roadObjectsFactory;
             var situationsManager;
+            var fx;
 
             function create() {
                 game.add.sprite(0, 0, 'scene01');
 
+                fx = game.add.audio('sfx');
+                fx.allowMultiple = true;
+                fx.addMarker('alien death', 1, 1.0);
+                fx.addMarker('boss hit', 3, 0.5);
+                fx.addMarker('escape', 4, 3.2);
+                fx.addMarker('meow', 8, 0.5);
+                fx.addMarker('numkey', 9, 0.1);
+                fx.addMarker('ping', 10, 1.0);
+                fx.addMarker('death', 12, 4.2);
+                fx.addMarker('shot', 17, 1.0);
+                fx.addMarker('squit', 19, 0.3);
+
                 roadObjectsFactory = new RoadObjectFactory(game);
-                situationsManager = new SituationsManager(game, roadObjectsFactory);
+                situationsManager = new SituationsManager(game, roadObjectsFactory, fx);
+
             }
 
             function update() {
-                roadObjectsFactory.callAll(SafeDrive.RoadObject.prototype.updateText);
+                roadObjectsFactory.callAll(RoadObject.prototype.updateText);
                 situationsManager.update();
             }
 

@@ -23,6 +23,7 @@ function SituationStage(manager, game, roadObjectsFactory) {
     // value: function handling collision))
     this.collisionHandlers = {};
     this.notificationsFactory = manager.notificationsFactory;
+    this.spritesBodyMovementUnlockNeeded = false;
 }
 
 /**
@@ -177,8 +178,19 @@ SituationStage.prototype.notification = function () {
  * @param {Number}   delay Delay after which function will be invoked.
  * @param {Function} event Function invoked after given delay.
  */
-SituationStage.prototype.addEvent = function (delay, event, context, arguments) {
-    this.game.time.events.add(Phaser.Timer.SECOND * delay, event, context, arguments);
+SituationStage.prototype.addEvent = function (delay, event) {
+    this.game.time.events.add(Phaser.Timer.SECOND * delay, this.fireEvent, this, event);
+};
+
+/**
+ * Events should be invoked through this function, because there's possibility,
+ * that situation is already finished, and event should not be invoked.
+ */
+SituationStage.prototype.fireEvent = function (event) {
+    // don't call event if current situtaion is finished 
+    // (e.g. it was set to be finished by 'menu' button'
+    if (!this.manager.getSituation().isInProgress()) return;
+    event.call(this);
 };
 
 /**

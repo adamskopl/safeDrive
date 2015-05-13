@@ -1,10 +1,11 @@
-function NotificationsFactory(game, instructionTexts, presenterSprite) {
+function NotificationsFactory(game, instructionTexts, presenterSprite, fx) {
     this.game = game;
     this.notifications = {};
     // needed for startNotification() when starting notification from situation's init
     this.instructionTexts = instructionTexts;
 
     this.presenterSprite = presenterSprite;
+    this.fx = fx;
 }
 
 /**
@@ -14,7 +15,7 @@ function NotificationsFactory(game, instructionTexts, presenterSprite) {
  * @param {Object} roadObject [[Description]]
  */
 NotificationsFactory.prototype.addNotification = function (id, textArray, x, y) {
-    this.notifications[id] = new Notification(this, this.game, id, textArray, this.presenterSprite, x, y);
+    this.notifications[id] = new Notification(this, this.game, id, textArray, this.presenterSprite, x, y, this.fx);
 };
 
 /**

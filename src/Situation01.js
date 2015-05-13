@@ -1,6 +1,6 @@
 function Situation01() {}
 
-Situation01.prototype.title = ["Situation 01", "further description"];
+Situation01.prototype.title = ["Wymijanie na przejściu", "dla pieszych"];
 
 Situation01.prototype.collisions = [
     ["pedestrianA", "carA"],
@@ -10,7 +10,10 @@ Situation01.prototype.collisions = [
     ["triggerB", "carA"],
     ["carB", "pedestrianA"],
     ["triggerC", "carB"],
-    ["tCarBIntroInfo", "carB"]
+    ["tCarBIntroInfo", "carB"],
+    ["testTriggerFinishA", "pedestrianA"],
+    ["testTriggerFinishB", "pedestrianA"],
+    ["testTriggerFinishC", "pedestrianA"]
 ];
 
 Situation01.prototype.situationPlan = [
@@ -69,6 +72,30 @@ Situation01.prototype.situationPlan = [
         "posX": 188,
         "posY": 540,
         "angle": 0
+    },
+    {
+        "type": "roadTrigger",
+        "sprite": "trigger",
+        "name": "testTriggerFinishA",
+        "posX": 190,
+        "posY": 390,
+        "angle": -90
+    },
+    {
+        "type": "roadTrigger",
+        "sprite": "trigger",
+        "name": "testTriggerFinishB",
+        "posX": 170,
+        "posY": 390,
+        "angle": -90
+    },
+    {
+        "type": "roadTrigger",
+        "sprite": "trigger",
+        "name": "testTriggerFinishC",
+        "posX": 150,
+        "posY": 390,
+        "angle": -90
     }
 ];
 

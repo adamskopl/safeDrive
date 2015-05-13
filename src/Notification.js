@@ -5,13 +5,14 @@
  * @param {Array}    textArray  [[Description]]
  * @param {Object} presenter  [[Description]]
  */
-function Notification(factory, game, id, textArray, presenterSprite, x, y) {
+function Notification(factory, game, id, textArray, presenterSprite, x, y, fx) {
     this.game = game;
     this.factory = factory;
     this.id = id;
     this.texts = [];
     this.presenterSprite = presenterSprite;
     this.margins = 15;
+    this.fx = fx;
 
     if (x === undefined) {
         this.notificationX = this.presenterSprite.x + 2 * this.presenterSprite.width;
@@ -68,6 +69,7 @@ Notification.prototype.buttonClicked = function () {
     this.factory.setNotification(this.id, false);
     //    this.button.callback.call(this.button.callbackContext);
     this.button.callback.apply(this.button.callbackContext, this.button.args);
+    this.fx.play("numkey");
 };
 
 Notification.prototype.hasButton = function () {
