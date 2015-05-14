@@ -1,5 +1,10 @@
 function Situation01() {}
 
+Situation01.prototype.sector = {
+    x: 0,
+    y: 2
+};
+
 Situation01.prototype.title = ["Wymijanie na przejściu", "dla pieszych"];
 
 Situation01.prototype.collisions = [
@@ -21,80 +26,80 @@ Situation01.prototype.situationPlan = [
         "type": "roadObject",
         "sprite": "jimmy",
         "name": "pedestrianA",
-        "posX": 370,
-        "posY": 395,
+        "posX": 470,
+        "posY": 145,
         "angle": 0
     },
     {
         "type": "roadObject",
         "sprite": "car01",
         "name": "carA",
-        "posX": 220,
-        "posY": 1000,
+        "posX": 320,
+        "posY": 750,
         "angle": -90
     },
     {
         "type": "roadObject",
         "sprite": "car02",
         "name": "carB",
-        "posX": 188,
-        "posY": 630,
+        "posX": 288,
+        "posY": 380,
         "angle": -90
     },
     {
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": "triggerA",
-        "posX": 200,
-        "posY": 540,
+        "posX": 300,
+        "posY": 290,
         "angle": 0
     },
     {
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": "triggerB",
-        "posX": 230,
-        "posY": 450,
+        "posX": 330,
+        "posY": 200,
         "angle": 0
     },
     {
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": "triggerC",
-        "posX": 195,
-        "posY": 450,
+        "posX": 295,
+        "posY": 200,
         "angle": 0
     },
     {
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": "tCarBIntroInfo",
-        "posX": 188,
-        "posY": 540,
+        "posX": 288,
+        "posY": 290,
         "angle": 0
     },
     {
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": "testTriggerFinishA",
-        "posX": 190,
-        "posY": 390,
+        "posX": 290,
+        "posY": 140,
         "angle": -90
     },
     {
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": "testTriggerFinishB",
-        "posX": 170,
-        "posY": 390,
+        "posX": 270,
+        "posY": 140,
         "angle": -90
     },
     {
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": "testTriggerFinishC",
-        "posX": 150,
-        "posY": 390,
+        "posX": 250,
+        "posY": 140,
         "angle": -90
     }
 ];

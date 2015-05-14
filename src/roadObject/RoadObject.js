@@ -27,7 +27,7 @@ RoadObject = function (factory, name, sprite, game) {
 
     this.text = game.add.text(0, 0, '', {
         font: "20px Arial",
-        fill: '#FFF'
+        fill: '#de1f1f'
     });
 
     return this;
@@ -37,7 +37,7 @@ RoadObject = function (factory, name, sprite, game) {
  * Reset object:
  */
 RoadObject.prototype.reset = function () {
-    var offCoordinate = 999;
+    var offCoordinate = 9999;
     this.sprite.x = offCoordinate;
     this.sprite.y = offCoordinate;
     var body = this.sprite.body;

@@ -26,7 +26,6 @@ RoadObjectFactory.prototype.create = function (id, spriteName) {
  */
 RoadObjectFactory.prototype.reset = function () {
     this.callAll(RoadObject.prototype.reset);
-    //    this.roadObjectsGroup.callAll(RoadObject.reset)
 };
 
 RoadObjectFactory.prototype.objectExists = function (id) {

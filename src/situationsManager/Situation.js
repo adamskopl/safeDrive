@@ -13,8 +13,19 @@ function Situation(game, roadObjectsFactory, manager, concreteSituation, present
     // true/false if situation is played/not played
     this.situationInProgress = false;
 
-    this.checkedCollisions = new Object();
+    this.checkedCollisions = {};
 
+    this.initSituationObjects();
+
+    this.notificationsFactory = new NotificationsFactory(this.game, this.concreteSituation.instructionTexts, this.presenterSprite, fx);
+
+    this.situationStagesManager = new SituationStagesManager(this.game, this);
+    // initialize introducing notification
+    this.initIntroduction();
+    this.initStages();
+};
+
+Situation.prototype.initSituationObjects = function () {
     for (var i = 0; i < this.concreteSituation.situationPlan.length; i++) {
         var name = this.concreteSituation.situationPlan[i].name;
         var type = this.concreteSituation.situationPlan[i].type;
@@ -40,20 +51,17 @@ function Situation(game, roadObjectsFactory, manager, concreteSituation, present
         }
 
         initializedRoadObject.text.text = name;
-        initializedRoadObject.setTextPos(400, i * 20 + 100);
+        initializedRoadObject.setTextPos(400, i * 20);
 
         if (type === "roadTrigger") {
             // uncomment to make triggers invisible
             //            newRoadObject.sprite.visible = false;
         }
     }
+};
 
-    this.notificationsFactory = new NotificationsFactory(this.game, this.concreteSituation.instructionTexts, this.presenterSprite, fx);
-
-    this.situationStagesManager = new SituationStagesManager(this.game, this);
-    // initialize introducing notification
-    this.initIntroduction();
-    this.initStages();
+Situation.prototype.getSector = function () {
+    return this.concreteSituation.sector;
 };
 
 Situation.prototype.initIntroduction = function () {

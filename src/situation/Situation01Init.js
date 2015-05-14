@@ -1,7 +1,7 @@
 var NOTIFICATION_CAR_A = "carANotification";
 
 Situation01.prototype.initStage = function (stageNumber, stage) {
-    var speedUp = 1;
+    var speedUp = 2.5;
 
     switch (stageNumber) {
     case 0:

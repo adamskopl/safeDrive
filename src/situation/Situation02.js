@@ -1,5 +1,10 @@
 function Situation02() {}
 
+Situation02.prototype.sector = {
+    x: 2,
+    y: 0
+};
+
 Situation02.prototype.title = ["Przejeżdżanie przez", "ścieżkę rowerową"];
 
 Situation02.prototype.collisions = [

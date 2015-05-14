@@ -5,20 +5,21 @@
     <meta charset="UTF-8" />
     <title>SafeDrive</title>
     <script src="src/phaser.min.js"></script>
-    <script src="src/RoadObject.js"></script>
-    <script src="src/RoadObjectFactory.js"></script>
-    <script src="src/SituationStagesManager.js"></script>
-    <script src="src/SituationStage.js"></script>
-    <script src="src/SituationsManager.js"></script>
-    <script src="src/Situation.js"></script>
-    <script src="src/Situation01.js"></script>
-    <script src="src/Situation01Init.js"></script>
-    <script src="src/Situation02.js"></script>
-    <script src="src/Situation02Init.js"></script>
-    <script src="src/Situation03.js"></script>
-    <script src="src/Situation03Init.js"></script>
-    <script src="src/NotificationsFactory.js"></script>
-    <script src="src/Notification.js"></script>
+    <script src="src/roadObject/RoadObject.js"></script>
+    <script src="src/roadObject/RoadObjectFactory.js"></script>
+    <script src="src/situationsManager/SituationStagesManager.js"></script>
+    <script src="src/situationsManager/SituationStage.js"></script>
+    <script src="src/situationsManager/SituationsManager.js"></script>
+    <script src="src/situationsManager/Situation.js"></script>
+    <script src="src/situation/Situation01.js"></script>
+    <script src="src/situation/Situation01Init.js"></script>
+    <script src="src/situation/Situation02.js"></script>
+    <script src="src/situation/Situation02Init.js"></script>
+    <script src="src/situation/Situation03.js"></script>
+    <script src="src/situation/Situation03Init.js"></script>
+    <script src="src/notification/NotificationsFactory.js"></script>
+    <script src="src/notification/Notification.js"></script>
+    <script src="src/backgroundManipulator/BackgroundManipulator.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -36,7 +37,7 @@
 
             // CANVAS chosen, so 'debug' functions likde debug.body(sprite) can work...
             // change later maybe on Phaser.AUTO
-            var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'game', {
+            var game = new Phaser.Game(640, 480, Phaser.CANVAS, 'game', {
                 preload: preload,
                 create: create,
                 update: update,
@@ -48,6 +49,7 @@
                 game.load.image('car02', 'assets/car02.png');
                 game.load.image('pedestrian', 'assets/pedestrian2.png');
                 game.load.image('scene01', 'assets/scene01.png');
+                game.load.image('scenebig', 'assets/scene_big.png');
                 game.load.image('trigger', 'assets/trigger.png');
                 game.load.image('presenter', 'assets/presenter.png');
                 game.load.image('balloonBackground', 'assets/balloonBackground.png');
@@ -62,10 +64,10 @@
 
             var roadObjectsFactory;
             var situationsManager;
+            var backgroundManipulator;
             var fx;
 
             function create() {
-                game.add.sprite(0, 0, 'scene01');
 
                 fx = game.add.audio('sfx');
                 fx.allowMultiple = true;
@@ -79,8 +81,10 @@
                 fx.addMarker('shot', 17, 1.0);
                 fx.addMarker('squit', 19, 0.3);
 
+                backgroundManipulator = new BackgroundManipulator(game);
                 roadObjectsFactory = new RoadObjectFactory(game);
-                situationsManager = new SituationsManager(game, roadObjectsFactory, fx);
+                situationsManager = new SituationsManager(game, roadObjectsFactory,
+                    backgroundManipulator, fx);
 
             }
 
