@@ -42,6 +42,9 @@ SituationsManager.prototype.initSituations = function () {
     };
     this.startMenu();
 
+    // uncomment to automatically start desired situation
+//    this.game.time.events.add(300, this.startSituation, this, 0);
+
 }
 
 SituationsManager.prototype.getCurrentSituation = function () {
@@ -75,7 +78,9 @@ SituationsManager.prototype.startSituation = function (number) {
     var sectorCoords = ss.getSector();
     this.backgroundManipulator.zoomToSector(sectorCoords.x, sectorCoords.y);
     // start stage's introduction notification which will start the situation
-    ss.notificationsFactory.startNotification(ss.concreteSituation.instructionTexts.bad.name, 0);
+    //    ss.notificationsFactory.startNotification(ss.concreteSituation.instructionTexts.bad.name, 0);
+
+    ss.startSituation();
     this.situationsPointer = number;
 };
 

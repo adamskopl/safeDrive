@@ -15,7 +15,23 @@ function NotificationsFactory(game, instructionTexts, presenterSprite, fx) {
  * @param {Object} roadObject [[Description]]
  */
 NotificationsFactory.prototype.addNotification = function (id, textArray, x, y) {
+
+    if (this.getNotification(id) !== undefined) {
+        console.log("NotificationsFactory.addNotification(): " + id + "alreadyExists");
+        return;
+    }
+
     this.notifications[id] = new Notification(this, this.game, id, textArray, this.presenterSprite, x, y, this.fx);
+};
+
+/**
+ * Add notification with a confirm button and a callback invoked when button is pressed.
+ */
+NotificationsFactory.prototype.addNotificationCallback = function (
+    id, textArray, callback, callbackContext, x, y) {
+
+    this.notifications[id] = new Notification(this, this.game, id, textArray, this.presenterSprite, x, y, this.fx);
+    this.notifications[id].addConfirmButton(callback, callbackContext);
 };
 
 /**
@@ -45,7 +61,12 @@ NotificationsFactory.prototype.setNotification = function (id, show) {
  * @param {Number} duration Notification's display duration.
  */
 NotificationsFactory.prototype.startNotification = function (id, delay, duration) {
-    this.game.time.events.add(Phaser.Timer.SECOND * delay,
+    var timerDelay = delay;
+    if (delay === undefined) {
+        timerDelay = 0;
+    }
+
+    this.game.time.events.add(Phaser.Timer.SECOND * timerDelay,
         function () {
             this.setNotification(id, true);
             if (duration !== undefined) {

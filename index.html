@@ -9,8 +9,10 @@
     <script src="src/roadObject/RoadObjectFactory.js"></script>
     <script src="src/situationsManager/SituationStagesManager.js"></script>
     <script src="src/situationsManager/SituationStage.js"></script>
+    <script src="src/situationsManager/SituationStageEvents.js"></script>
     <script src="src/situationsManager/SituationsManager.js"></script>
     <script src="src/situationsManager/Situation.js"></script>
+    <script src="src/situation/constants.js"></script>
     <script src="src/situation/Situation01.js"></script>
     <script src="src/situation/Situation01Init.js"></script>
     <script src="src/situation/Situation02.js"></script>
@@ -45,15 +47,15 @@
             });
 
             function preload() {
-                game.load.image('car01', 'assets/car01.png');
-                game.load.image('car02', 'assets/car02.png');
-                game.load.image('pedestrian', 'assets/pedestrian2.png');
+                game.load.image('car01', 'assets/car01_15.png');
+                game.load.image('car02', 'assets/car02_15.png');
                 game.load.image('scene01', 'assets/scene01.png');
                 game.load.image('scenebig', 'assets/scene_big.png');
                 game.load.image('trigger', 'assets/trigger.png');
                 game.load.image('presenter', 'assets/presenter.png');
                 game.load.image('balloonBackground', 'assets/balloonBackground.png');
-                game.load.spritesheet('jimmy', 'assets/jimmy.png', 26, 41);
+                //                game.load.spritesheet('jimmy', 'assets/jimmy_big.png', 69, 110);
+                game.load.image('pedestrian', 'assets/pedestrian_15.png');
                 game.load.spritesheet('oknotok', 'assets/okNotOk.png', 135, 135);
                 game.load.image('reload', 'assets/reload.png');
 
@@ -96,7 +98,7 @@
             function render() {
                 // debug all sprites in factory's roadObjectsGroup
                 roadObjectsFactory.roadObjectsGroup.forEach(function (item) {
-                    game.debug.body(item);
+                    //                    game.debug.body(item);
                     // uncomment to debut sprite's name
                     //                    game.debug.text(item.name, item.x, item.y);
                 });

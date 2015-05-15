@@ -20,9 +20,9 @@ function Situation(game, roadObjectsFactory, manager, concreteSituation, present
     this.notificationsFactory = new NotificationsFactory(this.game, this.concreteSituation.instructionTexts, this.presenterSprite, fx);
 
     this.situationStagesManager = new SituationStagesManager(this.game, this);
+    this.initStages();
     // initialize introducing notification
     this.initIntroduction();
-    this.initStages();
 };
 
 Situation.prototype.initSituationObjects = function () {
@@ -51,11 +51,12 @@ Situation.prototype.initSituationObjects = function () {
         }
 
         initializedRoadObject.text.text = name;
-        initializedRoadObject.setTextPos(400, i * 20);
+        initializedRoadObject.setTextPos(400, i * 15);
 
         if (type === "roadTrigger") {
             // uncomment to make triggers invisible
-            //            newRoadObject.sprite.visible = false;
+            //            initializedRoadObject.sprite.visible = false;
+            initializedRoadObject.sprite.alpha = 0;
         }
     }
 };
@@ -65,10 +66,22 @@ Situation.prototype.getSector = function () {
 };
 
 Situation.prototype.initIntroduction = function () {
+
     this.notificationsFactory.addNotification(
-        this.concreteSituation.instructionTexts.bad.name, this.concreteSituation.instructionTexts.bad.text, 250, 300);
-    this.notificationsFactory.getNotification(this.concreteSituation.instructionTexts.bad.name).addConfirmButton(
+        this.concreteSituation.instructionTexts.bad.name,
+        this.concreteSituation.instructionTexts.bad.text, 250, 200);
+
+    this.notificationsFactory.getNotification(
+        this.concreteSituation.instructionTexts.bad.name).addConfirmButton(
         this.startSituation, this);
+
+    this.notificationsFactory.addNotificationCallback(
+        this.concreteSituation.instructionTexts.good.name,
+        this.concreteSituation.instructionTexts.good.text,
+        SituationStage.prototype.setFinished,
+        this.situationStagesManager.getStage(3),
+        250, 200);
+
 };
 
 Situation.prototype.isInProgress = function () {

@@ -10,6 +10,7 @@ function SituationStage(manager, game, roadObjectsFactory) {
     this.manager = manager;
     this.game = game;
     this.roadObjectsFactory = roadObjectsFactory;
+
     // dictionary(key: id of road object; value: pair of coordinates)
     this.startingPositions = {};
     // if != -1, set startintPositions from another stage, which number is given by this variable
@@ -19,6 +20,10 @@ function SituationStage(manager, game, roadObjectsFactory) {
     this.startingVelocities = {};
     // dictionary(key: od of rad object; value: sprite's animation to play)
     this.startingAnimations = {};
+    // dictionary(key: id of already added notification to play; 
+    // value: object{delay, duration})
+    this.startingNotificationsToPlay = {};
+
     // dictionary(key: id of first sprites' name; value: dictionary(key:id of the second sprite's name;
     // value: function handling collision))
     this.collisionHandlers = {};
@@ -73,6 +78,20 @@ SituationStage.prototype.addStartingAnimation = function (roName, animationName)
 };
 
 /**
+ * Add notification start at the start of the stage.
+ * Notification has to be added first.
+ * @param {String} notificationId notification's id
+ * @param {Number} delay          notification's play delay
+ * @param {Number} duration       notification's play duration
+ */
+SituationStage.prototype.addStartingNotificationPlay = function (notificationId, delay, duration) {
+    this.startingNotificationsToPlay[notificationId] = {
+        delay: delay,
+        duration: duration
+    };
+};
+
+/**
  * Add collision handler for given two sprites.
  * @param {String}   sprite1Name      first sprite's name
  * @param {String}   sprite2Name      secont sprite's name
@@ -103,9 +122,15 @@ SituationStage.prototype.start = function () {
         if (this.startingAnimations[objectKey] !== undefined) {
             object.sprite.animations.play(this.startingAnimations[objectKey]);
         }
-    }
+    };
     // sprite's body's movement will be turned on in next main loop's update()
     this.spritesBodyMovementUnlockNeeded = true;
+
+    for (var key in this.startingNotificationsToPlay) {
+        var notifObject = this.startingNotificationsToPlay[key];
+        this.notificationsFactory.startNotification(
+            key, notifObject.delay, notifObject.duration);
+    };
 };
 
 /**
@@ -171,26 +196,6 @@ SituationStage.prototype.getObject = function (roKey) {
 
 SituationStage.prototype.notification = function () {
     return this.notificationsFactory;
-};
-
-/**
- * Add event (function) which will be invoked after given delay.
- * @param {Number}   delay Delay after which function will be invoked.
- * @param {Function} event Function invoked after given delay.
- */
-SituationStage.prototype.addEvent = function (delay, event) {
-    this.game.time.events.add(Phaser.Timer.SECOND * delay, this.fireEvent, this, event);
-};
-
-/**
- * Events should be invoked through this function, because there's possibility,
- * that situation is already finished, and event should not be invoked.
- */
-SituationStage.prototype.fireEvent = function (event) {
-    // don't call event if current situtaion is finished 
-    // (e.g. it was set to be finished by 'menu' button'
-    if (!this.manager.getSituation().isInProgress()) return;
-    event.call(this);
 };
 
 /**

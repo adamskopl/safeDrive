@@ -20,11 +20,11 @@ SituationStagesManager.prototype.pushNewStage = function (newStage, badStage) {
 
     var x;
     if (badStage) {
-        x = 40 * this.stages.length;
+        x = 40 * this.stages.length + 200;
     } else {
-        x = 40 * (this.stages.length - 4);
+        x = 40 * (this.stages.length - 4) + 200;
     }
-    var y = 560;
+    var y = 440;
 
     var frameHover = 0;
     var frameNormal = 1;

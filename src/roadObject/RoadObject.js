@@ -26,7 +26,7 @@ RoadObject = function (factory, name, sprite, game) {
     }, this, this);
 
     this.text = game.add.text(0, 0, '', {
-        font: "20px Arial",
+        font: "10px Arial",
         fill: '#de1f1f'
     });
 

@@ -15,7 +15,7 @@ function Notification(factory, game, id, textArray, presenterSprite, x, y, fx) {
     this.fx = fx;
 
     if (x === undefined) {
-        this.notificationX = this.presenterSprite.x + 2 * this.presenterSprite.width;
+        this.notificationX = this.presenterSprite.x;
         this.notificationY = this.presenterSprite.y;
     } else {
         this.notificationX = x;
