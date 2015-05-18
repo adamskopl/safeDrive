@@ -77,7 +77,7 @@ RoadObject.prototype.updateText = function () {
     this.text.text = this.name + " [" + this.sprite.x + ", " + this.sprite.y + "]";
 };
 
-RoadObject.prototype.startObjectTurn = function (pivotObjectName, velocity, callback, callbackContext) {
+RoadObject.prototype.startObjectTurn = function (pivotObjectName, targetAngle, velocity, callback, callbackContext) {
     this.rotationAngle = {
         angle: 0
     };
@@ -87,7 +87,7 @@ RoadObject.prototype.startObjectTurn = function (pivotObjectName, velocity, call
     this.pivotY = pivotObject.sprite.y;
 
     this.game.add.tween(this.sprite).to({
-        angle: 180
+        angle: targetAngle
     }, velocity, Phaser.Easing.Linear.In, true, 0, 0);
 
     var tweenRotation = this.game.add.tween(this.rotationAngle).to({

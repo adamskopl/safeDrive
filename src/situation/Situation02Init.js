@@ -13,7 +13,6 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
             "się do odcinka ścieżki, przebiegającej",
             "przez ulicę."
             ], function () {
-            //            this.addEventStartTurn(0, sConstants.OBJECT_CAR_A, sConstants.OBJECT_ROTATION_P);
             this.addEvent(0, this.setFinished);
 
         }, stage);
@@ -36,7 +35,6 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
             "Kierowca zbliża się do skrzyżowania",
             "z zamiarem skrętu w prawo."
             ], function () {
-            //            this.addEventStartTurn(0, sConstants.OBJECT_CAR_A, sConstants.OBJECT_ROTATION_P);
             this.addEvent(0, this.setFinished);
 
         }, stage);
@@ -62,7 +60,7 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
             "kontynuuje manewr skrętu w prawo."
             ], function () {
             this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, bikeSpeed);
-            this.addEventStartTurn(0, sConstants.OBJECT_CAR_A, sConstants.OBJECT_ROTATION_P, 600, function () {
+            this.addEventStartTurn(0, sConstants.OBJECT_CAR_A, sConstants.OBJECT_ROTATION_P, 180, 600, function () {
                 this.setFinished();
             }, stage);
         }, stage);
@@ -85,14 +83,12 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
             "Dochodzi do kolizji."
             ], function () {
             this.notification().startNotification(Situation02.prototype.instructionTexts.good.name);
-            //            this.setFinished();
         }, stage);
 
         break;
         // -------------------------------------------------
     case 4:
         stage.stageNumberFromWhichPositionsAreTaken = 0;
-        //        stage.stageNumberFromWhichPositionsAreTaken = 0;
         this.initStage(0, stage);
         break;
     case 5:
@@ -108,7 +104,7 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
             ], function () {
             this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, bikeSpeed / 2);
             this.addEventStartTurn(0, sConstants.OBJECT_CAR_A, sConstants.OBJECT_ROTATION_P,
-                2000,
+                180, 2000,
                 function () {
                     this.setFinished();
                 }, stage);

@@ -1,7 +1,7 @@
 function Situation02() {}
 
 Situation02.prototype.sector = {
-    x: 2,
+    x: 1,
     y: 1
 };
 

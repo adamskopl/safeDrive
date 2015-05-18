@@ -10,9 +10,13 @@ RoadObjectFactory = function (game) {
 
 RoadObjectFactory.prototype.create = function (id, spriteName) {
     var newSprite = this.roadObjectsGroup.create(0, 0, spriteName);
+
     if (spriteName === 'jimmy') {
         newSprite.animations.add('left', [0, 1], 10, true);
         newSprite.animations.add('front', [2], 10, true);
+    } else if (spriteName === 'bike') {
+        newSprite.animations.add('ride', [0, 0], 0, true);
+        newSprite.animations.add('walk', [1, 1], 0, true);
     }
 
     var newRObject = new RoadObject(this, id, newSprite, this.game);

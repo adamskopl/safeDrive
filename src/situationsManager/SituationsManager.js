@@ -16,6 +16,9 @@ function SituationsManager(game, roadObjectsFactory, backgroundManipulator, fx) 
         this.fx.play("numkey");
     }, this, 1, 0, 1);
     this.buttonMenu.scale.setTo(0.2, 0.2);
+
+    // FIXME: button menu is not working properly, when clicked in the middle of situation's progress
+    this.buttonMenu.visible = false;
 }
 
 SituationsManager.prototype.initSituations = function () {
@@ -43,7 +46,7 @@ SituationsManager.prototype.initSituations = function () {
     this.startMenu();
 
     // uncomment to automatically start desired situation
-    this.game.time.events.add(300, this.startSituation, this, 1);
+    //    this.game.time.events.add(300, this.startSituation, this, 2);
 
 }
 

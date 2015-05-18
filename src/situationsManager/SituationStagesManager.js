@@ -92,6 +92,10 @@ SituationStagesManager.prototype.getCurrentStage = function () {
  * @param {Boolean} badButtons true/false if bad/good buttons should be hidden
  */
 SituationStagesManager.prototype.setStageButtons = function (show, badButtons) {
+
+    // at some stage buttons stopped working. anyway: they are confusing for the user
+    return;
+
     var buttonsArray;
     if (badButtons) {
         buttonsArray = this.stagesButtonsBad;
@@ -110,21 +114,23 @@ SituationStagesManager.prototype.setStageButtons = function (show, badButtons) {
  * @param {Number} stageNumber Stage's id.
  */
 SituationStagesManager.prototype.onStageFinished = function (stageNumber) {
-    var buttonPos;
-    var buttonsArray;
-    if (stageNumber < 4) {
-        buttonsArray = this.stagesButtonsBad;
-        buttonPos = stageNumber;
-        this.setStageButtons(false, false);
-    } else {
-        buttonsArray = this.stagesButtonsGood;
-        buttonPos = stageNumber - 4;
-        this.setStageButtons(false, true);
-    }
-
-    var button = buttonsArray[buttonPos];
-    button.button.visible = true;
-    button.text.visible = true;
+    // at some stage buttons stopped working. anyway: they are confusing for the user
+    /*
+        var buttonPos;
+        var buttonsArray;
+        if (stageNumber < 4) {
+            buttonsArray = this.stagesButtonsBad;
+            buttonPos = stageNumber;
+            this.setStageButtons(false, false);
+        } else {
+            buttonsArray = this.stagesButtonsGood;
+            buttonPos = stageNumber - 4;
+            this.setStageButtons(false, true);
+        }
+        var button = buttonsArray[buttonPos];
+        button.button.visible = true;
+        button.text.visible = true;
+    */
 
     if (stageNumber !== (this.stages.length - 1)) {
         this.currentStageNumber++;
@@ -132,8 +138,11 @@ SituationStagesManager.prototype.onStageFinished = function (stageNumber) {
     } else {
         this.currentStageNumber = 0;
         // hide all buttons
-        this.setStageButtons(false, false);
-        this.setStageButtons(false, true);
+        // at some stage buttons stopped working. anyway: they are confusing for the user
+        /*
+                this.setStageButtons(false, false);
+                this.setStageButtons(false, true);
+        */
         this.situation.onSituationFinished();
     }
 };

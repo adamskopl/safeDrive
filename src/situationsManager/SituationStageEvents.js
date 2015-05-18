@@ -9,8 +9,8 @@ SituationStage.prototype.addEventVelocity = function (delay, objectId, velX, vel
     this.addEvent(delay, this.setVelocity, objectId, velX, velY, accelX, accelY);
 }
 
-SituationStage.prototype.addEventStartTurn = function (delay, objectId, pivotObject, velocity, callback, callbackContext) {
-    this.addEvent(delay, this.startObjectTurn, objectId, pivotObject, velocity, callback, callbackContext);
+SituationStage.prototype.addEventStartTurn = function (delay, objectId, pivotObject, targetAngle, velocity, callback, callbackContext) {
+    this.addEvent(delay, this.startObjectTurn, objectId, pivotObject, targetAngle, velocity, callback, callbackContext);
 }
 
 /**
@@ -40,6 +40,6 @@ SituationStage.prototype.setVelocity = function (objectId, velX, velY, accelX, a
     this.getObject(objectId).setVelocity(velX, velY, accelX, accelY);
 };
 
-SituationStage.prototype.startObjectTurn = function (objectId, pivotObject, velocity, callback, callbackContext) {
-    this.getObject(objectId).startObjectTurn(pivotObject, velocity, callback, callbackContext);
+SituationStage.prototype.startObjectTurn = function (objectId, pivotObject, targetAngle, velocity, callback, callbackContext) {
+    this.getObject(objectId).startObjectTurn(pivotObject, targetAngle, velocity, callback, callbackContext);
 };

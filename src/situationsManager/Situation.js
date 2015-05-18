@@ -52,7 +52,6 @@ Situation.prototype.initSituationObjects = function () {
 
         if (type === "roadTrigger") {
             // uncomment to make triggers invisible
-            //            initializedRoadObject.sprite.visible = false;
             initializedRoadObject.sprite.alpha = 0;
         }
     }
