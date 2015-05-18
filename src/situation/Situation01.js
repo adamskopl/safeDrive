@@ -1,8 +1,8 @@
 function Situation01() {}
 
 Situation01.prototype.sector = {
-    x: 0,
-    y: 2
+    x: 1,
+    y: 0
 };
 
 Situation01.prototype.title = ["Wymijanie na przejściu", "dla pieszych"];

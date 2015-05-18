@@ -25,6 +25,8 @@ SituationsManager.prototype.initSituations = function () {
     var concrete_situations = [new Situation01(),
                                new Situation02(),
                                new Situation03(),
+                               new Situation04(),
+                               new Situation05()
                               ];
 
     var presenterSprite = this.game.add.sprite(440, 350, 'presenter');
@@ -36,7 +38,7 @@ SituationsManager.prototype.initSituations = function () {
         var newSituation = new Situation(this.game, this.roadObjectsFactory, this, concrete_situation, presenterSprite, this.fx);
         this.pushNewSituation(newSituation);
 
-        this.notificationsFactory.addNotification(i, concrete_situation.title, 200, 100 + 100 * i);
+        this.notificationsFactory.addNotification(i, concrete_situation.title, 200, 40 + 100 * i);
         this.notificationsFactory.getNotification(i).addConfirmButton(
             this.startSituation, this, i);
 
@@ -46,7 +48,7 @@ SituationsManager.prototype.initSituations = function () {
     this.startMenu();
 
     // uncomment to automatically start desired situation
-    //    this.game.time.events.add(300, this.startSituation, this, 2);
+    this.game.time.events.add(300, this.startSituation, this, 3);
 
 }
 
