@@ -29,7 +29,7 @@ Situation01.prototype.situationPlan = [
         "type": "roadObject",
         "sprite": "pedestrian",
         "name": sConstants.OBJECT_PEDESTRIAN,
-        "posX": 630,
+        "posX": 700,
         "posY": 110,
         "angle": 0
     },

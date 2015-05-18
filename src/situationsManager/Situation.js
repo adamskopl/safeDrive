@@ -44,14 +44,11 @@ Situation.prototype.initSituationObjects = function () {
         initializedRoadObject.setPos(posX, posY);
         initializedRoadObject.sprite.angle = angle;
 
-        if (angle === -90) {
+        if (angle === -90 || angle == 90) {
             // probably better (proper) solution will be needed
             // change body's width with height
             initializedRoadObject.sprite.body.setSize(initializedRoadObject.sprite.height, initializedRoadObject.sprite.width);
         }
-
-        initializedRoadObject.text.text = name;
-        initializedRoadObject.setTextPos(400, i * 15);
 
         if (type === "roadTrigger") {
             // uncomment to make triggers invisible
@@ -117,7 +114,22 @@ Situation.prototype.initStage = function (stageNumber, badStage) {
 Situation.prototype.startSituation = function () {
     this.situationInProgress = true;
     this.notificationsFactory.presenterSprite.visible = true;
+    this.setObjectsTextPositions();
     this.startStage(0);
+};
+
+Situation.prototype.setObjectsTextPositions = function () {
+    // remove all texts from the screen
+    for (key in this.roadObjectsFactory.roadObjects) {
+        var object = this.roadObjectsFactory.get(key);
+        object.setTextPos(-999, 999);
+    }
+    // set texts only for objects from this situation
+    for (var i = 0; i < this.concreteSituation.situationPlan.length; i++) {
+        var name = this.concreteSituation.situationPlan[i].name;
+        var initializedRoadObject = this.roadObjectsFactory.get(name);
+        initializedRoadObject.setTextPos(400, i * 15);
+    }
 };
 
 Situation.prototype.startStage = function (stageNumber) {

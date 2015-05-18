@@ -54,8 +54,9 @@
                 game.load.image('trigger', 'assets/trigger.png');
                 game.load.image('presenter', 'assets/presenter.png');
                 game.load.image('balloonBackground', 'assets/balloonBackground.png');
-                //                game.load.spritesheet('jimmy', 'assets/jimmy_big.png', 69, 110);
                 game.load.image('pedestrian', 'assets/pedestrian_15.png');
+                game.load.image('bike', 'assets/bike.png');
+                game.load.image('ball', 'assets/shinyball.png');
                 game.load.spritesheet('oknotok', 'assets/okNotOk.png', 135, 135);
                 game.load.image('reload', 'assets/reload.png');
 
@@ -98,7 +99,7 @@
             function render() {
                 // debug all sprites in factory's roadObjectsGroup
                 roadObjectsFactory.roadObjectsGroup.forEach(function (item) {
-                    //                    game.debug.body(item);
+                    game.debug.body(item);
                     // uncomment to debut sprite's name
                     //                    game.debug.text(item.name, item.x, item.y);
                 });

@@ -23,7 +23,7 @@ BackgroundManipulator.prototype.resetBackground = function () {
 
 BackgroundManipulator.prototype.addZoomTween = function (tweenObject) {
     this.game.add.tween(this.background).to(tweenObject,
-        this.zoomSpeed, this.zoomFunction, true, 0, false);
+        this.zoomSpeed, this.zoomFunction, true);
 };
 
 /**

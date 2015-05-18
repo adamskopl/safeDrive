@@ -4,6 +4,7 @@ RoadObject = function (factory, name, sprite, game) {
 
     this.factory = factory;
     this.name = name;
+    this.game = game;
 
     this.sprite = sprite;
     this.sprite.name = name;
@@ -70,8 +71,39 @@ RoadObject.prototype.setVelocity = function (velX, velY, accelX, accelY) {
     this.sprite.body.velocity.y = velY;
     this.sprite.body.acceleration.x = newAccelX;
     this.sprite.body.acceleration.y = newAccelY;
-}
+};
 
 RoadObject.prototype.updateText = function () {
     this.text.text = this.name + " [" + this.sprite.x + ", " + this.sprite.y + "]";
+};
+
+RoadObject.prototype.startObjectTurn = function (pivotObjectName, velocity, callback, callbackContext) {
+    this.rotationAngle = {
+        angle: 0
+    };
+    this.rotationMem = 0;
+    var pivotObject = this.factory.get(pivotObjectName);
+    this.pivotX = pivotObject.sprite.x;
+    this.pivotY = pivotObject.sprite.y;
+
+    this.game.add.tween(this.sprite).to({
+        angle: 180
+    }, velocity, Phaser.Easing.Linear.In, true, 0, 0);
+
+    var tweenRotation = this.game.add.tween(this.rotationAngle).to({
+        angle: 90
+    }, velocity, Phaser.Easing.Linear.In, true, 0, 0);
+
+    tweenRotation.onUpdateCallback(function () {
+        this.diff = this.rotationAngle.angle - this.rotationMem;
+        this.rotationMem = this.rotationAngle.angle;
+        this.sprite.position.rotate(this.pivotX, this.pivotY, this.game.math.wrapAngle(this.diff), true);
+    }, this);
+
+    // set new body size
+    tweenRotation.onComplete.add(function () {
+        this.sprite.body.setSize(this.sprite.width, this.sprite.height);
+    }, this);
+    tweenRotation.onComplete.add(callback, callbackContext);
+
 };

@@ -9,6 +9,10 @@ SituationStage.prototype.addEventVelocity = function (delay, objectId, velX, vel
     this.addEvent(delay, this.setVelocity, objectId, velX, velY, accelX, accelY);
 }
 
+SituationStage.prototype.addEventStartTurn = function (delay, objectId, pivotObject, velocity, callback, callbackContext) {
+    this.addEvent(delay, this.startObjectTurn, objectId, pivotObject, velocity, callback, callbackContext);
+}
+
 /**
  * Add event (function) which will be invoked after given delay.
  * @param {Number}   delay Delay after which function will be invoked.
@@ -34,4 +38,8 @@ SituationStage.prototype.fireEvent = function (event) {
 
 SituationStage.prototype.setVelocity = function (objectId, velX, velY, accelX, accelY) {
     this.getObject(objectId).setVelocity(velX, velY, accelX, accelY);
+};
+
+SituationStage.prototype.startObjectTurn = function (objectId, pivotObject, velocity, callback, callbackContext) {
+    this.getObject(objectId).startObjectTurn(pivotObject, velocity, callback, callbackContext);
 };

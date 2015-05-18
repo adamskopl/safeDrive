@@ -27,8 +27,8 @@ function Notification(factory, game, id, textArray, presenterSprite, x, y, fx) {
     textArray.forEach(function (entry) {
         var newText = game.add.text(-999, -999, entry, {
             font: "20px Arial",
-            fill: '#b52626',
-            backgroundColor: 'rgb(0,255,0,0.25)' // not working...
+            fill: '#b52626'
+                //            backgroundColor: 'rgb(0,255,0,0.25)'
         });
         newText.anchor.setTo(0, 0);
 
@@ -107,15 +107,15 @@ Notification.prototype.balloonGrow = function () {
     }
     this.game.add.tween(this.balloon).to({
         width: this.width
-    }, this.growSpeed, Phaser.Easing.Linear.None, true, this.growSpeed, 0, true);
+    }, this.growSpeed, Phaser.Easing.Linear.None, true);
 
     this.game.add.tween(this.balloon).to({
         height: this.height
-    }, this.growSpeed, Phaser.Easing.Linear.None, true, this.growSpeed, 0, true);
+    }, this.growSpeed, Phaser.Easing.Linear.None, true);
 
     this.game.add.tween(this.balloon).to({
         height: this.height
-    }, this.growSpeed, Phaser.Easing.Linear.None, true, this.growSpeed, 0, true);
+    }, this.growSpeed, Phaser.Easing.Linear.None, true);
 };
 
 Notification.prototype.balloonShrink = function () {
@@ -124,11 +124,11 @@ Notification.prototype.balloonShrink = function () {
     }
     this.game.add.tween(this.balloon).to({
         width: 1
-    }, this.growSpeed, Phaser.Easing.Linear.None, true, this.growSpeed, 0, true);
+    }, this.growSpeed, Phaser.Easing.Linear.None, true);
 
     this.game.add.tween(this.balloon).to({
         height: 1
-    }, this.growSpeed, Phaser.Easing.Linear.None, true, this.growSpeed, 0, true);
+    }, this.growSpeed, Phaser.Easing.Linear.None, true);
 };
 
 Notification.prototype.getWidth = function (textArray) {

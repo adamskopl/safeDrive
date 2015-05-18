@@ -36,10 +36,11 @@ function SituationStage(manager, game, roadObjectsFactory) {
  * positions applied. If object's position is not set through this function, starting positions will be
  * taken from RoadObjectsFactory at the stage's start.
  */
-SituationStage.prototype.addStartingPosition = function (roName, posX, posY) {
+SituationStage.prototype.addStartingPosition = function (roName, posX, posY, angle) {
     this.startingPositions[roName] = {
         x: posX,
-        y: posY
+        y: posY,
+        angle: angle
     };
 }
 
@@ -48,7 +49,8 @@ SituationStage.prototype.addStartingPositionsFromStage = function (stageNumber) 
     for (var posEntry in otherStage.startingPositions) {
         this.startingPositions[posEntry] = {
             x: otherStage.startingPositions[posEntry].x,
-            y: otherStage.startingPositions[posEntry].y
+            y: otherStage.startingPositions[posEntry].y,
+            angle: angle
         };
     }
 }
@@ -60,7 +62,6 @@ SituationStage.prototype.addStartingPositionsFromStage = function (stageNumber) 
  * @param {Number} velY   object's starting y velocity
  */
 SituationStage.prototype.addStartingVelocity = function (roName, velX, velY, accelX, accelY) {
-
     var newAccelX = accelX;
     var newAccelY = accelY;
     if (accelX === undefined) newAccelX = 0;
@@ -71,6 +72,10 @@ SituationStage.prototype.addStartingVelocity = function (roName, velX, velY, acc
         accelX: newAccelX,
         accelY: newAccelY
     };
+};
+
+SituationStage.prototype.addStartingVelocityTurn = function (roName) {
+
 };
 
 SituationStage.prototype.addStartingAnimation = function (roName, animationName) {
@@ -110,14 +115,22 @@ SituationStage.prototype.addCollisionHandler = function (sprite1Name, sprite2Nam
 SituationStage.prototype.start = function () {
     this.rememberStartingPositionsOnce();
     // set sprites starting positions, turn body movement off
-    for (var objectKey in this.roadObjectsFactory.roadObjects) {
+    for (var objectKey in this.startingPositions) {
         var object = this.roadObjectsFactory.roadObjects[objectKey];
         // turn off moving to manually change sprite's position
         object.sprite.body.moves = false;
         var posX = this.startingPositions[objectKey].x;
         var posY = this.startingPositions[objectKey].y;
+        var angle = this.startingPositions[objectKey].angle;
         object.sprite.x = posX;
         object.sprite.y = posY;
+        object.sprite.angle = angle;
+
+        if (angle === -90 || angle == 90) {
+            // probably better (proper) solution will be needed
+            // change body's width with height
+            object.sprite.body.setSize(object.sprite.height, object.sprite.width);
+        }
 
         if (this.startingAnimations[objectKey] !== undefined) {
             object.sprite.animations.play(this.startingAnimations[objectKey]);
@@ -145,7 +158,8 @@ SituationStage.prototype.rememberStartingPositionsOnce = function () {
         for (var posEntry in otherStage.startingPositions) {
             this.startingPositions[posEntry] = {
                 x: otherStage.startingPositions[posEntry].x,
-                y: otherStage.startingPositions[posEntry].y
+                y: otherStage.startingPositions[posEntry].y,
+                angle: otherStage.startingPositions[posEntry].angle
             };
         }
         return;
@@ -156,7 +170,8 @@ SituationStage.prototype.rememberStartingPositionsOnce = function () {
         if (this.startingPositions[ro] === undefined) {
             this.startingPositions[ro] = {
                 x: this.roadObjectsFactory.roadObjects[ro].sprite.x,
-                y: this.roadObjectsFactory.roadObjects[ro].sprite.y
+                y: this.roadObjectsFactory.roadObjects[ro].sprite.y,
+                angle: this.roadObjectsFactory.roadObjects[ro].sprite.angle
             };
         }
     }
