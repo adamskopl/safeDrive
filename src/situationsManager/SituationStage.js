@@ -57,21 +57,35 @@ SituationStage.prototype.addStartingPositionsFromStage = function (stageNumber) 
 
 /**
  * Add starting velocity to starting velocities dictionary. When stage starts, objects will have velocities applied.
- * @param {String} roName road object's id
+ * @param {String} roName road object's id, or array of objects ids
  * @param {Number} velX   object's starting x velocity
  * @param {Number} velY   object's starting y velocity
  */
 SituationStage.prototype.addStartingVelocity = function (roName, velX, velY, accelX, accelY) {
-    var newAccelX = accelX;
-    var newAccelY = accelY;
-    if (accelX === undefined) newAccelX = 0;
-    if (accelY === undefined) newAccelY = 0;
-    this.startingVelocities[roName] = {
-        x: velX,
-        y: velY,
-        accelX: newAccelX,
-        accelY: newAccelY
-    };
+    var objNum = 1;
+    var objArray;
+    // if array of names passed...
+    if (typeof (roName) === "object") {
+        objNum = roName.length;
+        objArray = roName;
+    }
+
+    for (i = 0; i < objNum; i++) {
+        if (objNum > 1) {
+            roName = objArray[i];
+        }
+
+        var newAccelX = accelX;
+        var newAccelY = accelY;
+        if (accelX === undefined) newAccelX = 0;
+        if (accelY === undefined) newAccelY = 0;
+        this.startingVelocities[roName] = {
+            x: velX,
+            y: velY,
+            accelX: newAccelX,
+            accelY: newAccelY
+        };
+    }
 };
 
 SituationStage.prototype.addStartingVelocityTurn = function (roName) {

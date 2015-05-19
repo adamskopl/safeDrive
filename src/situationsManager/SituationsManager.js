@@ -48,7 +48,7 @@ SituationsManager.prototype.initSituations = function () {
     this.startMenu();
 
     // uncomment to automatically start desired situation
-    this.game.time.events.add(300, this.startSituation, this, 3);
+    //    this.game.time.events.add(300, this.startSituation, this, 4);
 
 }
 

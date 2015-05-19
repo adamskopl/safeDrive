@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>SafeDrive</title>
-    <script src="src/phaser.min.js"></script>
+    <script src="src/phaser.min.v2.3.0.js"></script>
     <script src="src/roadObject/RoadObject.js"></script>
     <script src="src/roadObject/RoadObjectFactory.js"></script>
     <script src="src/situationsManager/SituationStagesManager.js"></script>
@@ -53,9 +53,11 @@
             function preload() {
                 game.load.image('car01', 'assets/car01_15.png');
                 game.load.image('car02', 'assets/car02_15.png');
+                game.load.image('bus', 'assets/bus.png');
                 game.load.image('scene01', 'assets/scene01.png');
                 game.load.image('scenebig', 'assets/scene_big.png');
                 game.load.image('trigger', 'assets/trigger.png');
+                game.load.image('trigger_big', 'assets/trigger_big.png');
                 game.load.image('presenter', 'assets/presenter.png');
                 game.load.image('balloonBackground', 'assets/balloonBackground.png');
                 game.load.image('pedestrian', 'assets/pedestrian_15.png');
