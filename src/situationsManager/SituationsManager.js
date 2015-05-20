@@ -9,13 +9,15 @@ function SituationsManager(game, roadObjectsFactory, backgroundManipulator, fx) 
     this.situationsPointer = -1;
     this.notificationsFactory = new NotificationsFactory(this.game, undefined, undefined, fx);
 
-    this.initSituations();
-
-    this.buttonMenu = this.game.add.button(550, 400, 'reload', function () {
+    var margin = 5;
+    this.buttonMenu = this.game.add.button(565 - margin, 0 + margin, 'reload', function () {
         this.backToMenu();
-        this.fx.play("click");
-    }, this, 1, 0, 1);
-    this.buttonMenu.scale.setTo(0.2, 0.2);
+    }, this, 1, 0, 2, 0);
+    this.buttonMenu.scale.setTo(0.75, 0.75);
+    this.buttonMenu.setSounds(fx, 'click3', fx, 'click1');
+
+
+    this.initSituations();
 
     // FIXME: button menu is not working properly, when clicked in the middle of situation's progress
     this.buttonMenu.visible = false;
@@ -82,6 +84,7 @@ SituationsManager.prototype.startMenu = function () {
     this.roadObjectsFactory.reset();
     this.backgroundManipulator.resetZoom();
     this.notificationsFactory.startAllNotifications(0);
+    this.buttonMenu.visible = false;
 };
 
 SituationsManager.prototype.backToMenu = function () {
@@ -111,6 +114,7 @@ SituationsManager.prototype.startSituation = function (number) {
         ss.startSituation();
     }
     this.situationsPointer = number;
+    this.buttonMenu.visible = true;
 };
 
 SituationsManager.prototype.pushNewSituation = function (NewSituation) {

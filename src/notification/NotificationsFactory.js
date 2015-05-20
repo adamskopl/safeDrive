@@ -50,6 +50,12 @@ NotificationsFactory.prototype.setNotification = function (id, show) {
     }
 };
 
+NotificationsFactory.prototype.setNotificationsAll = function (show) {
+    for (key in this.notifications) {
+        this.setNotification(key, show);
+    }
+}
+
 /**
  * Display notification with given time delay and duration.
  * @param {String} id       Notification's id.
