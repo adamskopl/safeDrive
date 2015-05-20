@@ -134,23 +134,16 @@ Situation05.prototype.instructionTexts = {
     bad: {
         name: "situationIntroducion",
         text: [
-"Prezentacja 55555555555 (...)",
-"(...)",
-"(...)",
-"(...)",
-"(...)",
-"Na (...)",
-"(...)",
-"(...)",
-"(...)",
-" ,",
-"doprpieszego."]
+        "Opis sytuacji.",
+        "Opis sytuacji.",
+        "Opis sytuacji."]
     },
     good: {
         name: "goodIntroduction",
         text: [
-"555555.",
-"55555555 prawidłowa sytuacja?"
+                "Z braku rozwagi dochodzi do tragedii.",
+                "Jak powinna wyglądać prawidłowa",
+                "sytuacja?"
         ]
     }
 };

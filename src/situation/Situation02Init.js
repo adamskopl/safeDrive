@@ -7,15 +7,18 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
         stage.addStartingVelocity(sConstants.OBJECT_BIKE, 0, stageBikeSpeed);
         stage.addStartingVelocity(sConstants.OBJECT_CAR_A, 0, carSpeed);
 
-        stage.notification().addNotificationCallback(sConstants.N02_02_BIKE_INTRO, [
+        stage.notification().addNotification(
+            sConstants.N02_02_BIKE_INTRO, [
             "Tymczasem ścieżką rowerową jedzie",
             "rozpędzony rowerzysta. Zbliża",
             "się do odcinka ścieżki, przebiegającej",
             "przez ulicę."
-            ], function () {
-            this.addEvent(0, this.setFinished);
+            ],
+            undefined, undefined,
+            function () {
+                this.addEvent(0, this.setFinished);
 
-        }, stage);
+            }, stage);
 
         stage.addCollisionHandler(sConstants.T02_02_CAR_TURN, sConstants.OBJECT_CAR_A,
             function () {
@@ -31,13 +34,16 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
 
         stage.addStartingVelocity(sConstants.OBJECT_CAR_A, 0, carSpeed);
 
-        stage.notification().addNotificationCallback(sConstants.N02_01_CAR_TURN, [
+        stage.notification().addNotification(
+            sConstants.N02_01_CAR_TURN, [
             "Kierowca zbliża się do skrzyżowania",
             "z zamiarem skrętu w prawo."
-            ], function () {
-            this.addEvent(0, this.setFinished);
+            ],
+            undefined, undefined,
+            function () {
+                this.addEvent(0, this.setFinished);
 
-        }, stage);
+            }, stage);
 
         stage.addCollisionHandler(sConstants.T02_01_CAR_INTRO, sConstants.OBJECT_CAR_A,
             function () {
@@ -55,15 +61,18 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
 
         stage.addStartingNotificationPlay(sConstants.N02_03_CAR_A_CONTIMUE);
 
-        stage.notification().addNotificationCallback(sConstants.N02_03_CAR_A_CONTIMUE, [
+        stage.notification().addNotification(
+            sConstants.N02_03_CAR_A_CONTIMUE, [
             "Kierowca nie zachowując ostrożności,",
             "kontynuuje manewr skrętu w prawo."
-            ], function () {
-            this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, bikeSpeed);
-            this.addEventStartTurn(0, sConstants.OBJECT_CAR_A, sConstants.OBJECT_ROTATION_P, 180, 600, function () {
-                this.setFinished();
+            ],
+            undefined, undefined,
+            function () {
+                this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, bikeSpeed);
+                this.addEventStartTurn(0, sConstants.OBJECT_CAR_A, sConstants.OBJECT_ROTATION_P, 180, 600, function () {
+                    this.setFinished();
+                }, stage);
             }, stage);
-        }, stage);
 
         break;
     case 3:
@@ -79,11 +88,14 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
                     sConstants.N02_04_COLLISION);
             });
 
-        stage.notification().addNotificationCallback(sConstants.N02_04_COLLISION, [
+        stage.notification().addNotification(
+            sConstants.N02_04_COLLISION, [
             "Dochodzi do kolizji."
-            ], function () {
-            this.notification().startNotification(Situation02.prototype.instructionTexts.good.name);
-        }, stage);
+            ],
+            undefined, undefined,
+            function () {
+                this.notification().startNotification(Situation02.prototype.instructionTexts.good.name);
+            }, stage);
 
         break;
         // -------------------------------------------------
@@ -97,32 +109,38 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
     case 6:
         stage.addStartingNotificationPlay(sConstants.N02_06_CAR_A_CONTINUE);
 
-        stage.notification().addNotificationCallback(sConstants.N02_06_CAR_A_CONTINUE, [
+        stage.notification().addNotification(
+            sConstants.N02_06_CAR_A_CONTINUE, [
             "Kierowca widzac ścieżkę rowerową,",
             "zachowuje ostrożność i wykonuje manewr",
             "skrętu z odpowiednią prędkością."
-            ], function () {
-            this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, bikeSpeed / 2);
-            this.addEventStartTurn(0, sConstants.OBJECT_CAR_A, sConstants.OBJECT_ROTATION_P,
-                180, 2000,
-                function () {
-                    this.setFinished();
-                }, stage);
-        }, stage);
+            ],
+            undefined, undefined,
+            function () {
+                this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, bikeSpeed / 2);
+                this.addEventStartTurn(0, sConstants.OBJECT_CAR_A, sConstants.OBJECT_ROTATION_P,
+                    180, 2000,
+                    function () {
+                        this.setFinished();
+                    }, stage);
+            }, stage);
 
         break;
     case 7:
         stage.addStartingNotificationPlay(sConstants.N02_07_WAIT);
 
-        stage.notification().addNotificationCallback(sConstants.N02_07_WAIT, [
+        stage.notification().addNotification(
+            sConstants.N02_07_WAIT, [
             "Kierowca nie spiesząc się, zauważa",
             "w porę rowerzystę i czeka, aż ten",
             "przejedzie dalej."
-            ], function () {
-            this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, bikeSpeed);
-            this.addEventVelocity(1.2, sConstants.OBJECT_CAR_A, -carSpeed / 8, 0, -500, 0);
-            this.addEvent(3, this.setFinished);
-        }, stage);
+            ],
+            undefined, undefined,
+            function () {
+                this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, bikeSpeed);
+                this.addEventVelocity(1.2, sConstants.OBJECT_CAR_A, -carSpeed / 8, 0, -500, 0);
+                this.addEvent(3, this.setFinished);
+            }, stage);
 
         break;
     default:

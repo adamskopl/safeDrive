@@ -13,7 +13,7 @@ function SituationsManager(game, roadObjectsFactory, backgroundManipulator, fx) 
 
     this.buttonMenu = this.game.add.button(550, 400, 'reload', function () {
         this.backToMenu();
-        this.fx.play("numkey");
+        this.fx.play("click");
     }, this, 1, 0, 1);
     this.buttonMenu.scale.setTo(0.2, 0.2);
 
@@ -31,15 +31,19 @@ SituationsManager.prototype.initSituations = function () {
 
     var presenterSprite = this.game.add.sprite(440, 350, 'presenter');
     presenterSprite.scale.setTo(0.4, 0.4);
-    presenterSprite.visible = false;
+    if (!sConstants.PRESENTER_VISIBLE) {
+        presenterSprite.visible = false;
+    }
 
     for (var i = 0; i < concrete_situations.length; i++) {
         var concrete_situation = concrete_situations[i];
+
         var newSituation = new Situation(this.game, this.roadObjectsFactory, this, concrete_situation, presenterSprite, this.fx);
         this.pushNewSituation(newSituation);
 
-        this.notificationsFactory.addNotification(i, concrete_situation.title, 200, 40 + 100 * i);
-        this.notificationsFactory.getNotification(i).addConfirmButton(
+        this.notificationsFactory.addNotification(
+            i, concrete_situation.title,
+            200, 40 + 100 * i,
             this.startSituation, this, i);
 
         // reset objects for correct Situation.prototype.initStage invoke
@@ -48,7 +52,9 @@ SituationsManager.prototype.initSituations = function () {
     this.startMenu();
 
     // uncomment to automatically start desired situation
-    //    this.game.time.events.add(300, this.startSituation, this, 4);
+    if (sConstants.DEBUG) {
+        this.game.time.events.add(300, this.startSituation, this, sConstants.DEBUG_SITUATION);
+    }
 
 }
 
@@ -83,9 +89,11 @@ SituationsManager.prototype.startSituation = function (number) {
     var sectorCoords = ss.getSector();
     this.backgroundManipulator.zoomToSector(sectorCoords.x, sectorCoords.y);
     // start stage's introduction notification which will start the situation
-    //    ss.notificationsFactory.startNotification(ss.concreteSituation.instructionTexts.bad.name, 0);
-
-    ss.startSituation();
+    if (!sConstants.DEBUG) {
+        ss.notificationsFactory.startNotification(ss.concreteSituation.instructionTexts.bad.name, 0);
+    } else {
+        ss.startSituation();
+    }
     this.situationsPointer = number;
 };
 

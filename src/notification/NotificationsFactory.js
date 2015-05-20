@@ -9,29 +9,23 @@ function NotificationsFactory(game, instructionTexts, presenterSprite, fx) {
 }
 
 /**
- * Add notification.
- * @param {String}   id         notification's id
- *                              @param {Array}    textArray  [[Description]]
- * @param {Object} roadObject [[Description]]
+ * Add notification with a callback.
+ * @param {String}   id              notification's id
+ * @param {Array}    textArray       array with strings to display
+ * @param {Number}   x               notification's position x.
+ *                                   if undefined: position will be taken from presenter sprite
+ * @param {Number}   y               notification's position x.
+ *                                   if undefined: position will be taken from presenter sprite
+ * @param {Function} callback        callback function
+ * @param {Object}   callbackContext callback context
  */
-NotificationsFactory.prototype.addNotification = function (id, textArray, x, y) {
+NotificationsFactory.prototype.addNotification = function (
+    id, textArray, x, y, callback, callbackContext) {
 
-    if (this.getNotification(id) !== undefined) {
-        console.log("NotificationsFactory.addNotification(): " + id + "alreadyExists");
-        return;
-    }
+    var callArgs = Array.prototype.splice.call(arguments, 6);
 
-    this.notifications[id] = new Notification(this, this.game, id, textArray, this.presenterSprite, x, y, this.fx);
-};
+    this.notifications[id] = new Notification(this, this.game, id, textArray, this.presenterSprite, x, y, this.fx, callback, callbackContext, callArgs);
 
-/**
- * Add notification with a confirm button and a callback invoked when button is pressed.
- */
-NotificationsFactory.prototype.addNotificationCallback = function (
-    id, textArray, callback, callbackContext, x, y) {
-
-    this.notifications[id] = new Notification(this, this.game, id, textArray, this.presenterSprite, x, y, this.fx);
-    this.notifications[id].addConfirmButton(callback, callbackContext);
 };
 
 /**

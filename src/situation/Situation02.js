@@ -5,7 +5,7 @@ Situation02.prototype.sector = {
     y: 1
 };
 
-Situation02.prototype.title = ["Przejeżdżanie przez", "ścieżkę rowerową"];
+Situation02.prototype.title = ["Przecinanie", "ścieżki rowerowej."];
 
 Situation02.prototype.collisions = [
     [sConstants.T02_01_CAR_INTRO, sConstants.OBJECT_CAR_A],
@@ -27,7 +27,7 @@ Situation02.prototype.situationPlan = [
         "sprite": "car01",
         "name": sConstants.OBJECT_CAR_A,
         "posX": 350,
-        "posY": -100,
+        "posY": -500,
         "angle": 90
     },
     {
@@ -60,23 +60,16 @@ Situation02.prototype.instructionTexts = {
     bad: {
         name: "situationIntroducion",
         text: [
-"Prezentacja 2 (...)",
-"(...)",
-"(...)",
-"(...)",
-"(...)",
-"Na (...)",
-"(...)",
-"(...)",
-"(...)",
-" ,",
-"doprpieszego."]
+        "Opis sytuacji.",
+        "Opis sytuacji.",
+        "Opis sytuacji."]
     },
     good: {
         name: "goodIntroduction",
         text: [
-"222.",
-"J2222 prawidłowa sytuacja?"
+                "Z braku rozwagi dochodzi do tragedii.",
+                "Jak powinna wyglądać prawidłowa",
+                "sytuacja?"
         ]
     }
 };

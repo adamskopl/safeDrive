@@ -19,6 +19,10 @@ RoadObjectFactory.prototype.create = function (id, spriteName) {
         newSprite.animations.add('walk', [1, 1], 0, true);
     }
 
+    if (spriteName === 'ball' && !sConstants.DEBUG) {
+        newSprite.visible = false;
+    }
+
     var newRObject = new RoadObject(this, id, newSprite, this.game);
     this.roadObjects[id] = newRObject;
     return newRObject;

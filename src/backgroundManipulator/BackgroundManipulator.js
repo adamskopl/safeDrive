@@ -8,7 +8,7 @@ BackgroundManipulator = function (game) {
     this.sectorH = this.background.height / this.sectorsNumber;
 
     this.zoomFunction = Phaser.Easing.Cubic.Out;
-    this.zoomSpeed = 1000;
+    this.zoomSpeed = 2000;
 
     this.resetBackground();
 }

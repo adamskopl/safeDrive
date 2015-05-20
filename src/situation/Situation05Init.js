@@ -36,13 +36,16 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
     case 1:
         stage.addStartingNotificationPlay(sConstants.N05_02_BUS_OUT);
 
-        stage.notification().addNotificationCallback(sConstants.N05_02_BUS_OUT, [
+        stage.notification().addNotification(
+            sConstants.N05_02_BUS_OUT, [
             "Pasażerowie opuszczają",
             "autobus."
-            ], function () {
-            this.getObject(sConstants.OBJECT_PEDESTRIAN).setVelocity(-pedestrianSpeed, 0);
-            this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(-pedestrianSpeed, 0);
-        }, stage);
+            ],
+            undefined, undefined,
+            function () {
+                this.getObject(sConstants.OBJECT_PEDESTRIAN).setVelocity(-pedestrianSpeed, 0);
+                this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(-pedestrianSpeed, 0);
+            }, stage);
 
 
         stage.addCollisionHandler(sConstants.T05_02_PED_TURN, sConstants.OBJECT_PEDESTRIAN,
@@ -71,17 +74,20 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
     case 2:
         stage.addStartingNotificationPlay(sConstants.N05_03_PED_TURN);
 
-        stage.notification().addNotificationCallback(sConstants.N05_03_PED_TURN, [
+        stage.notification().addNotification(
+            sConstants.N05_03_PED_TURN, [
             "Jednemu z nich wyjątkowo się",
             "spieszy i chcąc przejść na drugą",
             "stronę ulicy, postanawia pójść",
             "najkrótszą, niekoniecznie bezpieczną",
             "drogą."
-            ], function () {
-            this.getObject(sConstants.OBJECT_PEDESTRIAN_3).sprite.angle = 180;
-            this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(pedestrianSpeed, 0);
-            this.getObject(sConstants.OBJECT_PEDESTRIAN_2).setVelocity(0, -pedestrianSpeed);
-        }, stage);
+            ],
+            undefined, undefined,
+            function () {
+                this.getObject(sConstants.OBJECT_PEDESTRIAN_3).sprite.angle = 180;
+                this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(pedestrianSpeed, 0);
+                this.getObject(sConstants.OBJECT_PEDESTRIAN_2).setVelocity(0, -pedestrianSpeed);
+            }, stage);
 
         stage.addCollisionHandler(sConstants.T05_03_PED_CONTINUE, sConstants.OBJECT_PEDESTRIAN_3,
             function () {
@@ -91,13 +97,16 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
                     sConstants.N05_03_PED_CONTINUE);
             });
 
-        stage.notification().addNotificationCallback(sConstants.N05_03_PED_CONTINUE, [
+        stage.notification().addNotification(
+            sConstants.N05_03_PED_CONTINUE, [
             "Być może zamyślony, nie bierze pod",
             "uwagę, że zza autobusu może",
             "coś wyjechać..."
-            ], function () {
-            this.setFinished();
-        }, stage);
+            ],
+            undefined, undefined,
+            function () {
+                this.setFinished();
+            }, stage);
 
         break;
     case 3:
@@ -118,12 +127,15 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_2).sprite.angle = 180;
             });
 
-        stage.notification().addNotificationCallback(sConstants.N05_04_COLLISION, [
+        stage.notification().addNotification(
+            sConstants.N05_04_COLLISION, [
             "Przez nierozwagę dochodzi do",
             "wypadku.",
-            ], function () {
-            this.notification().startNotification(Situation05.prototype.instructionTexts.good.name);
-        }, stage);
+            ],
+            undefined, undefined,
+            function () {
+                this.notification().startNotification(Situation05.prototype.instructionTexts.good.name);
+            }, stage);
 
 
         break;
@@ -153,13 +165,16 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
                     sConstants.N05_07_PEDESTRIAN_PROPER);
             });
 
-        stage.notification().addNotificationCallback(sConstants.N05_07_PEDESTRIAN_PROPER, [
+        stage.notification().addNotification(
+            sConstants.N05_07_PEDESTRIAN_PROPER, [
             "Pieszy, chcąc dostać się na drugą",
             "stronę, korzysta z przejścia.",
-            ], function () {
-            this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(0, -pedestrianSpeed);
-            this.getObject(sConstants.OBJECT_PEDESTRIAN_2).setVelocity(0, -pedestrianSpeed);
-        }, stage);
+            ],
+            undefined, undefined,
+            function () {
+                this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(0, -pedestrianSpeed);
+                this.getObject(sConstants.OBJECT_PEDESTRIAN_2).setVelocity(0, -pedestrianSpeed);
+            }, stage);
 
         stage.addCollisionHandler(sConstants.T05_07_PED_CONTINUE_PROPER, sConstants.OBJECT_PEDESTRIAN_3,
             function () {
@@ -175,18 +190,23 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
                 this.getObject(sConstants.OBJECT_CAR_A).setVelocity(0, 0);
             });
 
-        stage.notification().addNotificationCallback(sConstants.N05_08_FINISH, [
+        stage.notification().addNotification(
+            sConstants.N05_08_FINISH, [
             "Kierowca przepuszcza pieszego.",
-            ], function () {
-            this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(pedestrianSpeed, 0);
-            this.getObject(sConstants.OBJECT_PEDESTRIAN_3).sprite.angle = 180;
-            this.getObject(sConstants.OBJECT_PEDESTRIAN_2).setVelocity(0, -pedestrianSpeed);
-            this.getObject(sConstants.OBJECT_CAR_A).setVelocity(0, -carSpeed / 2, 0, 100);
-            this.getObject(sConstants.OBJECT_BUS).setVelocity(0, busSpeed);
-        }, stage);
+            ],
+            undefined, undefined,
+            function () {
+                this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(pedestrianSpeed, 0);
+                this.getObject(sConstants.OBJECT_PEDESTRIAN_3).sprite.angle = 180;
+                this.getObject(sConstants.OBJECT_PEDESTRIAN_2).setVelocity(0, -pedestrianSpeed);
+                this.getObject(sConstants.OBJECT_CAR_A).setVelocity(0, -carSpeed / 2, 0, 100);
+                this.getObject(sConstants.OBJECT_BUS).setVelocity(0, busSpeed);
+            }, stage);
 
         stage.addCollisionHandler(sConstants.T05_08_CAR_CONTINUE, sConstants.OBJECT_PEDESTRIAN_3,
             function () {
+                this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(0, -pedestrianSpeed);
+                this.getObject(sConstants.OBJECT_PEDESTRIAN_3).sprite.angle = 90;
                 this.getObject(sConstants.OBJECT_CAR_A).setVelocity(0, -carSpeed / 10, 0, -100);
                 this.addEvent(4, this.setFinished);
             });

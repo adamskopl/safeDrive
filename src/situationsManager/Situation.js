@@ -65,18 +65,15 @@ Situation.prototype.initIntroduction = function () {
 
     this.notificationsFactory.addNotification(
         this.concreteSituation.instructionTexts.bad.name,
-        this.concreteSituation.instructionTexts.bad.text, 250, 200);
-
-    this.notificationsFactory.getNotification(
-        this.concreteSituation.instructionTexts.bad.name).addConfirmButton(
+        this.concreteSituation.instructionTexts.bad.text,
+        250, 200,
         this.startSituation, this);
 
-    this.notificationsFactory.addNotificationCallback(
+    this.notificationsFactory.addNotification(
         this.concreteSituation.instructionTexts.good.name,
         this.concreteSituation.instructionTexts.good.text,
-        SituationStage.prototype.setFinished,
-        this.situationStagesManager.getStage(3),
-        250, 200);
+        250, 200,
+        SituationStage.prototype.setFinished, this.situationStagesManager.getStage(3));
 
 };
 
@@ -112,7 +109,6 @@ Situation.prototype.initStage = function (stageNumber, badStage) {
 
 Situation.prototype.startSituation = function () {
     this.situationInProgress = true;
-    this.notificationsFactory.presenterSprite.visible = true;
     this.setObjectsTextPositions();
     this.startStage(0);
 };
@@ -127,7 +123,7 @@ Situation.prototype.setObjectsTextPositions = function () {
     for (var i = 0; i < this.concreteSituation.situationPlan.length; i++) {
         var name = this.concreteSituation.situationPlan[i].name;
         var initializedRoadObject = this.roadObjectsFactory.get(name);
-        initializedRoadObject.setTextPos(400, i * 15);
+        initializedRoadObject.setTextPos(10, i * 20);
     }
 };
 

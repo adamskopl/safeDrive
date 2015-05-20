@@ -29,7 +29,7 @@ Situation03.prototype.situationPlan = [
         "sprite": "car01",
         "name": sConstants.OBJECT_CAR_A,
         "posX": 250,
-        "posY": 550,
+        "posY": 900,
         "angle": -90
     },
     {
@@ -78,23 +78,16 @@ Situation03.prototype.instructionTexts = {
     bad: {
         name: "situationIntroducion",
         text: [
-"Prezentacja 333333333333333 (...)",
-"(...)",
-"(...)",
-"(...)",
-"(...)",
-"Na (...)",
-"(...)",
-"(...)",
-"(...)",
-" ,",
-"doprpieszego."]
+        "Opis sytuacji.",
+        "Opis sytuacji.",
+        "Opis sytuacji."]
     },
     good: {
         name: "goodIntroduction",
         text: [
-"3333333333.",
-"333333333333333 prawidłowa sytuacja?"
+                "Z braku rozwagi dochodzi do tragedii.",
+                "Jak powinna wyglądać prawidłowa",
+                "sytuacja?"
         ]
     }
 };

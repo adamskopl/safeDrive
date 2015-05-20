@@ -54,21 +54,22 @@
                 game.load.image('car01', 'assets/car01_15.png');
                 game.load.image('car02', 'assets/car02_15.png');
                 game.load.image('bus', 'assets/bus.png');
-                game.load.image('scene01', 'assets/scene01.png');
                 game.load.image('scenebig', 'assets/scene_big.png');
                 game.load.image('trigger', 'assets/trigger.png');
                 game.load.image('trigger_big', 'assets/trigger_big.png');
                 game.load.image('presenter', 'assets/presenter.png');
-                game.load.image('balloonBackground', 'assets/balloonBackground.png');
                 game.load.image('pedestrian', 'assets/pedestrian_15.png');
                 game.load.spritesheet('bike', 'assets/bike.png', 85, 43);
                 game.load.image('ball', 'assets/shinyball.png');
-                game.load.spritesheet('oknotok', 'assets/okNotOk.png', 135, 135);
                 game.load.image('reload', 'assets/reload.png');
+
+                game.load.spritesheet('button', 'assets/buttons/button_orange.png', 100, 100);
+                game.load.image('button_border_normal', 'assets/buttons/orange_normal_border.png');
+                game.load.image('button_border_pressed', 'assets/buttons/orange_pressed_border.png');
 
                 game.load.spritesheet('stageButtons', 'assets/button-round.png', 64, 64);
 
-                game.load.audio('sfx', 'assets/fx_mixdown.mp3');
+                game.load.audio('sfx', 'assets/fx/fx_mixdown.mp3');
             }
 
             var roadObjectsFactory;
@@ -80,15 +81,9 @@
 
                 fx = game.add.audio('sfx');
                 fx.allowMultiple = true;
-                fx.addMarker('alien death', 1, 1.0);
-                fx.addMarker('boss hit', 3, 0.5);
-                fx.addMarker('escape', 4, 3.2);
-                fx.addMarker('meow', 8, 0.5);
-                fx.addMarker('numkey', 9, 0.1);
-                fx.addMarker('ping', 10, 1.0);
-                fx.addMarker('death', 12, 4.2);
-                fx.addMarker('shot', 17, 1.0);
-                fx.addMarker('squit', 19, 0.3);
+                fx.addMarker('click1', 1.1, 0.25);
+                fx.addMarker('click2', 2, 0.25);
+                fx.addMarker('click3', 3, 0.25);
 
                 backgroundManipulator = new BackgroundManipulator(game);
                 roadObjectsFactory = new RoadObjectFactory(game);
@@ -105,7 +100,9 @@
             function render() {
                 // debug all sprites in factory's roadObjectsGroup
                 roadObjectsFactory.roadObjectsGroup.forEach(function (item) {
-                    game.debug.body(item);
+                    if (sConstants.DEBUG) {
+                        game.debug.body(item);
+                    }
                     // uncomment to debut sprite's name
                     //                    game.debug.text(item.name, item.x, item.y);
                 });

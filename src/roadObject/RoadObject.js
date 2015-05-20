@@ -13,23 +13,30 @@ RoadObject = function (factory, name, sprite, game) {
     game.physics.arcade.enable(this.sprite, Phaser.Physics.ARCADE);
     this.sprite.body.immovable = true;
 
-    this.sprite.inputEnabled = true;
-    this.sprite.input.enableDrag();
+    if (sConstants.DEBUG) {
+        // enable dragging
+        this.sprite.inputEnabled = true;
+        this.sprite.input.enableDrag();
 
-    this.sprite.events.onDragStart.add(function (sprite) {
-        sprite.body.moves = false;
-    }, this, this);
+        this.sprite.events.onDragStart.add(function (sprite) {
+            sprite.body.moves = false;
+        }, this, this);
 
-    this.sprite.events.onDragStop.add(function (sprite) {
-        // reset body with current sprite's position
-        sprite.body.reset(sprite.x, sprite.y);
-        sprite.body.moves = true;
-    }, this, this);
+        this.sprite.events.onDragStop.add(function (sprite) {
+            // reset body with current sprite's position
+            sprite.body.reset(sprite.x, sprite.y);
+            sprite.body.moves = true;
+        }, this, this);
+    }
 
     this.text = game.add.text(0, 0, '', {
-        font: "10px Arial",
+        font: "20px Arial",
         fill: '#de1f1f'
     });
+
+    if (!sConstants.DEBUG) {
+        this.text.visible = false;
+    }
 
     return this;
 };

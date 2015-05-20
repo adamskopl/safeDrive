@@ -5,7 +5,9 @@
  * @param {Array}    textArray  [[Description]]
  * @param {Object} presenter  [[Description]]
  */
-function Notification(factory, game, id, textArray, presenterSprite, x, y, fx) {
+function Notification(factory, game, id, textArray, presenterSprite, x, y, fx,
+    callback, callbackContext, callArgs) {
+
     this.game = game;
     this.factory = factory;
     this.id = id;
@@ -22,113 +24,115 @@ function Notification(factory, game, id, textArray, presenterSprite, x, y, fx) {
         this.notificationY = y;
     }
 
+    this.tweenFunction = Phaser.Easing.Linear.None;
+
     this.initBalloon(textArray);
+
+    this.buttonNew = {
+        buttonPhaser: this.game.add.button(
+            this.notificationX, this.notificationY,
+            'button', this.buttonClicked_PROPER, this,
+            1, 0, 2, 0),
+        frameUp: this.game.add.sprite(this.notificationX, this.notificationY + this.height / 2, 'button_border_normal'),
+        frameDown: this.game.add.sprite(this.notificationX, this.notificationY - this.height / 2, 'button_border_pressed'),
+        callback: callback,
+        callbackContext: callbackContext,
+        args: callArgs
+    };
+
+    this.buttonNew.buttonPhaser.setSounds(fx, 'click3', fx, 'click1');
+    this.buttonNew.buttonPhaser.anchor.setTo(0.5, 0.5);
+    this.buttonNew.frameUp.anchor.setTo(0.5, 0.5);
+    this.buttonNew.frameDown.anchor.setTo(0.5, 0.5);
+    this.buttonNew.buttonPhaser.visible = false;
+    this.buttonNew.frameUp.visible = false;
+    this.buttonNew.frameUp.height = 3;
+    this.buttonNew.frameDown.visible = false;
+    this.buttonNew.frameDown.height = 3;
+
+    this.buttonNew.buttonPhaser.onInputDown.add(function () {
+        this.buttonNew.frameUp.visible = false;
+        this.buttonNew.frameDown.visible = true;
+    }, this);
 
     textArray.forEach(function (entry) {
         var newText = game.add.text(-999, -999, entry, {
-            font: "20px Arial",
-            fill: '#b52626'
-                //            backgroundColor: 'rgb(0,255,0,0.25)'
+            font: "25px Arial",
+            fill: '#FFFFFF'
         });
         newText.anchor.setTo(0, 0);
-
-        newText.inputEnabled = true;
-        newText.input.enableDrag();
         newText.visible = false;
         this.texts.push(newText);
     }, this);
-}
-
-/**
- * If notification has a button, then balloon shrinks only when button is pressed.
- * @param {Function} callback        callback function
- * @param {Object}   callbackContext callback context
- * @param {...*}     arguments Additional arguments
- */
-Notification.prototype.addConfirmButton = function (callback, callbackContext) {
-
-    var buttonMargin = 0;
-    var buttonX = this.notificationX + this.width / 2 + buttonMargin;
-    var buttonY = this.notificationY + this.height / 2 + buttonMargin;
-
-    this.button = {
-        buttonPhaser: this.game.add.button(buttonX, buttonY, 'oknotok', this.buttonClicked, this, 1, 0, 1),
-        callback: callback,
-        callbackContext: callbackContext,
-        // seen in Phaser source code :) (Timer.js#L245) sweet.
-        args: Array.prototype.splice.call(arguments, 2)
-    };
-
-    this.button.buttonPhaser.anchor.setTo(0.5, 0.5);
-    this.button.buttonPhaser.scale.setTo(0.3, 0.3);
-    this.button.buttonPhaser.visible = false;
 
 }
 
-Notification.prototype.buttonClicked = function () {
+Notification.prototype.buttonClicked_PROPER = function () {
     this.factory.setNotification(this.id, false);
-    //    this.button.callback.call(this.button.callbackContext);
-    this.button.callback.apply(this.button.callbackContext, this.button.args);
-    this.fx.play("numkey");
-};
-
-Notification.prototype.hasButton = function () {
-    return (this.button !== undefined);
+    this.buttonNew.callback.apply(this.buttonNew.callbackContext, this.buttonNew.args);
 };
 
 Notification.prototype.update = function () {
-    var y = this.balloon.y - this.height / 2 + this.margins;
+    var y = this.notificationY - this.height / 2 + this.margins;
     this.texts.forEach(function (entry) {
-        entry.x = this.balloon.x - this.width / 2 + this.margins;
+        entry.x = this.notificationX - this.width / 2 + this.margins;
         entry.y = y;
         y += 30;
     }, this);
 };
-
 Notification.prototype.initBalloon = function (textArray) {
-    var balloon = this.game.add.sprite(this.notificationX, this.notificationY, 'balloonBackground');
     this.growSpeed = 200;
-    this.width = 10 * this.getWidth(textArray) + this.margins;
-    this.height = 32 * textArray.length + 10;
+    this.width = 13 * this.getWidth(textArray) + this.margins;
+    this.height = 32 * textArray.length + 20;
+};
 
-    balloon.width = 1;
-    balloon.height = 1;
-
-    balloon.anchor.setTo(0.5, 0.5);
-    balloon.visible = false;
-
-    this.balloon = balloon;
+Notification.prototype.addGrowTween = function (target, tweenObject) {
+    var tween = this.game.add.tween(target).to(tweenObject,
+        this.growSpeed, this.tweenFunction, true);
+    return tween;
 };
 
 Notification.prototype.balloonGrow = function () {
-    this.balloon.visible = true;
-    if (this.hasButton()) {
-        this.button.buttonPhaser.visible = true;
-    }
-    this.game.add.tween(this.balloon).to({
+    this.buttonNew.buttonPhaser.alpha = 1;
+    this.buttonNew.buttonPhaser.visible = true;
+    this.buttonNew.frameDown.visible = false;
+    this.buttonNew.frameUp.visible = true;
+
+    this.addGrowTween(this.buttonNew.buttonPhaser, {
         width: this.width
-    }, this.growSpeed, Phaser.Easing.Linear.None, true);
-
-    this.game.add.tween(this.balloon).to({
+    });
+    this.addGrowTween(this.buttonNew.frameUp, {
+        width: this.width
+    });
+    this.addGrowTween(this.buttonNew.frameDown, {
+        width: this.width
+    })
+    this.addGrowTween(this.buttonNew.buttonPhaser, {
         height: this.height
-    }, this.growSpeed, Phaser.Easing.Linear.None, true);
-
-    this.game.add.tween(this.balloon).to({
-        height: this.height
-    }, this.growSpeed, Phaser.Easing.Linear.None, true);
+    });
 };
 
 Notification.prototype.balloonShrink = function () {
-    if (this.hasButton()) {
-        this.button.buttonPhaser.visible = false;
-    }
-    this.game.add.tween(this.balloon).to({
-        width: 1
-    }, this.growSpeed, Phaser.Easing.Linear.None, true);
+    this.buttonNew.frameDown.visible = false;
+    this.buttonNew.frameUp.visible = false;
 
-    this.game.add.tween(this.balloon).to({
+    this.addGrowTween(this.buttonNew.buttonPhaser, {
+            width: 1
+        })
+        .onComplete.add(function () {
+            this.visible = false;
+            this.alpha = 0;
+        }, this.buttonNew.buttonPhaser);
+
+    this.addGrowTween(this.buttonNew.frameUp, {
+        width: 1
+    });
+    this.addGrowTween(this.buttonNew.frameDown, {
+        width: 1
+    });
+    this.addGrowTween(this.buttonNew.buttonPhaser, {
         height: 1
-    }, this.growSpeed, Phaser.Easing.Linear.None, true);
+    });
 };
 
 Notification.prototype.getWidth = function (textArray) {

@@ -5,7 +5,7 @@ Situation01.prototype.sector = {
     y: 0
 };
 
-Situation01.prototype.title = ["Wymijanie na przejściu", "dla pieszych"];
+Situation01.prototype.title = ["Wymijanie na przejściu", "dla pieszych."];
 
 Situation01.prototype.collisions = [
     [sConstants.TRIGGER_S01_PEDESTRIAN, sConstants.OBJECT_PEDESTRIAN],
@@ -30,46 +30,46 @@ Situation01.prototype.situationPlan = [
         "sprite": "pedestrian",
         "name": sConstants.OBJECT_PEDESTRIAN,
         "posX": 700,
-        "posY": 110,
+        "posY": 135,
         "angle": 0
     },
     {
         "type": "roadObject",
         "sprite": "car01",
         "name": sConstants.OBJECT_CAR_A,
-        "posX": 405,
-        "posY": 900,
+        "posX": 530,
+        "posY": 550,
         "angle": -90
     },
     {
         "type": "roadObject",
         "sprite": "car02",
         "name": sConstants.OBJECT_CAR_B,
-        "posX": 343,
-        "posY": 1200,
+        "posX": 468,
+        "posY": 1300,
         "angle": -90
     },
     {
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": sConstants.TRIGGER_S01_PEDESTRIAN,
-        "posX": 560,
-        "posY": 111,
+        "posX": 610,
+        "posY": 136,
         "angle": -90
     },
     {
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": sConstants.TRIGGER_S01_END,
-        "posX": 500,
-        "posY": 111,
+        "posX": 580,
+        "posY": 136,
         "angle": -90
     },
     {
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": sConstants.TRIGGER_S02_CARA_BRAKE,
-        "posX": 395,
+        "posX": 530,
         "posY": 420,
         "angle": 0
     },
@@ -77,23 +77,23 @@ Situation01.prototype.situationPlan = [
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": sConstants.TRIGGER_S02_CARA_STOP,
-        "posX": 390,
-        "posY": 170,
+        "posX": 535,
+        "posY": 222,
         "angle": 0
     },
     {
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": sConstants.TRIGGER_S03_CARB_BRAKE,
-        "posX": 340,
-        "posY": 250,
+        "posX": 480,
+        "posY": 270,
         "angle": 0
     },
     {
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": sConstants.TRIGGER_S07_CARB_BRAKE,
-        "posX": 340,
+        "posX": 480,
         "posY": 420,
         "angle": 0
     },
@@ -101,24 +101,24 @@ Situation01.prototype.situationPlan = [
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": sConstants.TRIGGER_S07_PEDESTRIAN_CHECK,
-        "posX": 370,
-        "posY": 110,
+        "posX": 500,
+        "posY": 136,
         "angle": -90
     },
     {
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": sConstants.TRIGGER_S07_CARB_STOP,
-        "posX": 340,
-        "posY": 170,
+        "posX": 470,
+        "posY": 221,
         "angle": 0
     },
     {
         "type": "roadTrigger",
         "sprite": "trigger",
         "name": sConstants.TRIGGER_S08_PEDESTRIAN_FINISH,
-        "posX": 270,
-        "posY": 110,
+        "posX": 350,
+        "posY": 136,
         "angle": -90
     }
 ];
@@ -127,23 +127,16 @@ Situation01.prototype.instructionTexts = {
     bad: {
         name: "situationIntroducion",
         text: [
-"Prezentacja przedstawia sytuację, gdzie (...)",
-"(...)",
-"(...)",
-"(...)",
-"(...)",
-"Niebezpieczeństwo polega na (...)",
-"(...)",
-"(...)",
-"(...)",
-"Kierowca nie hamując wystarczająco wcześnie,",
-"doprowadza do potrącenia pieszego."]
+        "Opis sytuacji.",
+        "Opis sytuacji.",
+        "Opis sytuacji."]
     },
     good: {
         name: "goodIntroduction",
         text: [
-"Z braku rozwagi dochodzi do tragedii.",
-"Jak powinna wyglądać prawidłowa sytuacja?"
+                "Z braku rozwagi dochodzi do tragedii.",
+                "Jak powinna wyglądać prawidłowa",
+                "sytuacja?"
         ]
     }
 };
