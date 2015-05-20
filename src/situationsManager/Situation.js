@@ -65,14 +65,12 @@ Situation.prototype.initIntroduction = function () {
 
     this.notificationsFactory.addNotification(
         this.concreteSituation.instructionTexts.bad.name,
-        this.concreteSituation.instructionTexts.bad.text,
-        250, 200,
+        this.concreteSituation.instructionTexts.bad.text, -1, -1,
         this.startSituation, this);
 
     this.notificationsFactory.addNotification(
         this.concreteSituation.instructionTexts.good.name,
-        this.concreteSituation.instructionTexts.good.text,
-        250, 200,
+        this.concreteSituation.instructionTexts.good.text, -1, -1,
         SituationStage.prototype.setFinished, this.situationStagesManager.getStage(3));
 
 };

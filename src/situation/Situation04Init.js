@@ -13,7 +13,7 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
             "Dwóch kierowców jedzie w tym",
             "samym kierunku"
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
             }, stage);
@@ -37,7 +37,7 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
             "Jeden z nich wykonuje manewr",
             "wyprzedzania."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
             }, stage);
@@ -61,7 +61,7 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
             "Manewr zostaje dokonany na przejściu",
             "dla pieszych."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
             }, stage);
@@ -77,7 +77,7 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
             "jest niedozwolone. Co ważniejsze:",
             "niebezpieczne."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 stage.addEventVelocity(0, sConstants.OBJECT_CAR_A, 0, carASpeed);
                 stage.addEventVelocity(0, sConstants.OBJECT_CAR_B, 0, carBSpeed, 0, -50);
@@ -112,7 +112,7 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
             "wyprzedzania, jednak wstrzymuje",
             "się z nim, widząc przejście dla pieszych."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
             }, stage);
@@ -140,7 +140,7 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
             "Oczywiście musi się upewnić, czy wykona",
             "ten manewr w bezpieczny sposób."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 stage.addEventVelocity(0, sConstants.OBJECT_CAR_A, 0, carASpeed);
                 stage.addEventVelocity(0, sConstants.OBJECT_CAR_B, 0, carBSpeed + 100, 0, -200);

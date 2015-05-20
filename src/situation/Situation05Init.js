@@ -41,7 +41,7 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
             "Pasażerowie opuszczają",
             "autobus."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.getObject(sConstants.OBJECT_PEDESTRIAN).setVelocity(-pedestrianSpeed, 0);
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(-pedestrianSpeed, 0);
@@ -82,7 +82,7 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
             "najkrótszą, niekoniecznie bezpieczną",
             "drogą."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_3).sprite.angle = 180;
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(pedestrianSpeed, 0);
@@ -103,7 +103,7 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
             "uwagę, że zza autobusu może",
             "coś wyjechać..."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.setFinished();
             }, stage);
@@ -132,7 +132,7 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
             "Przez nierozwagę dochodzi do",
             "wypadku.",
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.notification().startNotification(Situation05.prototype.instructionTexts.good.name);
             }, stage);
@@ -170,7 +170,7 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
             "Pieszy, chcąc dostać się na drugą",
             "stronę, korzysta z przejścia.",
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(0, -pedestrianSpeed);
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_2).setVelocity(0, -pedestrianSpeed);
@@ -194,7 +194,7 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
             sConstants.N05_08_FINISH, [
             "Kierowca przepuszcza pieszego.",
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(pedestrianSpeed, 0);
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_3).sprite.angle = 180;

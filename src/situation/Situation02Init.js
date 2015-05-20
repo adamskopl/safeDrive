@@ -14,7 +14,7 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
             "się do odcinka ścieżki, przebiegającej",
             "przez ulicę."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
 
@@ -39,7 +39,7 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
             "Kierowca zbliża się do skrzyżowania",
             "z zamiarem skrętu w prawo."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
 
@@ -66,7 +66,7 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
             "Kierowca nie zachowując ostrożności,",
             "kontynuuje manewr skrętu w prawo."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, bikeSpeed);
                 this.addEventStartTurn(0, sConstants.OBJECT_CAR_A, sConstants.OBJECT_ROTATION_P, 180, 600, function () {
@@ -92,7 +92,7 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
             sConstants.N02_04_COLLISION, [
             "Dochodzi do kolizji."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.notification().startNotification(Situation02.prototype.instructionTexts.good.name);
             }, stage);
@@ -115,7 +115,7 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
             "zachowuje ostrożność i wykonuje manewr",
             "skrętu z odpowiednią prędkością."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, bikeSpeed / 2);
                 this.addEventStartTurn(0, sConstants.OBJECT_CAR_A, sConstants.OBJECT_ROTATION_P,
@@ -135,7 +135,7 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
             "w porę rowerzystę i czeka, aż ten",
             "przejedzie dalej."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, bikeSpeed);
                 this.addEventVelocity(1.2, sConstants.OBJECT_CAR_A, -carSpeed / 8, 0, -500, 0);

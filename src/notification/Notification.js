@@ -1,9 +1,23 @@
 /**
  * Notification: a positioned text box.
- * @param {Object}   game       Phaser.Game
- * @param {String}   id         notification's id
- * @param {Array}    textArray  [[Description]]
- * @param {Object} presenter  [[Description]]
+ * @param {Object}   factory         [[Description]]
+ * @param {Object}   game            Phaser.Game
+ * @param {String}   id              notification's id
+ * @param {Array}    textArray       array of strings do display
+ * @param {Object}   presenterSprite presenter's sprite
+ * @param {Number}   x               pos x.
+ *                                   if undefined, position will be taken from presenterSprite
+ *                                   if === -1, position will be centered
+ *                                   if === 1, position will be in the right down corner
+ * @param {Number}   y               pos y.
+ *                                   if undefined, position will be taken from presenterSprite
+ *                                   if === -1, position will be centered
+ *                                   if === 1, position will be in the right down corner
+ *
+ * @param {Object}   fx              Phaser.Sound
+ * @param {Function} callback        callback function (on notification confirmation)
+ * @param {Object}   callbackContext callback context
+ * @param {Array}    callArgs        callback arguments
  */
 function Notification(factory, game, id, textArray, presenterSprite, x, y, fx,
     callback, callbackContext, callArgs) {
@@ -19,6 +33,9 @@ function Notification(factory, game, id, textArray, presenterSprite, x, y, fx,
     if (x === undefined) {
         this.notificationX = this.presenterSprite.x;
         this.notificationY = this.presenterSprite.y;
+    } else if (x === -1 && y === -1) {
+        this.notificationX = 640 / 2;
+        this.notificationY = 480 / 2;
     } else {
         this.notificationX = x;
         this.notificationY = y;
@@ -84,6 +101,11 @@ Notification.prototype.initBalloon = function (textArray) {
     this.growSpeed = 200;
     this.width = 13 * this.getWidth(textArray) + this.margins;
     this.height = 32 * textArray.length + 20;
+    if (this.notificationX === 1 && this.notificationY === 1) {
+        var margin = 20;
+        this.notificationX = 640 - this.width / 2 - margin;
+        this.notificationY = 480 - this.height / 2 - margin;
+    }
 };
 
 Notification.prototype.addGrowTween = function (target, tweenObject) {

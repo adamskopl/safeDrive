@@ -12,7 +12,7 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
             "Kierowca zbliża się do skrzyżowania",
             "z zamiarem skrętu w prawo."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
                 this.getObject(sConstants.OBJECT_BIKE).sprite.animations.play('ride');
@@ -36,7 +36,7 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
             "Tymczasem ścieżką rowerową",
             "nadjeżdża rozpędzony rowerzysta."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
             }, stage);
@@ -59,7 +59,7 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
             "kierowca wykonuje manewr skrętu w",
             "prawo."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.notification().startNotification(
                     sConstants.N03_03_BIKE_CONTINUE);
@@ -71,7 +71,7 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
             "dla pieszych, jak przedłużenie ścieżki",
             "rowerowej, kontynuuje przejazd."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 stage.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, -bikeSpeed);
                 stage.addEventStartTurn(0, sConstants.OBJECT_CAR_A,
@@ -102,7 +102,7 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
             "rozpędzonym rowerem.",
             "Dochodzi do kolizji."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.notification().startNotification(Situation03.prototype.instructionTexts.good.name);
             }, stage);
@@ -123,7 +123,7 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
             "Widząc przejście,",
             "rowerzysta zwalnia."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.notification().startNotification(
                     sConstants.N03_06_CAR_SLOW);
@@ -135,7 +135,7 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
             "prędkość, widząc, że przetnie",
             "przejście dla pieszych."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, -bikeSpeed, 0, 80);
                 this.addEventStartTurn(0, sConstants.OBJECT_CAR_A, sConstants.OBJECT_ROTATION_P,
@@ -150,7 +150,7 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
             "zsiada z roweru. Kierowca widzi wyraźnie,",
             "że rowerzysta będzie przeprowadzał rower."
             ],
-            undefined, undefined,
+            1, 1,
             function () {
                 this.setFinished();
             }, stage);
