@@ -16,7 +16,7 @@ function SituationsManager(game, roadObjectsFactory, backgroundManipulator, fx) 
     this.buttonMenu.scale.setTo(0.75, 0.75);
     this.buttonMenu.setSounds(fx, 'click3', fx, 'click1');
 
-
+    this.initAttentionManager();
     this.initSituations();
 
     // FIXME: button menu is not working properly, when clicked in the middle of situation's progress
@@ -133,4 +133,8 @@ SituationsManager.prototype.update = function () {
  */
 SituationsManager.prototype.onCurrentSituationFinished = function () {
     this.startMenu();
+};
+
+SituationsManager.prototype.initAttentionManager = function () {
+    this.attentionManager = new AttentionManager(this.game);
 };

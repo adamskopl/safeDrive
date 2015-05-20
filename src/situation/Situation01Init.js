@@ -147,6 +147,8 @@
                     this.getObject(sConstants.OBJECT_CAR_B).setVelocity(0, 0);
                     this.getObject(sConstants.OBJECT_PEDESTRIAN).setVelocity(0, 0);
                     this.notification().startNotification(sConstants.NOTIF_S04_COLLISION);
+                    this.notification().attentionShow(
+                        this.getObject(sConstants.OBJECT_PEDESTRIAN).sprite.position);
                 });
 
             break;

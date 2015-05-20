@@ -149,7 +149,6 @@ Situation.prototype.onSituationFinished = function () {
  * Finish this situation.
  */
 Situation.prototype.setFinished = function () {
-    //    this.notificationsFactory.setNotification(this.concreteSituation.instructionTexts.bad.name, false);
     this.notificationsFactory.setNotificationsAll(false);
     this.situationStagesManager.getStageLast().setFinished();
 };

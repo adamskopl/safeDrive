@@ -231,6 +231,7 @@ SituationStage.prototype.notification = function () {
  * Invoked when sthage is finished.
  */
 SituationStage.prototype.setFinished = function () {
+    this.notification().attentionHide();
     this.manager.onStageFinished(this.number);
 };
 

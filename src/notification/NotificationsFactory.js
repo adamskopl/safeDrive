@@ -6,6 +6,8 @@ function NotificationsFactory(game, instructionTexts, presenterSprite, fx) {
 
     this.presenterSprite = presenterSprite;
     this.fx = fx;
+
+    this.initAttentionManager();
 }
 
 /**
@@ -90,4 +92,16 @@ NotificationsFactory.prototype.startAllNotifications = function (delay, duration
 
 NotificationsFactory.prototype.getNotification = function (id) {
     return this.notifications[id];
+};
+
+NotificationsFactory.prototype.initAttentionManager = function () {
+    this.attentionManager = new AttentionManager(this.game);
+};
+
+NotificationsFactory.prototype.attentionShow = function (position) {
+    this.attentionManager.show(position);
+};
+
+NotificationsFactory.prototype.attentionHide = function () {
+    this.attentionManager.hide();
 };

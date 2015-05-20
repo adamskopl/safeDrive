@@ -120,6 +120,8 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(0, 0);
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_3).sprite.angle = 200;
                 this.getObject(sConstants.OBJECT_CAR_A).setVelocity(0, 0);
+                this.notification().attentionShow(
+                    this.getObject(sConstants.OBJECT_PEDESTRIAN_3).sprite.position);
                 this.notification().startNotification(
                     sConstants.N05_04_COLLISION);
 

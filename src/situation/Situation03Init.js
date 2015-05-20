@@ -91,6 +91,8 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
             function () {
                 this.getObject(sConstants.OBJECT_BIKE).setVelocity(0, 0);
                 this.getObject(sConstants.OBJECT_CAR_A).setVelocity(0, 0);
+                this.notification().attentionShow(
+                    this.getObject(sConstants.OBJECT_BIKE).sprite.position);
                 this.notification().startNotification(
                     sConstants.N03_04_COLLISION);
             });

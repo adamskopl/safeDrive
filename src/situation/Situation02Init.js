@@ -23,6 +23,7 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
         stage.addCollisionHandler(sConstants.T02_02_CAR_TURN, sConstants.OBJECT_CAR_A,
             function () {
                 this.getObject(sConstants.OBJECT_BIKE).setVelocity(0, 0);
+                this.getObject(sConstants.OBJECT_BIKE).sprite.animations.play('ride');
                 this.getObject(sConstants.OBJECT_CAR_A).setVelocity(0, 0);
                 this.notification().startNotification(
                     sConstants.N02_02_BIKE_INTRO);
@@ -84,6 +85,8 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
             function () {
                 this.getObject(sConstants.OBJECT_BIKE).setVelocity(0, 0);
                 this.getObject(sConstants.OBJECT_CAR_A).setVelocity(0, 0);
+                this.notification().attentionShow(
+                    this.getObject(sConstants.OBJECT_BIKE).sprite.position);
                 this.notification().startNotification(
                     sConstants.N02_04_COLLISION);
             });
