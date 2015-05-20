@@ -26,6 +26,8 @@ NotificationsFactory.prototype.addNotification = function (
 
     this.notifications[id] = new Notification(this, this.game, id, textArray, this.presenterSprite, x, y, this.fx, callback, callbackContext, callArgs);
 
+    return this.notifications[id];
+
 };
 
 /**

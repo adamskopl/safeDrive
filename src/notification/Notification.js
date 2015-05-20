@@ -28,7 +28,7 @@ function Notification(factory, game, id, textArray, presenterSprite, x, y, fx,
 
     this.initBalloon(textArray);
 
-    this.buttonNew = {
+    this.button = {
         buttonPhaser: this.game.add.button(
             this.notificationX, this.notificationY,
             'button', this.buttonClicked_PROPER, this,
@@ -40,19 +40,19 @@ function Notification(factory, game, id, textArray, presenterSprite, x, y, fx,
         args: callArgs
     };
 
-    this.buttonNew.buttonPhaser.setSounds(fx, 'click3', fx, 'click1');
-    this.buttonNew.buttonPhaser.anchor.setTo(0.5, 0.5);
-    this.buttonNew.frameUp.anchor.setTo(0.5, 0.5);
-    this.buttonNew.frameDown.anchor.setTo(0.5, 0.5);
-    this.buttonNew.buttonPhaser.visible = false;
-    this.buttonNew.frameUp.visible = false;
-    this.buttonNew.frameUp.height = 3;
-    this.buttonNew.frameDown.visible = false;
-    this.buttonNew.frameDown.height = 3;
+    this.button.buttonPhaser.setSounds(fx, 'click3', fx, 'click1');
+    this.button.buttonPhaser.anchor.setTo(0.5, 0.5);
+    this.button.frameUp.anchor.setTo(0.5, 0.5);
+    this.button.frameDown.anchor.setTo(0.5, 0.5);
+    this.button.buttonPhaser.visible = false;
+    this.button.frameUp.visible = false;
+    this.button.frameUp.height = 3;
+    this.button.frameDown.visible = false;
+    this.button.frameDown.height = 3;
 
-    this.buttonNew.buttonPhaser.onInputDown.add(function () {
-        this.buttonNew.frameUp.visible = false;
-        this.buttonNew.frameDown.visible = true;
+    this.button.buttonPhaser.onInputDown.add(function () {
+        this.button.frameUp.visible = false;
+        this.button.frameDown.visible = true;
     }, this);
 
     textArray.forEach(function (entry) {
@@ -69,7 +69,7 @@ function Notification(factory, game, id, textArray, presenterSprite, x, y, fx,
 
 Notification.prototype.buttonClicked_PROPER = function () {
     this.factory.setNotification(this.id, false);
-    this.buttonNew.callback.apply(this.buttonNew.callbackContext, this.buttonNew.args);
+    this.button.callback.apply(this.button.callbackContext, this.button.args);
 };
 
 Notification.prototype.update = function () {
@@ -93,44 +93,44 @@ Notification.prototype.addGrowTween = function (target, tweenObject) {
 };
 
 Notification.prototype.balloonGrow = function () {
-    this.buttonNew.buttonPhaser.alpha = 1;
-    this.buttonNew.buttonPhaser.visible = true;
-    this.buttonNew.frameDown.visible = false;
-    this.buttonNew.frameUp.visible = true;
+    this.button.buttonPhaser.alpha = 1;
+    this.button.buttonPhaser.visible = true;
+    this.button.frameDown.visible = false;
+    this.button.frameUp.visible = true;
 
-    this.addGrowTween(this.buttonNew.buttonPhaser, {
+    this.addGrowTween(this.button.buttonPhaser, {
         width: this.width
     });
-    this.addGrowTween(this.buttonNew.frameUp, {
+    this.addGrowTween(this.button.frameUp, {
         width: this.width
     });
-    this.addGrowTween(this.buttonNew.frameDown, {
+    this.addGrowTween(this.button.frameDown, {
         width: this.width
     })
-    this.addGrowTween(this.buttonNew.buttonPhaser, {
+    this.addGrowTween(this.button.buttonPhaser, {
         height: this.height
     });
 };
 
 Notification.prototype.balloonShrink = function () {
-    this.buttonNew.frameDown.visible = false;
-    this.buttonNew.frameUp.visible = false;
+    this.button.frameDown.visible = false;
+    this.button.frameUp.visible = false;
 
-    this.addGrowTween(this.buttonNew.buttonPhaser, {
+    this.addGrowTween(this.button.buttonPhaser, {
             width: 1
         })
         .onComplete.add(function () {
             this.visible = false;
             this.alpha = 0;
-        }, this.buttonNew.buttonPhaser);
+        }, this.button.buttonPhaser);
 
-    this.addGrowTween(this.buttonNew.frameUp, {
+    this.addGrowTween(this.button.frameUp, {
         width: 1
     });
-    this.addGrowTween(this.buttonNew.frameDown, {
+    this.addGrowTween(this.button.frameDown, {
         width: 1
     });
-    this.addGrowTween(this.buttonNew.buttonPhaser, {
+    this.addGrowTween(this.button.buttonPhaser, {
         height: 1
     });
 };

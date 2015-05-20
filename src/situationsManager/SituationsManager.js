@@ -35,20 +35,36 @@ SituationsManager.prototype.initSituations = function () {
         presenterSprite.visible = false;
     }
 
+    // keeps the biggest width
+    var widestNotif = 0;
     for (var i = 0; i < concrete_situations.length; i++) {
         var concrete_situation = concrete_situations[i];
 
-        var newSituation = new Situation(this.game, this.roadObjectsFactory, this, concrete_situation, presenterSprite, this.fx);
+        var newSituation = new Situation(this.game, this.roadObjectsFactory, this,
+            concrete_situation, presenterSprite, this.fx);
         this.pushNewSituation(newSituation);
 
-        this.notificationsFactory.addNotification(
+        var x = 160;
+        if (i % 2 === 1) {
+            x = 480;
+        }
+        var y = 40 + 100 * i;
+        y = (this.game.math.roundTo((i + 1) / 2, 0)) * 120;
+
+        var notifWide = this.notificationsFactory.addNotification(
             i, concrete_situation.title,
-            200, 40 + 100 * i,
-            this.startSituation, this, i);
+            x, y,
+            this.startSituation, this, i).width;
+        if (notifWide > widestNotif) widestNotif = notifWide;
 
         // reset objects for correct Situation.prototype.initStage invoke
         this.roadObjectsFactory.reset();
     };
+    // set the same width for all notifications
+    for (var i = 0; i < concrete_situations.length; i++) {
+        var notif = this.notificationsFactory.getNotification(i);
+        notif.width = widestNotif;
+    }
     this.startMenu();
 
     // uncomment to automatically start desired situation
