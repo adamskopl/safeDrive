@@ -7,7 +7,11 @@ function SituationsManager(game, roadObjectsFactory, backgroundManipulator, fx) 
     this.situations = [];
     // don't point on any situation
     this.situationsPointer = -1;
-    this.notificationsFactory = new NotificationsFactory(this.game, undefined, undefined, fx);
+
+    this.initNotificationsFactoryManager();
+
+    this.notificationsFactory = this.notificationsFactoryManager.createFactory(undefined, undefined);
+    this.introNotificationsFactory = this.notificationsFactoryManager.createFactory(undefined, undefined);
 
     var margin = 5;
     this.buttonMenu = this.game.add.button(565 - margin, 0 + margin, 'reload', function () {
@@ -16,12 +20,19 @@ function SituationsManager(game, roadObjectsFactory, backgroundManipulator, fx) 
     this.buttonMenu.scale.setTo(0.75, 0.75);
     this.buttonMenu.setSounds(fx, 'click3', fx, 'click1');
 
-    this.initAttentionManager();
+    this.initLanguagesManager();
     this.initSituations();
 
-    // FIXME: button menu is not working properly, when clicked in the middle of situation's progress
     this.buttonMenu.visible = false;
 }
+
+SituationsManager.prototype.initNotificationsFactoryManager = function () {
+    this.notificationsFactoryManager = new NotificationsFactoryManager(this.game, this.fx);
+};
+
+SituationsManager.prototype.initLanguagesManager = function () {
+    this.languagesManager = new LanguagesManager(this.game, this.fx);
+};
 
 SituationsManager.prototype.initSituations = function () {
     var concrete_situations = [new Situation01(),
@@ -42,7 +53,8 @@ SituationsManager.prototype.initSituations = function () {
     for (var i = 0; i < concrete_situations.length; i++) {
         var concrete_situation = concrete_situations[i];
 
-        var newSituation = new Situation(this.game, this.roadObjectsFactory, this,
+        var newSituation = new Situation(this.game, this.roadObjectsFactory,
+            this.notificationsFactoryManager, this,
             concrete_situation, presenterSprite, this.fx);
         this.pushNewSituation(newSituation);
 
@@ -67,7 +79,9 @@ SituationsManager.prototype.initSituations = function () {
         var notif = this.notificationsFactory.getNotification(i);
         notif.width = widestNotif;
     }
-    this.startMenu();
+
+    //    this.startMenu();
+    this.startIntroNotification();
 
     // uncomment to automatically start desired situation
     if (sConstants.DEBUG) {
@@ -78,6 +92,19 @@ SituationsManager.prototype.initSituations = function () {
 
 SituationsManager.prototype.getCurrentSituation = function () {
     return this.situations[this.situationsPointer];
+};
+
+this.SituationsManager.prototype.startIntroNotification = function () {
+    this.introNotificationsFactory.addNotification("introNotif", {
+        pl: [
+        "Prezentacja przedstawia niebezpieczne",
+        "sytaucje drogowe.",
+        "Aby kontynować działanie, należy klikać",
+        "na pomarańczowe przyciski."],
+        en: []
+    }, -1, -1, this.startMenu, this);
+    this.introNotificationsFactory.setNotification("introNotif", true);
+
 };
 
 SituationsManager.prototype.startMenu = function () {
@@ -133,8 +160,4 @@ SituationsManager.prototype.update = function () {
  */
 SituationsManager.prototype.onCurrentSituationFinished = function () {
     this.startMenu();
-};
-
-SituationsManager.prototype.initAttentionManager = function () {
-    this.attentionManager = new AttentionManager(this.game);
 };

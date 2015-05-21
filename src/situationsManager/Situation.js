@@ -3,10 +3,12 @@
  * @param {Object} game               Phaser.Game
  * @param {Object} roadObjectsFactory road objects factory object
  */
-function Situation(game, roadObjectsFactory, manager, concreteSituation, presenterSprite, fx) {
+function Situation(game, roadObjectsFactory, notificationsFactoryManager,
+    manager, concreteSituation, presenterSprite, fx) {
     this.game = game;
     this.roadObjectsFactory = roadObjectsFactory;
     this.manager = manager;
+    this.notificationsFactoryManager = notificationsFactoryManager;
     this.concreteSituation = concreteSituation;
     this.presenterSprite = presenterSprite;
     this.concreteSituation.roadObjectsFactory = this.roadObjectsFactory;
@@ -17,7 +19,10 @@ function Situation(game, roadObjectsFactory, manager, concreteSituation, present
 
     this.initSituationObjects();
 
-    this.notificationsFactory = new NotificationsFactory(this.game, this.concreteSituation.instructionTexts, this.presenterSprite, fx);
+//    this.notificationsFactory = new NotificationsFactory(this.game, this.concreteSituation.instructionTexts, this.presenterSprite, fx);
+
+    this.notificationsFactory = this.notificationsFactoryManager.createFactory(
+        this.concreteSituation.instructionTexts, this.presenterSprite);
 
     this.situationStagesManager = new SituationStagesManager(this.game, this);
     this.initStages();

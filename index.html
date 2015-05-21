@@ -24,9 +24,11 @@
     <script src="src/situation/Situation05.js"></script>
     <script src="src/situation/Situation05Init.js"></script>
     <script src="src/notification/NotificationsFactory.js"></script>
+    <script src="src/notification/NotificationsFactoryManager.js"></script>
     <script src="src/notification/Notification.js"></script>
     <script src="src/backgroundManipulator/BackgroundManipulator.js"></script>
     <script src="src/notification/AttentionManager.js"></script>
+    <script src="src/languages/LanguagesManager.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -63,7 +65,9 @@
                 game.load.spritesheet('bike', 'assets/bike.png', 85, 43);
                 game.load.image('ball', 'assets/shinyball.png');
                 game.load.image('attention', 'assets/attention.png');
-                game.load.spritesheet('reload', 'assets/reload.png', 100, 100);
+                game.load.spritesheet('reload', 'assets/buttons/reload.png', 100, 100);
+                game.load.spritesheet('button_pl', 'assets/buttons/pl.png', 100, 100);
+                game.load.spritesheet('button_en', 'assets/buttons/en.png', 100, 100);
 
                 game.load.spritesheet('button', 'assets/buttons/button_orange.png', 100, 100);
                 game.load.image('button_border_normal', 'assets/buttons/orange_normal_border.png');

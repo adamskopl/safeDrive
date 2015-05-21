@@ -22,10 +22,21 @@
 function Notification(factory, game, id, textArray, presenterSprite, x, y, fx,
     callback, callbackContext, callArgs) {
 
-    this.game = game;
     this.factory = factory;
+    this.game = game;
+    this.fx = fx;
+    this.callback = callback;
+    this.callbackContext = callbackContext;
+    this.callArgs = callArgs;
+
     this.id = id;
-    this.texts = [];
+
+    this.languageTextArrays = textArray;
+    this.languageTextObjects = {
+        pl: [],
+        en: []
+    };
+
     this.presenterSprite = presenterSprite;
     this.margins = 15;
     this.fx = fx;
@@ -43,21 +54,38 @@ function Notification(factory, game, id, textArray, presenterSprite, x, y, fx,
 
     this.tweenFunction = Phaser.Easing.Linear.None;
 
-    this.initBalloon(textArray);
+    this.initButton();
+
+    this.initTextObjects(this.languageTextArrays.pl, this.languageTextObjects.pl);
+
+}
+
+Notification.prototype.initButton = function () {
+
+    var textArray = this.languageTextArrays.pl;
+
+    this.growSpeed = 200;
+    this.width = 13 * this.getWidth(textArray) + this.margins;
+    this.height = 32 * textArray.length + 20;
+    if (this.notificationX === 1 && this.notificationY === 1) {
+        var margin = 20;
+        this.notificationX = 640 - this.width / 2 - margin;
+        this.notificationY = 480 - this.height / 2 - margin;
+    }
 
     this.button = {
         buttonPhaser: this.game.add.button(
             this.notificationX, this.notificationY,
-            'button', this.buttonClicked_PROPER, this,
+            'button', this.buttonClicked, this,
             1, 0, 2, 0),
         frameUp: this.game.add.sprite(this.notificationX, this.notificationY + this.height / 2, 'button_border_normal'),
         frameDown: this.game.add.sprite(this.notificationX, this.notificationY - this.height / 2, 'button_border_pressed'),
-        callback: callback,
-        callbackContext: callbackContext,
-        args: callArgs
+        callback: this.callback,
+        callbackContext: this.callbackContext,
+        args: this.callArgs
     };
 
-    this.button.buttonPhaser.setSounds(fx, 'click3', fx, 'click1');
+    this.button.buttonPhaser.setSounds(this.fx, 'click3', this.fx, 'click1');
     this.button.buttonPhaser.anchor.setTo(0.5, 0.5);
     this.button.frameUp.anchor.setTo(0.5, 0.5);
     this.button.frameDown.anchor.setTo(0.5, 0.5);
@@ -71,42 +99,34 @@ function Notification(factory, game, id, textArray, presenterSprite, x, y, fx,
         this.button.frameUp.visible = false;
         this.button.frameDown.visible = true;
     }, this);
+};
 
-    textArray.forEach(function (entry) {
-        var newText = game.add.text(-999, -999, entry, {
+Notification.prototype.initTextObjects = function (languageTextArray, languageTextObjectArray) {
+    languageTextArray.forEach(function (entry) {
+        var newText = this.game.add.text(-999, -999, entry, {
             font: "25px Arial",
             fill: '#FFFFFF'
         });
         newText.anchor.setTo(0, 0);
         newText.visible = false;
-        this.texts.push(newText);
+        languageTextObjectArray.push(newText);
     }, this);
+};
 
-}
-
-Notification.prototype.buttonClicked_PROPER = function () {
+Notification.prototype.buttonClicked = function () {
     this.factory.setNotification(this.id, false);
     this.button.callback.apply(this.button.callbackContext, this.button.args);
 };
 
 Notification.prototype.update = function () {
     var y = this.notificationY - this.height / 2 + this.margins;
-    this.texts.forEach(function (entry) {
+    this.languageTextObjects.pl.forEach(function (entry) {
         entry.x = this.notificationX - this.width / 2 + this.margins;
         entry.y = y;
         y += 30;
     }, this);
 };
-Notification.prototype.initBalloon = function (textArray) {
-    this.growSpeed = 200;
-    this.width = 13 * this.getWidth(textArray) + this.margins;
-    this.height = 32 * textArray.length + 20;
-    if (this.notificationX === 1 && this.notificationY === 1) {
-        var margin = 20;
-        this.notificationX = 640 - this.width / 2 - margin;
-        this.notificationY = 480 - this.height / 2 - margin;
-    }
-};
+
 
 Notification.prototype.addGrowTween = function (target, tweenObject) {
     var tween = this.game.add.tween(target).to(tweenObject,
@@ -114,7 +134,7 @@ Notification.prototype.addGrowTween = function (target, tweenObject) {
     return tween;
 };
 
-Notification.prototype.balloonGrow = function () {
+Notification.prototype.buttonGrow = function () {
     this.button.buttonPhaser.alpha = 1;
     this.button.buttonPhaser.visible = true;
     this.button.frameDown.visible = false;
@@ -134,7 +154,7 @@ Notification.prototype.balloonGrow = function () {
     });
 };
 
-Notification.prototype.balloonShrink = function () {
+Notification.prototype.buttonShrink = function () {
     this.button.frameDown.visible = false;
     this.button.frameUp.visible = false;
 

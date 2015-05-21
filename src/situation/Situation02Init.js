@@ -8,12 +8,12 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
         stage.addStartingVelocity(sConstants.OBJECT_CAR_A, 0, carSpeed);
 
         stage.notification().addNotification(
-            sConstants.N02_02_BIKE_INTRO, [
+            sConstants.N02_02_BIKE_INTRO, {pl:[
             "Tymczasem ścieżką rowerową jedzie",
             "rozpędzony rowerzysta. Zbliża",
             "się do odcinka ścieżki, przebiegającej",
             "przez ulicę."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
@@ -36,10 +36,10 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
         stage.addStartingVelocity(sConstants.OBJECT_CAR_A, 0, carSpeed);
 
         stage.notification().addNotification(
-            sConstants.N02_01_CAR_TURN, [
+            sConstants.N02_01_CAR_TURN, {pl:[
             "Kierowca zbliża się do skrzyżowania",
             "z zamiarem skrętu w prawo."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
@@ -63,10 +63,10 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
         stage.addStartingNotificationPlay(sConstants.N02_03_CAR_A_CONTIMUE);
 
         stage.notification().addNotification(
-            sConstants.N02_03_CAR_A_CONTIMUE, [
+            sConstants.N02_03_CAR_A_CONTIMUE, {pl:[
             "Kierowca nie zachowując ostrożności,",
             "kontynuuje manewr skrętu w prawo."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, bikeSpeed);
@@ -92,9 +92,9 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
             });
 
         stage.notification().addNotification(
-            sConstants.N02_04_COLLISION, [
+            sConstants.N02_04_COLLISION, {pl:[
             "Dochodzi do kolizji."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.notification().startNotification(Situation02.prototype.instructionTexts.good.name);
@@ -113,11 +113,11 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
         stage.addStartingNotificationPlay(sConstants.N02_06_CAR_A_CONTINUE);
 
         stage.notification().addNotification(
-            sConstants.N02_06_CAR_A_CONTINUE, [
+            sConstants.N02_06_CAR_A_CONTINUE, {pl:[
             "Kierowca widzac ścieżkę rowerową,",
             "zachowuje ostrożność i wykonuje manewr",
             "skrętu z odpowiednią prędkością."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, bikeSpeed / 2);
@@ -133,11 +133,11 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
         stage.addStartingNotificationPlay(sConstants.N02_07_WAIT);
 
         stage.notification().addNotification(
-            sConstants.N02_07_WAIT, [
+            sConstants.N02_07_WAIT, {pl:[
             "Kierowca nie spiesząc się, zauważa",
             "w porę rowerzystę i czeka, aż ten",
             "przejedzie dalej."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, bikeSpeed);

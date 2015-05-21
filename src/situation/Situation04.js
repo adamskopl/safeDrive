@@ -5,7 +5,7 @@ Situation04.prototype.sector = {
     y: 2
 };
 
-Situation04.prototype.title = ["Wymijanie na", "przejściu dla pieszych."];
+Situation04.prototype.title = {pl:["Wymijanie na", "przejściu dla pieszych."], en:[]};
 
 Situation04.prototype.collisions = [
         [sConstants.T04_02_OVERTAKE_INTRO, sConstants.OBJECT_CAR_B],
@@ -59,16 +59,16 @@ Situation04.prototype.situationPlan = [
 Situation04.prototype.instructionTexts = {
     bad: {
         name: "situationIntroducion",
-        text: [
+        text: {pl:[
         "Opis sytuacji.",
         "Opis sytuacji.",
-        "Opis sytuacji."]
+        "Opis sytuacji."],en:[]}
     },
     good: {
         name: "goodIntroduction",
-        text: [
+        text: {pl:[
                 "Jak powinna wyglądać prawidłowa",
                 "sytuacja?"
-        ]
+        ], en:[]}
     }
 };

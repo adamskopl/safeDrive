@@ -9,10 +9,10 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
         stage.addStartingNotificationPlay(sConstants.N04_01_INTRO);
 
         stage.notification().addNotification(
-            sConstants.N04_01_INTRO, [
+            sConstants.N04_01_INTRO, {pl:[
             "Dwóch kierowców jedzie w tym",
             "samym kierunku"
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
@@ -33,10 +33,10 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
             });
 
         stage.notification().addNotification(
-            sConstants.N04_02_OVERTAKE_INTRO, [
+            sConstants.N04_02_OVERTAKE_INTRO, {pl:[
             "Jeden z nich wykonuje manewr",
             "wyprzedzania."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
@@ -57,10 +57,10 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
             });
 
         stage.notification().addNotification(
-            sConstants.N04_03_OVERTAKE_PEDESTRIAN, [
+            sConstants.N04_03_OVERTAKE_PEDESTRIAN, {pl:[
             "Manewr zostaje dokonany na przejściu",
             "dla pieszych."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
@@ -71,12 +71,12 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
         stage.addStartingNotificationPlay(sConstants.N04_04_ILLEGAL);
 
         stage.notification().addNotification(
-            sConstants.N04_04_ILLEGAL, [
+            sConstants.N04_04_ILLEGAL, {pl:[
             "Taki manewr to złamanie przepisów.",
             "Wyprzedzanie na przejściu dla pieszych,",
             "jest niedozwolone. Co ważniejsze:",
             "niebezpieczne."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 stage.addEventVelocity(0, sConstants.OBJECT_CAR_A, 0, carASpeed);
@@ -107,11 +107,11 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
             });
 
         stage.notification().addNotification(
-            sConstants.N04_05_OVERTAKE_INTRODUCTION, [
+            sConstants.N04_05_OVERTAKE_INTRODUCTION, {pl:[
             "Jeden z nich chce wykonać manewr",
             "wyprzedzania, jednak wstrzymuje",
             "się z nim, widząc przejście dla pieszych."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
@@ -134,12 +134,12 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
         stage.addStartingNotificationPlay(sConstants.N04_07_FINISH);
 
         stage.notification().addNotification(
-            sConstants.N04_07_FINISH, [
+            sConstants.N04_07_FINISH, {pl:[
             "Kierowca może podjąć decyzję",
             "o wyprzedzaniu dopiero za przejściem.",
             "Oczywiście musi się upewnić, czy wykona",
             "ten manewr w bezpieczny sposób."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 stage.addEventVelocity(0, sConstants.OBJECT_CAR_A, 0, carASpeed);

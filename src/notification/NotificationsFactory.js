@@ -41,14 +41,14 @@ NotificationsFactory.prototype.setNotification = function (id, show) {
     var notification = this.getNotification(id);
     notification.update();
 
-    notification.texts.forEach(function (entry) {
+    notification.languageTextObjects.pl.forEach(function (entry) {
         entry.visible = show;
     });
 
     if (show == true) {
-        notification.balloonGrow();
+        notification.buttonGrow();
     } else {
-        notification.balloonShrink();
+        notification.buttonShrink();
     }
 };
 

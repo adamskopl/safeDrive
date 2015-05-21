@@ -5,7 +5,7 @@ Situation05.prototype.sector = {
     y: 0
 };
 
-Situation05.prototype.title = ["Autobus i", "wychodzący pasażerowie."];
+Situation05.prototype.title = {pl:["Autobus i", "wychodzący pasażerowie."], en:[]};
 
 Situation05.prototype.collisions = [
     [sConstants.T05_01_BUS_SLOW, sConstants.OBJECT_BUS],
@@ -133,17 +133,17 @@ Situation05.prototype.situationPlan = [
 Situation05.prototype.instructionTexts = {
     bad: {
         name: "situationIntroducion",
-        text: [
+        text: {pl:[
         "Opis sytuacji.",
         "Opis sytuacji.",
-        "Opis sytuacji."]
+        "Opis sytuacji."],en:[]}
     },
     good: {
         name: "goodIntroduction",
-        text: [
+        text: {pl:[
                 "Z braku rozwagi dochodzi do tragedii.",
                 "Jak powinna wyglądać prawidłowa",
                 "sytuacja?"
-        ]
+        ], en:[]}
     }
 };

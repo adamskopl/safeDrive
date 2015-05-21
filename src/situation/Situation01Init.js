@@ -10,10 +10,10 @@
         case 0:
             stage.addStartingVelocity(sConstants.OBJECT_PEDESTRIAN, pedestrianSpeed, 0);
             stage.notification().addNotification(
-                sConstants.NOTIF_S01_PEDESTRIAN, [
+                sConstants.NOTIF_S01_PEDESTRIAN, {pl:[
                 "Pieszy zbliża się",
                 "do przejścia."
-                ],
+                ], en:[]},
                 1, 1,
                 function () {
                     this.addEventVelocity(0, sConstants.OBJECT_PEDESTRIAN,
@@ -37,8 +37,8 @@
             break;
         case 1:
             stage.notification().addNotification(
-                sConstants.NOTIF_S02_CARA_START, [
-                "Nadjeżdża samochód."],
+                sConstants.NOTIF_S02_CARA_START, {pl:[
+                "Nadjeżdża samochód."], en:[]},
                 1, 1,
                 function () {
                     this.addEventVelocity(0, sConstants.OBJECT_PEDESTRIAN,
@@ -59,19 +59,19 @@
             );
 
             stage.notification().addNotification(
-                sConstants.NOTIF_S02_CARA_BRAKE, [
+                sConstants.NOTIF_S02_CARA_BRAKE, {pl:[
                 "Kierowca widząc pieszego,",
-                "rozpoczyna hamowanie."],
+                "rozpoczyna hamowanie."], en:[]},
                 1, 1,
                 function () {
                     this.notification().startNotification(sConstants.NOTIF_S02_PEDESTRIAN_CONTINUE);
                 }, stage);
 
             stage.notification().addNotification(
-                sConstants.NOTIF_S02_PEDESTRIAN_CONTINUE, [
+                sConstants.NOTIF_S02_PEDESTRIAN_CONTINUE, {pl:[
                 "Pieszy widząc,",
                 "że kierowca ma zamiar się zatrzymać,",
-                "przechodzi przez przejście."],
+                "przechodzi przez przejście."], en:[]},
                 1, 1,
                 function () {
                     this.addEventVelocity(0, sConstants.OBJECT_PEDESTRIAN,
@@ -89,9 +89,9 @@
         case 2:
 
             stage.notification().addNotification(
-                sConstants.NOTIF_S03_CARB_START, [
+                sConstants.NOTIF_S03_CARB_START, {pl:[
                 "Tymczasem nadjeżdża drugi kierowca,",
-                "który nie zwalnia przed przejściem."],
+                "który nie zwalnia przed przejściem."], en:[]},
                 1, 1,
                 function () {
                     this.addEventVelocity(0, sConstants.OBJECT_PEDESTRIAN,
@@ -101,9 +101,9 @@
                 }, stage);
 
             stage.notification().addNotification(
-                sConstants.NOTIF_S03_CARB_BRAKE, [
+                sConstants.NOTIF_S03_CARB_BRAKE, {pl:[
                 "Kierowca widząc pieszego,",
-                "nie ma już czasu na hamowanie."],
+                "nie ma już czasu na hamowanie."], en:[]},
                 1, 1,
                 function () {
                     this.addEvent(0, this.setFinished);
@@ -135,8 +135,8 @@
 
 
             stage.notification().addNotification(
-                sConstants.NOTIF_S04_COLLISION, [
-                "Dochodzi do potrącania."],
+                sConstants.NOTIF_S04_COLLISION, {pl:[
+                "Dochodzi do potrącania."], en:[]},
                 1, 1,
                 function () {
                     this.notification().startNotification(Situation01.prototype.instructionTexts.good.name);
@@ -164,11 +164,11 @@
             stage.addStartingVelocity(sConstants.OBJECT_PEDESTRIAN, pedestrianSpeed, 0);
 
             stage.notification().addNotification(
-                sConstants.NOTIF_S07_PEDESTRIAN_CHECK, [
+                sConstants.NOTIF_S07_PEDESTRIAN_CHECK, {pl:[
                 "Pieszy wie, że z drugiego pasa może",
                 "wyjechać łamiący przepisy kierowca,",
                 "dlatego zapobiegliwie sprawdza,",
-                "czy może iść dalej."],
+                "czy może iść dalej."], en:[]},
                 1, 1,
                 function () {
                     this.addEventVelocity(0, sConstants.OBJECT_CAR_B, 0, carBSpeed);
@@ -182,10 +182,10 @@
                 });
 
             stage.notification().addNotification(
-                sConstants.NOTIF_S07_CARB_BRAKE, [
+                sConstants.NOTIF_S07_CARB_BRAKE, {pl:[
                 "Drugi kierowca, widząc samochód",
                 "na drugim pasie, również",
-                "zatrzymuje się przed przejściem"],
+                "zatrzymuje się przed przejściem"], en:[]},
                 1, 1,
                 function () {
                     this.addEventVelocity(0, sConstants.OBJECT_CAR_B, 0, carASpeed, 0, 70);
@@ -206,9 +206,9 @@
             break;
         case 7:
             stage.notification().addNotification(
-                sConstants.NOTIF_S08_PEDESTRIAN_CONTINUE, [
+                sConstants.NOTIF_S08_PEDESTRIAN_CONTINUE, {pl:[
                 "Pieszy widząc, że jest bezpieczny,",
-                "kontynuuje przejście."],
+                "kontynuuje przejście."], en:[]},
                 1, 1,
                 function () {
                     this.getObject(sConstants.OBJECT_PEDESTRIAN).sprite.angle = 0;

@@ -8,10 +8,10 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
         stage.addStartingVelocity(sConstants.OBJECT_CAR_A, 0, -carSpeed);
 
         stage.notification().addNotification(
-            sConstants.N03_01_CAR_INTRO, [
+            sConstants.N03_01_CAR_INTRO, {pl:[
             "Kierowca zbliża się do skrzyżowania",
             "z zamiarem skrętu w prawo."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
@@ -32,10 +32,10 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
         stage.addStartingVelocity(sConstants.OBJECT_BIKE, 0, -bikeSpeed);
 
         stage.notification().addNotification(
-            sConstants.N03_02_BIKE_INTRO, [
+            sConstants.N03_02_BIKE_INTRO, {pl:[
             "Tymczasem ścieżką rowerową",
             "nadjeżdża rozpędzony rowerzysta."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.addEvent(0, this.setFinished);
@@ -54,11 +54,11 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
         stage.addStartingNotificationPlay(sConstants.N03_02_CAR_CONTINUE);
 
         stage.notification().addNotification(
-            sConstants.N03_02_CAR_CONTINUE, [
+            sConstants.N03_02_CAR_CONTINUE, {pl:[
             "Nie widząc pieszych na przejściu,",
             "kierowca wykonuje manewr skrętu w",
             "prawo."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.notification().startNotification(
@@ -66,11 +66,11 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
             }, stage);
 
         stage.notification().addNotification(
-            sConstants.N03_03_BIKE_CONTINUE, [
+            sConstants.N03_03_BIKE_CONTINUE, {pl:[
             "Rowerzysta, błędnie traktując przejście",
             "dla pieszych, jak przedłużenie ścieżki",
             "rowerowej, kontynuuje przejazd."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 stage.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, -bikeSpeed);
@@ -98,12 +98,12 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
             });
 
         stage.notification().addNotification(
-            sConstants.N03_04_COLLISION, [
+            sConstants.N03_04_COLLISION, {pl:[
             "Kierowca spodziewając się pieszych,",
             "nie ma czasu na wyhamowanie przed",
             "rozpędzonym rowerem.",
             "Dochodzi do kolizji."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.notification().startNotification(Situation03.prototype.instructionTexts.good.name);
@@ -121,10 +121,10 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
         stage.addStartingNotificationPlay(sConstants.N03_06_BIKE_SLOW);
 
         stage.notification().addNotification(
-            sConstants.N03_06_BIKE_SLOW, [
+            sConstants.N03_06_BIKE_SLOW, {pl:[
             "Widząc przejście,",
             "rowerzysta zwalnia."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.notification().startNotification(
@@ -132,11 +132,11 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
             }, stage);
 
         stage.notification().addNotification(
-            sConstants.N03_06_CAR_SLOW, [
+            sConstants.N03_06_CAR_SLOW, {pl:[
             "Kierowca również zmniejsza",
             "prędkość, widząc, że przetnie",
             "przejście dla pieszych."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.addEventVelocity(0, sConstants.OBJECT_BIKE, 0, -bikeSpeed, 0, 80);
@@ -147,11 +147,11 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
             }, stage);
 
         stage.notification().addNotification(
-            sConstants.N03_06_BIKE_WALK, [
+            sConstants.N03_06_BIKE_WALK, {pl:[
             "Rowerzysta, aby przejśc przez przejście,",
             "zsiada z roweru. Kierowca widzi wyraźnie,",
             "że rowerzysta będzie przeprowadzał rower."
-            ],
+            ], en:[]},
             1, 1,
             function () {
                 this.setFinished();
