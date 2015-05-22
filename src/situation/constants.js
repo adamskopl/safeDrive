@@ -7,6 +7,7 @@ sConstants = {
     DEBUG: false,
     DEBUG_SITUATION: 4,
     PRESENTER_VISIBLE: false,
+    SITUATION_START_WITH_INTRODUCTION: false,
     ////////////// SITUATIONS //////////////////
     OBJECT_PEDESTRIAN: "PEDESTRIAN",
     OBJECT_PEDESTRIAN_2: "PEDESTRIAN_2",

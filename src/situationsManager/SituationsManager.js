@@ -134,12 +134,17 @@ SituationsManager.prototype.startSituation = function (number) {
     var ss = this.situations[number];
     var sectorCoords = ss.getSector();
     this.backgroundManipulator.zoomToSector(sectorCoords.x, sectorCoords.y);
-    // start stage's introduction notification which will start the situation
     if (!sConstants.DEBUG) {
-        ss.notificationsFactory.startNotification(ss.concreteSituation.instructionTexts.bad.name, 0);
+        if (sConstants.SITUATION_START_WITH_INTRODUCTION) {
+            // start stage's introduction notification which will start the situation
+            ss.notificationsFactory.startNotification(ss.concreteSituation.instructionTexts.bad.name, 0);
+        } else {
+            ss.startSituation();
+        }
     } else {
         ss.startSituation();
     }
+
     this.situationsPointer = number;
     this.buttonMenu.visible = true;
 };
