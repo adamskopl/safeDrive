@@ -69,20 +69,10 @@ SituationsManager.prototype.initSituations = function () {
         // reset objects for correct Situation.prototype.initStage invoke
         this.roadObjectsFactory.reset();
     };
-    // set the same width for all notifications
-    //    for (var i = 0; i < concrete_situations.length; i++) {
-    //        var notif = this.notificationsFactory.getNotification(i);
-    //        notif.width = widestNotif;
-    //    }
-
-    //    this.startMenu();
     this.startIntroNotification();
-
-    // uncomment to automatically start desired situation
     if (sConstants.DEBUG) {
         this.game.time.events.add(300, this.startSituation, this, sConstants.DEBUG_SITUATION);
     }
-
 }
 
 SituationsManager.prototype.getCurrentSituation = function () {
@@ -90,21 +80,16 @@ SituationsManager.prototype.getCurrentSituation = function () {
 };
 
 this.SituationsManager.prototype.startIntroNotification = function () {
-    this.introNotificationsFactory.addNotification("introNotif", {
+    var introNotif = this.introNotificationsFactory.addNotification("introNotif", {
         pl: [
-        "Prezentacja przedstawia niebezpieczne",
-        "sytaucje drogowe.",
         "Aby kontynować działanie, należy klikać",
-        "na pomarańczowe przyciski."],
+        "pomarańczowe przyciski."],
         en: [
-        "This presentation is showing",
-        "dangerous traffic situations.",
         "To continue, just",
         "click orange buttons."
         ]
     }, -1, -1, this.startMenu, this);
     this.introNotificationsFactory.setNotification("introNotif", true);
-
 };
 
 SituationsManager.prototype.startMenu = function () {

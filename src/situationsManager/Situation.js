@@ -19,7 +19,7 @@ function Situation(game, roadObjectsFactory, notificationsFactoryManager,
 
     this.initSituationObjects();
 
-//    this.notificationsFactory = new NotificationsFactory(this.game, this.concreteSituation.instructionTexts, this.presenterSprite, fx);
+    //    this.notificationsFactory = new NotificationsFactory(this.game, this.concreteSituation.instructionTexts, this.presenterSprite, fx);
 
     this.notificationsFactory = this.notificationsFactoryManager.createFactory(
         this.concreteSituation.instructionTexts, this.presenterSprite);

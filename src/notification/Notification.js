@@ -138,6 +138,20 @@ Notification.prototype.update = function (show, language) {
         entry.y = textY;
         textY += 30;
     }, this);
+
+    var pressMeNotification = this.pressMeNotification;
+    if (pressMeNotification !== undefined) {
+        pressMeNotification.sprite.visible = show;
+        pressMeNotification.textObject.visible = show;
+        var posX = this.notificationX - this.width / 2 - 10;
+        var posY = this.notificationY - this.height / 2 - 10;
+        pressMeNotification.sprite.position.setTo(posX, posY);
+        if (language == constantsLanguages.PL)
+            pressMeNotification.textObject.text = pressMeNotification.text.pl;
+        else
+            pressMeNotification.textObject.text = pressMeNotification.text.en;
+        pressMeNotification.textObject.position.setTo(posX, posY);
+    }
 };
 
 Notification.prototype.updateSpritesParameters = function (textArray, language) {
@@ -240,4 +254,35 @@ Notification.prototype.setWidth = function (width) {
 
 Notification.prototype.isVisible = function () {
     return this.button.buttonPhaser.visible;
+};
+
+Notification.prototype.addPressMeNotification = function () {
+
+    this.pressMeNotification = {
+        sprite: this.game.add.sprite(-999, -999,
+            'blank_red'),
+        text: {
+            pl: "Wciśnij mnie.",
+            en: "Press me."
+        },
+        textObject: this.game.add.text(-999, -999, "", {
+            font: "20px Arial",
+            fill: "#FFFFFF"
+        })
+    }
+    this.pressMeNotification.sprite.anchor.setTo(0.5, 0.5);
+    this.pressMeNotification.textObject.anchor.setTo(0.5, 0.5);
+
+    var width = 160,
+        height = 40;
+    var tweenSpeed = this.growSpeed * 2.5;
+    this.pressMeNotification.sprite.width = width;
+    this.pressMeNotification.sprite.height = height;
+
+    this.game.add.tween(this.pressMeNotification.sprite).to({
+        width: width * 0.8
+    }, tweenSpeed, this.tweenFunction, true, 0, -1, true);
+    this.game.add.tween(this.pressMeNotification.sprite).to({
+        height: height * 0.8
+    }, tweenSpeed, this.tweenFunction, true, 0, -1, true);
 };

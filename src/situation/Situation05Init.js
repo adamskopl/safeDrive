@@ -36,7 +36,7 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
     case 1:
         stage.addStartingNotificationPlay(sConstants.N05_02_BUS_OUT);
 
-        stage.notification().addNotification(
+        var notif01 = stage.notification().addNotification(
             sConstants.N05_02_BUS_OUT, {
                 pl: [
             "Pasażerowie opuszczają",
@@ -49,6 +49,7 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
                 this.getObject(sConstants.OBJECT_PEDESTRIAN).setVelocity(-pedestrianSpeed, 0);
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(-pedestrianSpeed, 0);
             }, stage);
+        notif01.addPressMeNotification();
 
 
         stage.addCollisionHandler(sConstants.T05_02_PED_TURN, sConstants.OBJECT_PEDESTRIAN,
