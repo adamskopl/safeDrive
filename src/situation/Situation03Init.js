@@ -38,8 +38,8 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
         stage.notification().addNotification(
             sConstants.N03_02_BIKE_INTRO, {
                 pl: [
-            "Tymczasem ścieżką rowerową",
-            "nadjeżdża rozpędzony rowerzysta."
+            "Tymczasem",
+            "chodnikiem jedzie rowerzysta."
             ],
                 en: []
             },
@@ -78,9 +78,9 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
         stage.notification().addNotification(
             sConstants.N03_03_BIKE_CONTINUE, {
                 pl: [
-            "Rowerzysta, błędnie traktując przejście",
-            "dla pieszych, jak przedłużenie ścieżki",
-            "rowerowej, kontynuuje przejazd."
+            "Rowerzysta niezgodnie z przepisami",
+            "kontynuuje przejazd po",
+            "przejściu dla pieszych."
             ],
                 en: []
             },
@@ -113,10 +113,9 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
         stage.notification().addNotification(
             sConstants.N03_04_COLLISION, {
                 pl: [
-            "Kierowca spodziewając się pieszych,",
-            "nie ma czasu na wyhamowanie przed",
-            "rozpędzonym rowerem.",
-            "Dochodzi do kolizji."
+            "Kierowca spodziewając się",
+            "w tym miejscu jedynie pieszych,",
+            "zderza się z rozpędzonym rowerem.",
             ],
                 en: []
             },
@@ -153,9 +152,9 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
         stage.notification().addNotification(
             sConstants.N03_06_CAR_SLOW, {
                 pl: [
-            "Kierowca również zmniejsza",
-            "prędkość, widząc, że przetnie",
-            "przejście dla pieszych."
+            "Kierowca równiez zmniejsza prędkość,",
+            "widząc, że zbliża się",
+            "do przejścia dla pieszych."
             ],
                 en: []
             },

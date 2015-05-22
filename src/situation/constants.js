@@ -4,8 +4,8 @@ constantsLanguages = {
 };
 
 sConstants = {
-    DEBUG: false,
-    DEBUG_SITUATION: 4,
+    DEBUG: true,
+    DEBUG_SITUATION: 3,
     PRESENTER_VISIBLE: false,
     SITUATION_START_WITH_INTRODUCTION: false,
     ////////////// SITUATIONS //////////////////

@@ -109,7 +109,7 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
                 pl: [
             "Być może zamyślony, nie bierze pod",
             "uwagę, że zza autobusu może",
-            "coś wyjechać..."
+            "wyjechać pojazd."
             ],
                 en: []
             },
@@ -211,7 +211,8 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
         stage.notification().addNotification(
             sConstants.N05_08_FINISH, {
                 pl: [
-            "Kierowca przepuszcza pieszego.",
+            "Kierowca zwalnia i ustępuje",
+            "pierwszeństwa pieszemu."
             ],
                 en: []
             },

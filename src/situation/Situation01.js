@@ -6,7 +6,7 @@ Situation01.prototype.sector = {
 };
 
 Situation01.prototype.title = {
-    pl: ["Bezpieczeństwo", "pieszego."],
+    pl: ["Omijanie na przejściu", "dla pieszych."],
     en: ["Pedestrian's", "safety."]
 };
 

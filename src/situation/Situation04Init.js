@@ -66,8 +66,9 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
         stage.notification().addNotification(
             sConstants.N04_03_OVERTAKE_PEDESTRIAN, {
                 pl: [
-            "Manewr zostaje dokonany na przejściu",
-            "dla pieszych."
+            "Manewr zostaje dokonany bezpośrednio",
+            "przed przejściem dla pieszych,",
+            "względnie na przejściu dla pieszych."
             ],
                 en: []
             },
@@ -83,10 +84,9 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
         stage.notification().addNotification(
             sConstants.N04_04_ILLEGAL, {
                 pl: [
-            "Taki manewr to złamanie przepisów.",
-            "Wyprzedzanie na przejściu dla pieszych,",
-            "jest niedozwolone. Co ważniejsze:",
-            "niebezpieczne."
+                    "Wyprzedzanie na przejściu",
+                    "lub przed przejściem",
+                    "dla pieszych jest niedozowolne."
             ],
                 en: []
             },
@@ -109,7 +109,7 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
         break;
     case 5:
         stage.addStartingVelocity(sConstants.OBJECT_CAR_A, 0, carASpeed);
-        stage.addStartingVelocity(sConstants.OBJECT_CAR_B, 0, carBSpeed + 20, 0, 50);
+        stage.addStartingVelocity(sConstants.OBJECT_CAR_B, 0, carBSpeed, 0, 0);
 
         stage.addCollisionHandler(sConstants.T04_02_OVERTAKE_INTRO, sConstants.OBJECT_CAR_B,
             function () {
@@ -136,7 +136,7 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
         break;
     case 6:
         stage.addStartingVelocity(sConstants.OBJECT_CAR_A, 0, carASpeed);
-        stage.addStartingVelocity(sConstants.OBJECT_CAR_B, 0, carBSpeed + 100, 0);
+        stage.addStartingVelocity(sConstants.OBJECT_CAR_B, 0, carBSpeed + 40, 0);
 
         stage.addCollisionHandler(sConstants.T04_03_OVERTAKE_PEDESTRIAN, sConstants.OBJECT_CAR_B,
             function () {
@@ -147,25 +147,14 @@ Situation04.prototype.initStage = function (stageNumber, stage) {
         break;
     case 7:
 
-        stage.addStartingNotificationPlay(sConstants.N04_07_FINISH);
+        stage.addStartingVelocity(sConstants.OBJECT_CAR_A, 0, carASpeed);
+        stage.addStartingVelocity(sConstants.OBJECT_CAR_B, 0, carBSpeed + 25, 0, 50);
 
-        stage.notification().addNotification(
-            sConstants.N04_07_FINISH, {
-                pl: [
-            "Kierowca może podjąć decyzję",
-            "o wyprzedzaniu dopiero za przejściem.",
-            "Oczywiście musi się upewnić, czy wykona",
-            "ten manewr w bezpieczny sposób."
-            ],
-                en: []
-            },
-            1, 1,
+        stage.addCollisionHandler(sConstants.T04_04_BAD_END, sConstants.OBJECT_CAR_B,
             function () {
-                stage.addEventVelocity(0, sConstants.OBJECT_CAR_A, 0, carASpeed);
-                stage.addEventVelocity(0, sConstants.OBJECT_CAR_B, 0, carBSpeed + 100, 0, -200);
-
                 this.addEvent(1.5, this.setFinished);
-            }, stage);
+            });
+
 
         break;
     default:

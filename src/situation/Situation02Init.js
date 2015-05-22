@@ -10,10 +10,9 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
         stage.notification().addNotification(
             sConstants.N02_02_BIKE_INTRO, {
                 pl: [
-            "Tymczasem ścieżką rowerową jedzie",
-            "rozpędzony rowerzysta. Zbliża",
-            "się do odcinka ścieżki, przebiegającej",
-            "przez ulicę."
+                    "Tymczasem ściezką rowerową jedzie",
+                    "rowerzysta. Zbliża",
+                    "się do przejazdu dla rowerów."
             ],
                 en: []
             },
@@ -72,8 +71,9 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
         stage.notification().addNotification(
             sConstants.N02_03_CAR_A_CONTIMUE, {
                 pl: [
-            "Kierowca nie zachowując ostrożności,",
-            "kontynuuje manewr skrętu w prawo."
+            "Kierowca nie zachowując szczególnej",
+            "ostrożności, kontynuuje manewr",
+            "skrętu w prawo."
             ],
                 en: []
             },
@@ -128,9 +128,9 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
         stage.notification().addNotification(
             sConstants.N02_06_CAR_A_CONTINUE, {
                 pl: [
-            "Kierowca widzac ścieżkę rowerową,",
+            "Kierowca, widząc ścieżkę rowerową,",
             "zachowuje ostrożność i wykonuje manewr",
-            "skrętu z odpowiednią prędkością."
+            "skrętu z bezpieczną prędkością."
             ],
                 en: []
             },
@@ -151,9 +151,10 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
         stage.notification().addNotification(
             sConstants.N02_07_WAIT, {
                 pl: [
-            "Kierowca nie spiesząc się, zauważa",
-            "w porę rowerzystę i czeka, aż ten",
-            "przejedzie dalej."
+                    "Kierowca, jadąc zgodnie",
+                    "z przepisami, zauważa",
+                    "rowerzystę i ustepuję mu",
+                    "pierwszeństwa przejazdu."
             ],
                 en: []
             },

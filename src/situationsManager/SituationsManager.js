@@ -69,7 +69,9 @@ SituationsManager.prototype.initSituations = function () {
         // reset objects for correct Situation.prototype.initStage invoke
         this.roadObjectsFactory.reset();
     };
-    this.startIntroNotification();
+    if (!sConstants.DEBUG) {
+        this.startIntroNotification();
+    }
     if (sConstants.DEBUG) {
         this.game.time.events.add(300, this.startSituation, this, sConstants.DEBUG_SITUATION);
     }

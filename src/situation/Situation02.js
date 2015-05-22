@@ -6,8 +6,12 @@ Situation02.prototype.sector = {
 };
 
 Situation02.prototype.title = {
-    pl: ["Przecinanie", "ścieżki rowerowej."],
-    en: ["Cars and a bike", "lane."]
+    pl: [
+        "Przejeżdżanie przez",
+        "ścieżkę rowerową."],
+    en: [
+        "Cars and a bike",
+        "lane."]
 };
 
 Situation02.prototype.collisions = [

@@ -6,7 +6,7 @@ Situation04.prototype.sector = {
 };
 
 Situation04.prototype.title = {
-    pl: ["Wymijanie na", "przejściu dla pieszych."],
+    pl: ["Wyprzedzanie na", "przejściu dla pieszych."],
     en: ["An overtake at a", "pedestrian crossing."]
 };
 
@@ -38,7 +38,7 @@ Situation04.prototype.situationPlan = [
         "sprite": "trigger",
         "name": sConstants.T04_02_OVERTAKE_INTRO,
         "posX": 465,
-        "posY": 400,
+        "posY": 280,
         "angle": 0
     },
     {
@@ -46,7 +46,7 @@ Situation04.prototype.situationPlan = [
         "sprite": "trigger",
         "name": sConstants.T04_03_OVERTAKE_PEDESTRIAN,
         "posX": 465,
-        "posY": 185,
+        "posY": 135,
         "angle": 0
     },
     {
