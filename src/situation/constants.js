@@ -4,7 +4,7 @@ constantsLanguages = {
 };
 
 sConstants = {
-    DEBUG: true,
+    DEBUG: false,
     DEBUG_SITUATION: 3,
     PRESENTER_VISIBLE: false,
     SITUATION_START_WITH_INTRODUCTION: false,
