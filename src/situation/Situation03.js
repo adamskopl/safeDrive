@@ -5,7 +5,10 @@ Situation03.prototype.sector = {
     y: 0
 };
 
-Situation03.prototype.title = {pl:["Rowerzysta na", "przejściu dla pieszych."], en:[]};
+Situation03.prototype.title = {
+    pl: ["Rowerzysta na", "przejściu dla pieszych."],
+    en: ["A cyclist on a", "pedestrian crossing."]
+};
 
 Situation03.prototype.collisions = [
     [sConstants.T03_01_CAR_INTRO, sConstants.OBJECT_CAR_A],
@@ -77,17 +80,23 @@ Situation03.prototype.situationPlan = [
 Situation03.prototype.instructionTexts = {
     bad: {
         name: "situationIntroducion",
-        text: {pl:[
+        text: {
+            pl: [
         "Opis sytuacji.",
         "Opis sytuacji.",
-        "Opis sytuacji."],en:[]}
+        "Opis sytuacji."],
+            en: []
+        }
     },
     good: {
         name: "goodIntroduction",
-        text: {pl:[
+        text: {
+            pl: [
                 "Z braku rozwagi dochodzi do tragedii.",
                 "Jak powinna wyglądać prawidłowa",
                 "sytuacja?"
-        ],en:[]}
+        ],
+            en: []
+        }
     }
 };

@@ -10,7 +10,7 @@ function SituationsManager(game, roadObjectsFactory, backgroundManipulator, fx) 
 
     this.initNotificationsFactoryManager();
 
-    this.notificationsFactory = this.notificationsFactoryManager.createFactory(undefined, undefined);
+    this.notificationsFactory = this.notificationsFactoryManager.createFactory(undefined, undefined, true);
     this.introNotificationsFactory = this.notificationsFactoryManager.createFactory(undefined, undefined);
 
     var margin = 5;
@@ -20,7 +20,6 @@ function SituationsManager(game, roadObjectsFactory, backgroundManipulator, fx) 
     this.buttonMenu.scale.setTo(0.75, 0.75);
     this.buttonMenu.setSounds(fx, 'click3', fx, 'click1');
 
-    this.initLanguagesManager();
     this.initSituations();
 
     this.buttonMenu.visible = false;
@@ -28,10 +27,6 @@ function SituationsManager(game, roadObjectsFactory, backgroundManipulator, fx) 
 
 SituationsManager.prototype.initNotificationsFactoryManager = function () {
     this.notificationsFactoryManager = new NotificationsFactoryManager(this.game, this.fx);
-};
-
-SituationsManager.prototype.initLanguagesManager = function () {
-    this.languagesManager = new LanguagesManager(this.game, this.fx);
 };
 
 SituationsManager.prototype.initSituations = function () {
@@ -75,10 +70,10 @@ SituationsManager.prototype.initSituations = function () {
         this.roadObjectsFactory.reset();
     };
     // set the same width for all notifications
-    for (var i = 0; i < concrete_situations.length; i++) {
-        var notif = this.notificationsFactory.getNotification(i);
-        notif.width = widestNotif;
-    }
+    //    for (var i = 0; i < concrete_situations.length; i++) {
+    //        var notif = this.notificationsFactory.getNotification(i);
+    //        notif.width = widestNotif;
+    //    }
 
     //    this.startMenu();
     this.startIntroNotification();
@@ -101,7 +96,12 @@ this.SituationsManager.prototype.startIntroNotification = function () {
         "sytaucje drogowe.",
         "Aby kontynować działanie, należy klikać",
         "na pomarańczowe przyciski."],
-        en: []
+        en: [
+        "This presentation is showing",
+        "dangerous traffic situations.",
+        "To continue, just",
+        "click orange buttons."
+        ]
     }, -1, -1, this.startMenu, this);
     this.introNotificationsFactory.setNotification("introNotif", true);
 
@@ -110,7 +110,7 @@ this.SituationsManager.prototype.startIntroNotification = function () {
 SituationsManager.prototype.startMenu = function () {
     this.roadObjectsFactory.reset();
     this.backgroundManipulator.resetZoom();
-    this.notificationsFactory.startAllNotifications(0);
+    this.notificationsFactory.startAllNotifications(0, true);
     this.buttonMenu.visible = false;
 };
 

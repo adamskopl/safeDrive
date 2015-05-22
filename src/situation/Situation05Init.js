@@ -37,10 +37,13 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
         stage.addStartingNotificationPlay(sConstants.N05_02_BUS_OUT);
 
         stage.notification().addNotification(
-            sConstants.N05_02_BUS_OUT, {pl:[
+            sConstants.N05_02_BUS_OUT, {
+                pl: [
             "Pasażerowie opuszczają",
             "autobus."
-            ], en:[]},
+            ],
+                en: []
+            },
             1, 1,
             function () {
                 this.getObject(sConstants.OBJECT_PEDESTRIAN).setVelocity(-pedestrianSpeed, 0);
@@ -75,13 +78,16 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
         stage.addStartingNotificationPlay(sConstants.N05_03_PED_TURN);
 
         stage.notification().addNotification(
-            sConstants.N05_03_PED_TURN, {pl:[
+            sConstants.N05_03_PED_TURN, {
+                pl: [
             "Jednemu z nich wyjątkowo się",
             "spieszy i chcąc przejść na drugą",
             "stronę ulicy, postanawia pójść",
             "najkrótszą, niekoniecznie bezpieczną",
             "drogą."
-            ], en:[]},
+            ],
+                en: []
+            },
             1, 1,
             function () {
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_3).sprite.angle = 180;
@@ -98,11 +104,14 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
             });
 
         stage.notification().addNotification(
-            sConstants.N05_03_PED_CONTINUE, {pl:[
+            sConstants.N05_03_PED_CONTINUE, {
+                pl: [
             "Być może zamyślony, nie bierze pod",
             "uwagę, że zza autobusu może",
             "coś wyjechać..."
-            ], en:[]},
+            ],
+                en: []
+            },
             1, 1,
             function () {
                 this.setFinished();
@@ -130,10 +139,13 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
             });
 
         stage.notification().addNotification(
-            sConstants.N05_04_COLLISION, {pl:[
+            sConstants.N05_04_COLLISION, {
+                pl: [
             "Przez nierozwagę dochodzi do",
             "wypadku.",
-            ], en:[]},
+            ],
+                en: []
+            },
             1, 1,
             function () {
                 this.notification().startNotification(Situation05.prototype.instructionTexts.good.name);
@@ -168,10 +180,13 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
             });
 
         stage.notification().addNotification(
-            sConstants.N05_07_PEDESTRIAN_PROPER, {pl:[
+            sConstants.N05_07_PEDESTRIAN_PROPER, {
+                pl: [
             "Pieszy, chcąc dostać się na drugą",
             "stronę, korzysta z przejścia.",
-            ], en:[]},
+            ],
+                en: []
+            },
             1, 1,
             function () {
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(0, -pedestrianSpeed);
@@ -193,15 +208,18 @@ Situation05.prototype.initStage = function (stageNumber, stage) {
             });
 
         stage.notification().addNotification(
-            sConstants.N05_08_FINISH, {pl:[
+            sConstants.N05_08_FINISH, {
+                pl: [
             "Kierowca przepuszcza pieszego.",
-            ], en:[]},
+            ],
+                en: []
+            },
             1, 1,
             function () {
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_3).setVelocity(pedestrianSpeed, 0);
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_3).sprite.angle = 180;
                 this.getObject(sConstants.OBJECT_PEDESTRIAN_2).setVelocity(0, -pedestrianSpeed);
-                this.getObject(sConstants.OBJECT_CAR_A).setVelocity(0, -carSpeed / 2, 0, 100);
+                this.getObject(sConstants.OBJECT_CAR_A).setVelocity(0, -carSpeed / 2, 0, 75);
                 this.getObject(sConstants.OBJECT_BUS).setVelocity(0, busSpeed);
             }, stage);
 

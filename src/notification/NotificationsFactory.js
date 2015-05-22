@@ -1,4 +1,4 @@
-function NotificationsFactory(game, instructionTexts, presenterSprite, fx) {
+function NotificationsFactory(game, instructionTexts, presenterSprite, fx, sameWidth) {
     this.game = game;
     this.notifications = {};
     // needed for startNotification() when starting notification from situation's init
@@ -6,6 +6,9 @@ function NotificationsFactory(game, instructionTexts, presenterSprite, fx) {
 
     this.presenterSprite = presenterSprite;
     this.fx = fx;
+    this.sameWidth = sameWidth;
+
+    this.language = constantsLanguages.PL;
 
     this.initAttentionManager();
 }
@@ -29,7 +32,6 @@ NotificationsFactory.prototype.addNotification = function (
     this.notifications[id] = new Notification(this, this.game, id, textArray, this.presenterSprite, x, y, this.fx, callback, callbackContext, callArgs);
 
     return this.notifications[id];
-
 };
 
 /**
@@ -39,17 +41,16 @@ NotificationsFactory.prototype.addNotification = function (
  */
 NotificationsFactory.prototype.setNotification = function (id, show) {
     var notification = this.getNotification(id);
-    notification.update();
+    notification.update(show, this.language);
 
-    notification.languageTextObjects.pl.forEach(function (entry) {
-        entry.visible = show;
-    });
-
+    var notifTween;
     if (show == true) {
-        notification.buttonGrow();
+        notifTween = notification.buttonGrow();
     } else {
-        notification.buttonShrink();
+        notifTween = notification.buttonShrink();
     }
+
+    return notifTween;
 };
 
 NotificationsFactory.prototype.setNotificationsAll = function (show) {
@@ -84,11 +85,33 @@ NotificationsFactory.prototype.startNotification = function (id, delay, duration
         this);
 };
 
-NotificationsFactory.prototype.startAllNotifications = function (delay, duration) {
+/**
+ * Start all notifications from this factory.
+ * @param {Number} delay     delay of starting notifications
+ * @param {Number} sameWidth true if notifications shoul have the same width
+ *                           (widest notification chosen)
+ */
+NotificationsFactory.prototype.startAllNotifications = function (delay, sameWidth) {
+    this.alignWidths();
     for (key in this.notifications) {
-        this.startNotification(key, delay, duration);
+        this.startNotification(key, delay);
     }
-}
+};
+
+NotificationsFactory.prototype.alignWidths = function () {
+    if (this.sameWidth === true) {
+        var widestNotif = 0;
+        for (key in this.notifications) {
+            var notif = this.getNotification(key);
+            if (notif.getWidth(this.language) > widestNotif)
+                widestNotif = notif.getWidth(this.language);
+        }
+        for (key in this.notifications) {
+            var notif = this.getNotification(key);
+            notif.setWidth(widestNotif);
+        }
+    }
+};
 
 NotificationsFactory.prototype.getNotification = function (id) {
     return this.notifications[id];
@@ -104,4 +127,17 @@ NotificationsFactory.prototype.attentionShow = function (position) {
 
 NotificationsFactory.prototype.attentionHide = function () {
     this.attentionManager.hide();
+};
+
+NotificationsFactory.prototype.onLanguageChange = function (language) {
+    this.language = language;
+    this.alignWidths();
+    for (notifKey in this.notifications) {
+        var notification = this.notifications[notifKey];
+        if (notification.isVisible()) {
+            this.setNotification(notifKey, true);
+        } else {
+            notification.update(false, this.language);
+        }
+    }
 };

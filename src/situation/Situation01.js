@@ -5,7 +5,10 @@ Situation01.prototype.sector = {
     y: 0
 };
 
-Situation01.prototype.title = {pl:["Wymijanie na przejściu", "dla pieszych."], en:[]};
+Situation01.prototype.title = {
+    pl: ["Bezpieczeństwo", "pieszego."],
+    en: ["Pedestrian's", "safety."]
+};
 
 Situation01.prototype.collisions = [
     [sConstants.TRIGGER_S01_PEDESTRIAN, sConstants.OBJECT_PEDESTRIAN],
@@ -27,7 +30,7 @@ Situation01.prototype.collisions = [
 Situation01.prototype.situationPlan = [
     {
         "type": "roadObject",
-        "sprite": "pedestrian",
+        "sprite": "pedestrian01",
         "name": sConstants.OBJECT_PEDESTRIAN,
         "posX": 700,
         "posY": 135,
@@ -126,16 +129,22 @@ Situation01.prototype.situationPlan = [
 Situation01.prototype.instructionTexts = {
     bad: {
         name: "situationIntroducion",
-        text: {pl:[
+        text: {
+            pl: [
         "Opis sytuacji.",
         "Opis sytuacji.",
-        "Opis sytuacji."],en:[]}
+        "Opis sytuacji."],
+            en: []
+        }
     },
     good: {
         name: "goodIntroduction",
-        text: {pl:[
+        text: {
+            pl: [
                 "Z braku rozwagi dochodzi do tragedii.",
                 "Jak powinna wyglądać prawidłowa",
-                "sytuacja?"],en:[]}
+                "sytuacja?"],
+            en: []
+        }
     }
 };

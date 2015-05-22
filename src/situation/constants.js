@@ -1,3 +1,8 @@
+constantsLanguages = {
+    PL: "pl",
+    EN: "en"
+};
+
 sConstants = {
     DEBUG: false,
     DEBUG_SITUATION: 4,
@@ -79,4 +84,4 @@ sConstants = {
     N05_04_COLLISION: "N05_04_COLLISION",
     N05_07_PEDESTRIAN_PROPER: "N05_07_PEDESTRIAN_PROPER",
     N05_08_FINISH: "N05_08_FINISH"
-}
+};
