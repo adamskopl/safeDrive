@@ -9,6 +9,7 @@ function startSafeDrive() {
     });
 
     function preload() {
+        game.load.spritesheet('phaser', 'assets/phaser.png', 100, 87);
         game.load.image('car01', 'assets/car01.png');
         game.load.image('car02', 'assets/car02.png');
         game.load.image('bus', 'assets/bus.png');
@@ -42,7 +43,6 @@ function startSafeDrive() {
     var fx;
 
     function create() {
-
         fx = game.add.audio('sfx');
         fx.allowMultiple = true;
         fx.addMarker('click1', 1.1, 0.25);
@@ -53,6 +53,23 @@ function startSafeDrive() {
         roadObjectsFactory = new RoadObjectFactory(game);
         situationsManager = new SituationsManager(game, roadObjectsFactory,
             backgroundManipulator, fx);
+
+        if (sConstants.SHOW_PHASER_LOGO) {
+            var phaserButton = game.add.button(0, 0, 'phaser',
+                function () {
+                    window.open("http://phaser.io/");
+                }, this,
+                1, 0, 1, 0);
+            phaserButton.position.setTo(0, 480 - phaserButton.height);
+            phaserButton.setSounds(fx, 'click3', fx, 'click1');
+        }
+        if (sConstants.SHOW_AUTHOR) {
+            var authorText = game.add.text(0, 480 - 20, 'adam@skobo.pl', {
+                font: "15px Arial",
+                fontWeight: 'bold',
+                fill: '#ffffff'
+            });
+        }
 
     }
 
