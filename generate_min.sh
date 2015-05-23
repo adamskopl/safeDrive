@@ -5,9 +5,6 @@ MIN_FILE="./safedrive.combined.js"
 echo "removing $MIN_FILE"
 rm $MIN_FILE
 
-echo "including license in $MIN_FILE"
-cat ./license.txt >> $MIN_FILE
-
 echo "include constants file (it has to be first)"
 cat ./src/constants.js >> $MIN_FILE
 
