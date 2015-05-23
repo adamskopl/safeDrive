@@ -7,9 +7,10 @@ sConstants = {
     DEBUG: false,
     DEBUG_SITUATION: 3,
     PRESENTER_VISIBLE: false,
+    DEFAULT_LANGUAGE: constantsLanguages.EN,
     SITUATION_START_WITH_INTRODUCTION: false,
     SHOW_PHASER_LOGO: true,
-    SHOW_AUTHOR: true,
+    SHOW_AUTHOR: false,
     ////////////// SITUATIONS //////////////////
     OBJECT_PEDESTRIAN: "PEDESTRIAN",
     OBJECT_PEDESTRIAN_2: "PEDESTRIAN_2",

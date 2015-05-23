@@ -8,7 +8,7 @@ function NotificationsFactory(game, instructionTexts, presenterSprite, fx, sameW
     this.fx = fx;
     this.sameWidth = sameWidth;
 
-    this.language = constantsLanguages.PL;
+    this.language = sConstants.DEFAULT_LANGUAGE;
 
     this.initAttentionManager();
 }
