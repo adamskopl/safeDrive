@@ -258,4 +258,4 @@ Situation01.prototype.initStage = function (stageNumber, stage) {
     default:
         console.log("initStage() unknown stageNumber");
     }
-}
+};
