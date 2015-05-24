@@ -32,7 +32,7 @@ Situation05.prototype.situationPlan = [
         "sprite": "pedestrian01",
         "name": sConstants.OBJECT_PEDESTRIAN,
         "posX": 352,
-        "posY": 100 - 300,
+        "posY": 90 - 300,
         "angle": 0
     },
     {
