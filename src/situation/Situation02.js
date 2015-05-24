@@ -27,7 +27,7 @@ Situation02.prototype.situationPlan = [
         "name": sConstants.OBJECT_BIKE,
         "posX": 125,
         "posY": -80,
-        "angle": 90
+        "angle": -90
     },
     {
         "type": "roadObject",

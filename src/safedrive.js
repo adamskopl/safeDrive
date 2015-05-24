@@ -20,7 +20,7 @@ function startSafeDrive() {
         game.load.image('pedestrian01', 'assets/pedestrian01.png');
         game.load.image('pedestrian02', 'assets/pedestrian02.png');
         game.load.image('pedestrian03', 'assets/pedestrian03.png');
-        game.load.spritesheet('bike', 'assets/bike.png', 85, 43);
+        game.load.spritesheet('bike', 'assets/bike.png', 59, 45);
         game.load.image('ball', 'assets/shinyball.png');
         game.load.image('attention', 'assets/attention.png');
         game.load.image('blank_red', 'assets/blank_red.png');
@@ -60,6 +60,7 @@ function startSafeDrive() {
                     window.open("http://phaser.io/");
                 }, this,
                 1, 0, 1, 0);
+            phaserButton.scale.setTo(0.6, 0.6);
             phaserButton.position.setTo(0, 480 - phaserButton.height);
             phaserButton.setSounds(fx, 'click3', fx, 'click1');
         }
