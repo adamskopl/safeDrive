@@ -3,8 +3,6 @@ function LanguagesManager(game, notificationsFactoryManager, fx) {
     this.notificationsFactoryManager = notificationsFactoryManager;
     this.fx = fx;
 
-
-
     this.buttonPL = this.game.add.button(0, 0, 'button_pl',
         LanguagesManager.prototype.buttonClickedPL, this,
         1, 0, 2, 0);
@@ -28,6 +26,11 @@ function LanguagesManager(game, notificationsFactoryManager, fx) {
 
     this.buttonPL.scale.setTo(scale, scale);
     this.buttonEN.scale.setTo(scale, scale);
+
+    if (!sConstants.TRANSLATION) {
+        this.buttonPL.visible = false;
+        this.buttonEN.visible = false;
+    }
 }
 
 LanguagesManager.prototype.buttonClickedPL = function () {
