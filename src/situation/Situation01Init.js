@@ -207,7 +207,7 @@ Situation01.prototype.initStage = function (stageNumber, stage) {
         stage.notification().addNotification(
             sConstants.NOTIF_S07_CARB_BRAKE, {
                 pl: [
-                "Zbliżający się kierowca, widząc samochod,",
+                "Zbliżający się kierowca, widząc samochód,",
                 "który zatrzymał się przed przejściem,",
                 "również zatrzymuje się przed przejściem",
                 "dla pieszych."],

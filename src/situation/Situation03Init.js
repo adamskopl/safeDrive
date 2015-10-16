@@ -152,7 +152,7 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
         stage.notification().addNotification(
             sConstants.N03_06_CAR_SLOW, {
                 pl: [
-            "Kierowca równiez zmniejsza prędkość,",
+            "Kierowca również zmniejsza prędkość,",
             "widząc, że zbliża się",
             "do przejścia dla pieszych."
             ],
@@ -170,7 +170,7 @@ Situation03.prototype.initStage = function (stageNumber, stage) {
         stage.notification().addNotification(
             sConstants.N03_06_BIKE_WALK, {
                 pl: [
-            "Rowerzysta, aby przejśc przez przejście,",
+            "Rowerzysta, aby przejść przez przejście,",
             "zsiada z roweru. Kierowca widzi wyraźnie,",
             "że rowerzysta będzie przeprowadzał rower."
             ],

@@ -10,7 +10,7 @@ Situation02.prototype.initStage = function (stageNumber, stage) {
         stage.notification().addNotification(
             sConstants.N02_02_BIKE_INTRO, {
                 pl: [
-                    "Tymczasem ściezką rowerową jedzie",
+                    "Tymczasem ścieżką rowerową jedzie",
                     "rowerzysta. Zbliża",
                     "się do przejazdu dla rowerów."
             ],
